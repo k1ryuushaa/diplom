@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ArtRoyalDetailing.Models.Service>
+
+@{
+    ViewData["Title"] = "Услуги";
+}
+
+<h1 class="text-light text-center">Стоимость услуг</h1>
+
+
+@foreach (var type in ViewBag.ServiceTypes)
+{
+    <h2 class="text-light text-center m-2">@type.TypeName | Прайс-лист</h2>
+    <div style="overflow: auto; border-radius: 10px; padding: 10px; box-shadow: #3A3C41 0px 0px 10px 10px; opacity: 70%;" class="bg-dark">
+        <table class="table table-dark table-sm border-success">
+
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        Наименование услуги/Категория
+                    </th>
+                    <th class="text-center">
+                        Класс A
+                    </th>
+                    <th class="text-center">
+                        Класс B, C, D
+                    </th>
+                    <th class="text-center">
+                        Кроссовер/ Универсал/ Класс E, F
+                    </th>
+                    <th class="text-center">
+                        Внедорожник
+                    </th>
+                    <th class="text-center">
+                        Минивэн
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.ServiceType == type.IdType)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ServiceName)
+                            </td>
+                            @foreach (var cost in ViewBag.ServiceCosts)
+                            {
+                                if (cost.IdService == item.IdService)
+                                {
+                                    <td class="text-center">
+                                        @cost.Cost
+                                    </td>
+                                }
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
