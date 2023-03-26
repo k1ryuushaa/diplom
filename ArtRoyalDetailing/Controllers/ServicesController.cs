@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ArtRoyalDetailing.Database;
+using ArtRoyalDetailing.Domain;
+using ArtRoyalDetailing.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ArtRoyalDetailing.DatabaseContext;
-using ArtRoyalDetailing.Models;
+using Pomelo.EntityFrameworkCore;
 
 namespace ArtRoyalDetailing.Controllers
 {
     public class ServicesController : Controller
     {
-        private readonly ardContext _context;
+        private readonly ArdContext _context;
 
-        public ServicesController(ardContext context)
+        public ServicesController(ArdContext context)
         {
             _context = context;
         }
@@ -23,7 +25,7 @@ namespace ArtRoyalDetailing.Controllers
         public async Task<IActionResult> Index()
         {
             var ardContext = _context.Services.Include(s => s.ServiceTypeNavigation);
-            ViewBag.ServiceTypes = _context.ServiceTypes.ToList();
+            ViewBag.ServiceTypes = _context.ServiceType.ToList();
             ViewBag.ServiceCosts = _context.ServicesCosts.ToList();
             return View(await ardContext.ToListAsync());
         }
@@ -50,7 +52,7 @@ namespace ArtRoyalDetailing.Controllers
         // GET: Services/Create
         public IActionResult Create()
         {
-            ViewData["ServiceType"] = new SelectList(_context.ServiceTypes, "IdType", "TypeName");
+            ViewData["ServiceType"] = new SelectList(_context.ServiceType, "IdType", "TypeName");
             return View();
         }
 
@@ -59,7 +61,7 @@ namespace ArtRoyalDetailing.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdService,ServiceName,ServiceType")] Service service)
+        public async Task<IActionResult> Create([Bind("IdService,ServiceName,ServiceType")] Services service)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +69,7 @@ namespace ArtRoyalDetailing.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ServiceType"] = new SelectList(_context.ServiceTypes, "IdType", "TypeName", service.ServiceType);
+            ViewData["ServiceType"] = new SelectList(_context.ServiceType, "IdType", "TypeName", service.ServiceType);
             return View(service);
         }
 
@@ -84,7 +86,7 @@ namespace ArtRoyalDetailing.Controllers
             {
                 return NotFound();
             }
-            ViewData["ServiceType"] = new SelectList(_context.ServiceTypes, "IdType", "TypeName", service.ServiceType);
+            ViewData["ServiceType"] = new SelectList(_context.ServiceType, "IdType", "TypeName", service.ServiceType);
             return View(service);
         }
 
@@ -93,7 +95,7 @@ namespace ArtRoyalDetailing.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdService,ServiceName,ServiceType")] Service service)
+        public async Task<IActionResult> Edit(int id, [Bind("IdService,ServiceName,ServiceType")] Services service)
         {
             if (id != service.IdService)
             {
@@ -120,7 +122,7 @@ namespace ArtRoyalDetailing.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ServiceType"] = new SelectList(_context.ServiceTypes, "IdType", "TypeName", service.ServiceType);
+            ViewData["ServiceType"] = new SelectList(_context.ServiceType, "IdType", "TypeName", service.ServiceType);
             return View(service);
         }
 

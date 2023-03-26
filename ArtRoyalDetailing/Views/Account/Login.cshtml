@@ -1,0 +1,19 @@
+﻿
+@model ArtRoyalDetailing.Domain.ViewModels.LoginViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Вход в аккаунт";
+}
+
+<div class="auth-modal">
+    <div class="backDepth"></div>
+    <form autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
+        <h3>Авторизация</h3>
+        <div asp-validation-summary="All" style="font-size:15px;" class="text-danger"></div>
+        <input type="text" placeholder="Логин" id="username" asp-for="Login">
+        <input type="password" placeholder="Пароль" id="username" asp-for="Password">
+        <button>Войти</button>
+        <div class="passForgotten">Забыли пароль? Нажмите сюда, для восстановления.</div>
+    </form>
+</div>

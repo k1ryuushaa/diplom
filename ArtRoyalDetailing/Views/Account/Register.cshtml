@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "_Layout";
+    ViewBag.Title = "Регистрация";
+}
+<div class="auth-modal">
+    <div class="backDepth"></div>
+    <form>
+        <h3>Регистрация</h3>
+        <input type="text" placeholder="Логин" id="username" name="Login">
+        <input type="text" placeholder="Номер телефона" id="username" name="PhoneNumber">
+        <input type="text" placeholder="Электронная почта" id="username" name="Email">
+        <div class="passwordBox">
+            <input type="password" placeholder="Пароль" id="password">
+            <ion-icon name="eye-outline" id="eye" onclick="showPass()"></ion-icon>
+        </div>
+        <button type="submit">Регистрация</button>
+    </form>
+</div>

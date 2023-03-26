@@ -1,0 +1,16 @@
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.deps.json
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.dll
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.pdb
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.AssemblyInfoInputs.cache
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.AssemblyInfo.cs
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.csproj.CoreCompileInputs.cache
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.dll
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.pdb
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.runtimeconfig.json
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.runtimeconfig.dev.json
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.genruntimeconfig.cache
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.csproj.AssemblyReference.cache
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.dll
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.pdb
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.csproj.CopyComplete

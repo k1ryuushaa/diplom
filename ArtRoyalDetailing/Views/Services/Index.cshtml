@@ -1,11 +1,16 @@
-﻿@model IEnumerable<ArtRoyalDetailing.Models.Service>
+﻿@model IEnumerable<ArtRoyalDetailing.Domain.Models.Services>
 
 @{
     ViewData["Title"] = "Услуги";
 }
 
 <h1 class="text-light text-center">Стоимость услуг</h1>
-
+<style>
+    td:hover {
+        background-color: rgb(229, 111, 0);
+        border-radius:5px;
+    }
+</style>
 
 @foreach (var type in ViewBag.ServiceTypes)
 {

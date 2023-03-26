@@ -21,13 +21,13 @@ using ArtRoyalDetailing;
 #nullable disable
 #nullable restore
 #line 2 "D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing\Views\_ViewImports.cshtml"
-using ArtRoyalDetailing.Models;
+using ArtRoyalDetailing.Domain.Models;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7091c65830b0329e613be026ede8a57552863778", @"/Views/_ViewStart.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"30cece42571d90de35b88db430ee7d969090787a", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"97f27d8e858e53a6fde28bcc2e81f4974a845338", @"/Views/_ViewImports.cshtml")]
     public class Views__ViewStart : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

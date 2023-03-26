@@ -5,57 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ArtRoyalDetailing</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="icon" href="~/favicon.ico">
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/calendar.css" />
+
     <style>
-        *{
-            font-family:'Century Gothic';
-            transition:.1s ease-in-out;
+        * {
+            font-family: 'Century Gothic';
         }
+
         body {
             background-color: black;
-            background-image:url(Images/background.jpg);
-            background-repeat:no-repeat;
-            background-size:100%;
+            background-image: url(Images/background.jpg);
+            background-repeat: no-repeat;
+            background-size: 100%;
         }
     </style>
 </head>
 <body>
-    <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3" style="background: rgba(229, 111, 0, 0.8); ">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="font-weight:bold;">ArtRoyalDetailing</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Записаться</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Services" asp-action="Index">Услуги</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-    </header>
-    
+    <div id="formodals"></div>
+    <div id="formodalAuthReg"></div>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 mt-2">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - Art Royal Detailing - г.Уфа ул.Менделеева 134</a>
-        </div>
+    <footer>
+        <nav class="navbar navbar-expand-sm fixed-bottom navbar-toggleable-sm navbar-dark box-shadow mt-3" style="background: rgba(229, 111, 0, 0.8); ">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="font-weight: bold; white-space: nowrap">ArtRoyalDetailing</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Записаться</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Services" asp-action="Index">Услуги</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Sheduler" asp-action="Index">Расписание</a>
+                        </li>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                        <li class="d-flex">
+                            <a class="nav-link text-light" style="text-decoration:underline" asp-area="" asp-controller="Account" asp-action="Login" id="modalLogin">Войти</a>
+                            <span class="nav-link text-light">/</span>
+                            <a class="nav-link text-light" style="text-decoration:underline" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+                        </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="" asp-action="">@User.Identity.Name</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </footer>
+
+
+    @*<footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; @DateTime.Now.Year - Art Royal Detailing - г.Уфа ул.Менделеева 134</a>
+            </div>
+        </footer>*@
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $("#modalLogin").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#formodalAuthReg').html(data);
+                });
+            });
+        })
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33214.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtRoyalDetailing", "ArtRoyalDetailing\ArtRoyalDetailing.csproj", "{628F52A0-57F8-45A0-AEDA-71A172EF0F98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtRoyalDetailing", "ArtRoyalDetailing\ArtRoyalDetailing.csproj", "{628F52A0-57F8-45A0-AEDA-71A172EF0F98}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B9272272-DD57-4D94-A5FB-141773C6A7CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtRoyalDetailing.Domain", "ArtRoyalDetailing.Domain\ArtRoyalDetailing.Domain.csproj", "{4BA5B49D-AAA2-4832-A7E2-CE0F851FD44F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{9D48FFCB-28FD-4C80-8146-A200568FBCEE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtRoyalDetailing.Database", "ArtRoyalDetailing.Database\ArtRoyalDetailing.Database.csproj", "{7A5F39E8-85DB-48E4-89DA-EC7F47A6857D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{903AC3F7-1128-42CC-BF9B-04E36C6C08E0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtRoyalDetailing.Services", "ArtRoyalDetatiling.Services\ArtRoyalDetailing.Services.csproj", "{8523EEC3-7BDD-4AE5-BD19-87A5FD70BA76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +27,26 @@ Global
 		{628F52A0-57F8-45A0-AEDA-71A172EF0F98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{628F52A0-57F8-45A0-AEDA-71A172EF0F98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{628F52A0-57F8-45A0-AEDA-71A172EF0F98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BA5B49D-AAA2-4832-A7E2-CE0F851FD44F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BA5B49D-AAA2-4832-A7E2-CE0F851FD44F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BA5B49D-AAA2-4832-A7E2-CE0F851FD44F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BA5B49D-AAA2-4832-A7E2-CE0F851FD44F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A5F39E8-85DB-48E4-89DA-EC7F47A6857D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A5F39E8-85DB-48E4-89DA-EC7F47A6857D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A5F39E8-85DB-48E4-89DA-EC7F47A6857D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A5F39E8-85DB-48E4-89DA-EC7F47A6857D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8523EEC3-7BDD-4AE5-BD19-87A5FD70BA76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8523EEC3-7BDD-4AE5-BD19-87A5FD70BA76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8523EEC3-7BDD-4AE5-BD19-87A5FD70BA76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8523EEC3-7BDD-4AE5-BD19-87A5FD70BA76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4BA5B49D-AAA2-4832-A7E2-CE0F851FD44F} = {B9272272-DD57-4D94-A5FB-141773C6A7CE}
+		{7A5F39E8-85DB-48E4-89DA-EC7F47A6857D} = {9D48FFCB-28FD-4C80-8146-A200568FBCEE}
+		{8523EEC3-7BDD-4AE5-BD19-87A5FD70BA76} = {903AC3F7-1128-42CC-BF9B-04E36C6C08E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A5DF294-E940-4326-8956-DA41B3C500E3}

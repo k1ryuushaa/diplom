@@ -1,0 +1,15 @@
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetatiling.Services.deps.json
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetatiling.Services.dll
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetatiling.Services.pdb
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.dll
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.dll
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.pdb
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.pdb
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetatiling.Services.csproj.AssemblyReference.cache
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetatiling.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetatiling.Services.AssemblyInfoInputs.cache
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetatiling.Services.AssemblyInfo.cs
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetatiling.Services.csproj.CoreCompileInputs.cache
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetatiling.Services.csproj.CopyComplete
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetatiling.Services.dll
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetatiling.Services.pdb

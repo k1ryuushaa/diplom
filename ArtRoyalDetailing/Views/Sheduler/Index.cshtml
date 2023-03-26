@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewData["Title"] = "Расписание сотрудников";
+    List<WorkersSheduler> sheduler = ViewBag.Sheduler;
+}
+
+<hr />
+<div class="row">
+    <div class="col">
+        <div class="calendar">
+            <div class="monthchangecal">
+            </div>
+            <div class="monthyear">
+                <div class="month"><ion-icon name="calendar-clear-outline" style="height: 19px;"></ion-icon><span id="monthchange"></span></div>
+                <div class="year">
+                    <span id="prev-year"><ion-icon name="chevron-back-outline" style="height: 18px;"></ion-icon></span>
+                    <span id="yearchange"></span>
+                    <span id="next-year"><ion-icon name="chevron-forward-outline" style="height: 18px;"></ion-icon></span>
+                </div>
+            </div>
+            <div class="week-days">
+                <span>Пн</span>
+                <span>Вт</span>
+                <span>Ср</span>
+                <span>Чт</span>
+                <span>Пт</span>
+                <span>Сб</span>
+                <span>Вс</span>
+            </div>
+            <div class="monthdays">
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="sheduler">
+             <div class="sheduler-hide">
+                 <span>Выберите дату</span>
+            </div>
+             <div id="shedulerContent" style="display:none">
+                 <div class="sheduler-header"><span><ion-icon name="people-outline" style="height: 19px;"></ion-icon></span></div>
+                 <div class="sheduler-header-worker"><span>Администраторы</span></div>
+                 <div class="sheduler-admin-list">
+                 </div>
+                 <div class="sheduler-header-worker"><span>Мойщики</span></div>
+                 <div class="sheduler-worker-list">
+                 </div>
+                 <div class="registerme border-top border-1">
+                 <div class="col">
+                     <div class="d-flex align-items-center">
+                         <div class="regtime col">
+                             <div class="time">
+                                 <span>ОТ:</span>
+                                 <input type="number" min="10" max="21" class="timeChange" onchange="inputValid()" id="hrsOT" value="10"></input>
+                                 <div class="dots">:</div>
+                                 <input type="number" min="00" max="59" class="timeChange" onchange="inputValid()" id="minsOT" value="00"></input>
+                             </div>
+                         </div>
+                         <div class="regtime col">
+                             <div class="time">
+                                 <span>ДО:</span>
+                                 <input type="number" min="10" max="21" class="timeChange" onchange="inputValid()" id="hrsDO" value="21"></input>
+                                 <div class="dots">:</div>
+                                 <input type="number" min="00" max="59" class="timeChange" onchange="inputValid()" id="minsDO" value="00"></input>
+                             </div>
+                         </div>
+                     </div>
+                     <button class="row" onclick="addToSheduler()">Записаться на дату</button>
+                     </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+    </div>
+    <script src="~/js/calendar.js"></script>
+    <script>
+        let cd=0
+        let cm=0
+        let cy=0
+        getSelectedDate = (current_day, current_month, current_year) => {
+            cd = current_day
+            cm = current_month
+            cy = current_year
+            var model = { day: current_day, month:current_month, year:current_year };
+            $.ajax({
+                url: '/Sheduler/Get',
+                type: "GET",
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                data: { day: current_day, month: current_month, year: current_year },
+                async: true,
+                processData: true,
+                cache: false,
+                success: function (data) {
+                    document.querySelector('#shedulerContent').style.display = 'block'
+                    document.querySelector('.sheduler-hide').style.display = 'none'
+                    let sheduler = document.querySelector('.sheduler')
+                    sheduler.querySelector('.sheduler-header').innerHTML = `<span><ion-icon name="people-outline" style="height: 19px;"></ion-icon>Расписание на ${current_day}.${current_month}.${current_year}</span>`
+                    let adminNoExist = document.createElement('div')
+                    adminNoExist.classList.add('worker')
+                    let spanNoA = document.createElement('span')
+                    spanNoA.innerHTML = "Администраторов на смене пока нет :("
+                    adminNoExist.appendChild(spanNoA)
+
+                    let workerNoExist = document.createElement('div')
+                    workerNoExist.classList.add('worker')
+                    let spanNoW = document.createElement('span')
+                    spanNoW.innerHTML = "Мойщиков на смене пока нет :("
+                    workerNoExist.appendChild(spanNoW)
+                    sheduler.querySelector('.sheduler-admin-list').innerHTML = ""
+                    sheduler.querySelector('.sheduler-worker-list').innerHTML = ""
+                    sheduler.querySelector('.sheduler-admin-list').appendChild(adminNoExist)
+                    sheduler.querySelector('.sheduler-worker-list').appendChild(workerNoExist)
+                    if(data!=null)
+                    {
+
+                        data.forEach((e) => {
+                            if (e.idWorkerNavigation.userRole==2)
+                            {
+                                try{sheduler.querySelector('.sheduler-admin-list').removeChild(adminNoExist)} catch(e){}
+                                let admin = document.createElement('div')
+                                admin.classList.add('worker')
+                                let span = document.createElement('span')
+                                span.innerHTML = `${e.idWorkerNavigation.userSurname} ${e.idWorkerNavigation.userName} c <i>${e.timeStart.value.hours}:${e.timeStart.value.minutes.toString().length == 1 ? "0" + e.timeStart.value.minutes.toString() : e.timeStart.value.minutes.toString()}</i> до <i>${e.timeStop.value.hours}:${e.timeStop.value.minutes.toString().length == 1 ? "0" + e.timeStop.value.minutes.toString() : e.timeStop.value.minutes.toString()}</i >`
+                                admin.appendChild(span)
+                                sheduler.querySelector('.sheduler-admin-list').appendChild(admin)
+                            }
+                            else if (e.idWorkerNavigation.userRole == 3) 
+                            {
+                                try { sheduler.querySelector('.sheduler-worker-list').removeChild(workerNoExist) } catch (e) { }
+                                let worker = document.createElement('div')
+                                worker.classList.add('worker')
+                                let span = document.createElement('span')
+                                span.innerHTML = `${e.idWorkerNavigation.userSurname} ${e.idWorkerNavigation.userName} c <i>${e.timeStart.value.hours}:${e.timeStart.value.minutes.toString().length == 1 ? "0" + e.timeStart.value.minutes.toString() : e.timeStart.value.minutes.toString()}</i> до <i>${e.timeStop.value.hours}:${e.timeStop.value.minutes.toString().length == 1 ? "0" + e.timeStop.value.minutes.toString() : e.timeStop.value.minutes.toString()}</i>`
+                                worker.appendChild(span)
+                                sheduler.querySelector('.sheduler-worker-list').appendChild(worker)
+                            }
+                        
+                        })
+                    }
+                    createAlert('1','2','success')
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        }
+
+        inputValid = () => {
+            let sheduler = document.querySelector('#shedulerContent')
+            let hrsOT = sheduler.querySelector('#hrsOT')
+            let minsOT = sheduler.querySelector('#minsOT')
+            let hrsDO = sheduler.querySelector('#hrsDO')
+            let minsDO = sheduler.querySelector('#minsDO')
+            alert(minsOT.value)
+            if (hrsOT.value!=null&&hrsOT.value >= 10 && hrsOT.value <= 21) {
+            }
+            else {
+                hrsOT.value = 10;
+            }
+            if (hrsDO.value!=null&&hrsDO.value >= 10 && hrsDO.value <= 21) {
+            }
+            else {
+                hrsDO.value = 10;
+            }
+            if (minsOT.value!=null&&minsOT.value >= 0 && minsOT.value <= 59) {
+            }
+            else {
+                minsOT.value = 59;
+            }
+            if (minsOT.value!=null&&minsDO.value >= 0 && minsDO.value <= 59) {
+            }
+            else {
+                minsDO.value = 59;
+            }
+        }
+        addToSheduler = ()=>
+        {
+            alert(`${cd} ${cm} ${cy}`)
+            
+        }
+    </script>
+
+

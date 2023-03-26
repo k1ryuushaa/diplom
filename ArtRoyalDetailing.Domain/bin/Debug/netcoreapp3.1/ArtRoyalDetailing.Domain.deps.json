@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "ArtRoyalDetailing.Domain/1.0.0": {
+        "runtime": {
+          "ArtRoyalDetailing.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ArtRoyalDetailing.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

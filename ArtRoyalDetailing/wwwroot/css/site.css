@@ -95,3 +95,86 @@ body {
     border-radius: 10px;
     border: 3px solid orange;
 }
+.wrapper{
+    position:absolute;
+    align-self:center;
+    width:400px;
+    height:450px;
+    background:rgba(255,255,255,.15);
+    box-shadow: 0 8px 32px rgba(31,38,135,.37);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.h2Modal{
+    font-size:2em;
+    color:white;
+    text-align:center;
+}
+.input-box{
+    width:320px;
+    margin:30px 0;
+    border-bottom:2px solid white;
+}
+.input-box label{
+    position:absolute;
+    top:50%;
+    left:5px;
+    transform:translateY(-50%);
+    font-size:1em;
+    pointer-events:none;
+    color:white;
+}
+.input-box input:focus~label,
+.input-box input:valid~label{
+    top:5px;
+}
+.input-box input{
+    width:100%;
+    height:50px;
+    background:transparent;
+    border:none;
+    outline:none;
+    font-size:1em;
+    color:white;
+    padding:0 35px 0 5px;
+}
+.input-box .icon{
+    position:absolute;
+    right:8px;
+    color:white;
+    font-size:1.2em;
+    line-height: 57px;
+}
+.remember-forgot{
+    margin:-15px 0 15px;
+    font-size: .9em;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+}
+.remember-forgot a{
+    color:white;
+    text-decoration:underline;
+}
+.remember-forgot a:hover{
+    text-decoration:underline;
+}
+.remember-forgot label input{
+    color:#fa709a;
+    margin-right:3px;
+}
+.wrapper button {
+    width: 100%;
+    height: 45px;
+    background: #fa709a;
+    border:none;
+    outline:none;
+    border-radius:40px;
+    cursor:pointer;
+    font-size:1em;
+    color:white;
+    font-weight:bold;
+}
