@@ -20,8 +20,13 @@ namespace ArtRoyalDetatiling.Services.Implementations
         private readonly ILogger<UserService> _logger;
         private readonly IBaseRepository<Users> _userRepository;
         private readonly IBaseRepository<Roles> _rolesRepository;
-
-        public async Task<IBaseResponse<Users>> Create(UserViewModel model)
+        public UserService(ILogger<UserService> logger, IBaseRepository<Users> userRepository, IBaseRepository<Roles> rolesRepository)
+        {
+            _logger = logger;
+            _userRepository = userRepository;
+            _rolesRepository = rolesRepository;
+        }
+        public async Task<BaseResponse<Users>> Create(UserViewModel model)
         {
             try
             {
@@ -31,7 +36,7 @@ namespace ArtRoyalDetatiling.Services.Implementations
                     return new BaseResponse<Users>()
                     {
                         Description = "Пользователь с таким логином уже есть",
-                        StatusCode = StatusCode.UserAlreadyExists
+                        StatusCode = StatusCode.AlreadyExists
                     };
                 }
                 user = new Users()
@@ -60,7 +65,7 @@ namespace ArtRoyalDetatiling.Services.Implementations
             }
         }
 
-        public async Task<IBaseResponse<bool>> DeleteUser(long id)
+        public async Task<BaseResponse<bool>> DeleteUser(long id)
         {
             try
             {
@@ -69,7 +74,7 @@ namespace ArtRoyalDetatiling.Services.Implementations
                 {
                     return new BaseResponse<bool>
                     {
-                        StatusCode = StatusCode.UserNotFound,
+                        StatusCode = StatusCode.NotFound,
                         Data = false
                     };
                 }
@@ -93,12 +98,36 @@ namespace ArtRoyalDetatiling.Services.Implementations
             }
         }
 
+        public async Task<BaseResponse<List<Users>>> GetAll()
+        {
+            try
+            {
+                var users = await _userRepository.GetAll().ToListAsync();
+
+                _logger.LogInformation($"[UserService.GetAll] получено элементов {users.Count}");
+                return new BaseResponse<List<Users>>()
+                {
+                    Data = users,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"[UserService.GetAll] error: {ex.Message}");
+                return new BaseResponse<List<Users>>()
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"Внутренняя ошибка: {ex.Message}"
+                };
+            }
+        }
+
         public async Task<BaseResponse<List<Roles>>> GetRoles()
         {
             try
             {
                 var roles = await _rolesRepository.GetAll().ToListAsync();
-                if (roles != null)
+                if (roles == null)
                 {
                     return new BaseResponse<List<Roles>>()
                     {

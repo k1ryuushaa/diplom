@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ArtRoyalDetailing.Database.Repositories
 {
-    class RoleRepository : IBaseRepository<Roles>
+    public class RoleRepository : IBaseRepository<Roles>
     {
         private readonly ArdContext _db;
 
@@ -16,24 +16,30 @@ namespace ArtRoyalDetailing.Database.Repositories
         {
             _db = db;
         }
-        public Task Create(Roles entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Delete(Roles entity)
-        {
-            throw new NotImplementedException();
-        }
 
         public IQueryable<Roles> GetAll()
         {
             return _db.Roles;
         }
 
-        public Task<Roles> Update(Roles entity)
+        public async Task Delete(Roles entity)
         {
-            throw new NotImplementedException();
+            _db.Roles.Remove(entity);
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task Create(Roles entity)
+        {
+            await _db.Roles.AddAsync(entity);
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task<Roles> Update(Roles entity)
+        {
+            _db.Roles.Update(entity);
+            await _db.SaveChangesAsync();
+
+            return entity;
         }
     }
 }

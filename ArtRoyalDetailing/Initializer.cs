@@ -1,6 +1,8 @@
 ﻿using ArtRoyalDetailing.Database.Interfaces;
 using ArtRoyalDetailing.Database.Repositories;
 using ArtRoyalDetailing.Domain.Models;
+using ArtRoyalDetailing.Services.Implementations;
+using ArtRoyalDetailing.Services.Interfaces;
 using ArtRoyalDetatiling.Services.Implementations;
 using ArtRoyalDetatiling.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,13 +17,24 @@ namespace ArtRoyalDetailing
     {
         public static void InitializeRepositories(this IServiceCollection services)
         {
+            services.AddScoped<IBaseRepository<Roles>, RoleRepository>();
             services.AddScoped<IBaseRepository<Users>, UserRepository>();
+            services.AddScoped<IBaseRepository<WorkersSheduler>, WorkersShedulerRepository>();
+            services.AddScoped<IBaseRepository<ContractsServices>, AppointmentServicesRepository>();
+            services.AddScoped<IBaseRepository<Contracts>, AppointmentsRepository>();
+            services.AddScoped<IBaseRepository<ServiceType>, ServiceTypesRepository>();
+            services.AddScoped<IBaseRepository<ContractStatuses>, ContractStatusesRepository>();
+            services.AddScoped<IBaseRepository<ServicesCosts>, ServicesCostsRepository>();
+            services.AddScoped<IBaseRepository<ArtRoyalDetailing.Domain.Models.Services>, ArdServicesRepository>();
         }
 
         public static void InitializeServices(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IWorkersShedulerService, WorkersShedulerService>();
+            services.AddScoped<IArdServiceTypesService, ArdServiceTypesService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
         }
     }
 }

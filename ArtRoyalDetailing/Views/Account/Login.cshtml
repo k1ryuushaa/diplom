@@ -7,13 +7,37 @@
 }
 
 <div class="auth-modal">
-    <div class="backDepth"></div>
+    <div class="backDepth" onclick="closeModal()"></div>
     <form autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
         <h3>Авторизация</h3>
         <div asp-validation-summary="All" style="font-size:15px;" class="text-danger"></div>
         <input type="text" placeholder="Логин" id="username" asp-for="Login">
-        <input type="password" placeholder="Пароль" id="username" asp-for="Password">
+        <div class="passwordBox">
+            <input type="password" placeholder="Пароль" asp-for="Password" id="password">
+            <ion-icon name="eye-outline" id="eye" onclick="showPass()"></ion-icon>
+        </div>
         <button>Войти</button>
         <div class="passForgotten">Забыли пароль? Нажмите сюда, для восстановления.</div>
     </form>
 </div>
+
+@section Scripts
+{
+<script>
+    closeModal = () => {
+        document.querySelector('.backDepth').parentElement.innerHTML = ''
+    }
+    let passs = true
+    showPass = () => {
+        if (passs) {
+            document.querySelector('#password').setAttribute('type', 'text')
+            passs = !passs
+        }
+        else {
+            document.querySelector('#password').setAttribute('type', 'password')
+            passs = !passs
+        }
+
+    }
+</script>
+}

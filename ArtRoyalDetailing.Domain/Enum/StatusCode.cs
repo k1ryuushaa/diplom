@@ -6,9 +6,12 @@ namespace ArtRoyalDetailing.Domain.Enum
 {
     public enum StatusCode
     {
-        UserNotFound = 0,
-        UserAlreadyExists = 1,
+        NotFound = 0,
+        AlreadyExists = 1,
         OK =200,
-        InternalServerError=400
+        InternalServerError=400,
+        AdminAlreadyExists=2,
+        ManyWashers=3,
+        IncorrectData=4
     }
 }

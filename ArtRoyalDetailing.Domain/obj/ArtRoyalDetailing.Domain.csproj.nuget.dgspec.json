@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {}
+    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {}
   },
   "projects": {
-    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
+    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj",
+        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj",
         "projectName": "ArtRoyalDetailing.Domain",
-        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj",
+        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj",
         "packagesPath": "C:\\Users\\bykov\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Domain\\obj\\",
+        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

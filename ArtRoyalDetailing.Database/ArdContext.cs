@@ -22,11 +22,9 @@ namespace ArtRoyalDetailing.Database
         {
         }
 
-        public virtual DbSet<ClientsRequests> ClientsRequests { get; set; }
         public virtual DbSet<ContractStatuses> ContractStatuses { get; set; }
         public virtual DbSet<Contracts> Contracts { get; set; }
         public virtual DbSet<ContractsServices> ContractsServices { get; set; }
-        public virtual DbSet<PaymentTypes> PaymentTypes { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Salary> Salary { get; set; }
         public virtual DbSet<ServiceType> ServiceType { get; set; }
@@ -46,49 +44,7 @@ namespace ArtRoyalDetailing.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ClientsRequests>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("clients_requests");
-
-                entity.HasIndex(e => e.IdClient)
-                    .HasName("fk_requests_users");
-
-                entity.HasIndex(e => e.IdService)
-                    .HasName("fk_requests_services");
-
-                entity.Property(e => e.AutoClass)
-                    .HasColumnName("auto_class")
-                    .HasColumnType("text")
-                    .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_0900_ai_ci");
-
-                entity.Property(e => e.AutoModel)
-                    .HasColumnName("auto_model")
-                    .HasColumnType("varchar(70)")
-                    .HasCharSet("utf8mb3")
-                    .HasCollation("utf8mb3_general_ci");
-
-                entity.Property(e => e.DateRequest)
-                    .HasColumnName("date_request")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.IdClient).HasColumnName("id_client");
-
-                entity.Property(e => e.IdService).HasColumnName("id_service");
-
-                entity.HasOne(d => d.IdClientNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.IdClient)
-                    .HasConstraintName("fk_requests_users");
-
-                entity.HasOne(d => d.IdServiceNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.IdService)
-                    .HasConstraintName("fk_requests_services");
-            });
-
+            
             modelBuilder.Entity<ContractStatuses>(entity =>
             {
                 entity.HasKey(e => e.IdStatus)
@@ -115,9 +71,6 @@ namespace ArtRoyalDetailing.Database
                 entity.HasIndex(e => e.IdAdmin)
                     .HasName("fk_contractadmin_users");
 
-                entity.HasIndex(e => e.PaymentType)
-                    .HasName("fk_payment_type");
-
                 entity.HasIndex(e => e.StatusContract)
                     .HasName("fk_contracts_status");
 
@@ -129,15 +82,9 @@ namespace ArtRoyalDetailing.Database
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
-                entity.Property(e => e.AutoModel)
-                    .HasColumnName("auto_model")
-                    .HasColumnType("varchar(100)")
-                    .HasCharSet("utf8mb3")
-                    .HasCollation("utf8mb3_general_ci");
-
-                entity.Property(e => e.ClientName)
-                    .HasColumnName("client_name")
-                    .HasColumnType("varchar(255)")
+                entity.Property(e => e.ClientNumber)
+                    .HasColumnName("client_number")
+                    .HasColumnType("varchar(18)")
                     .HasCharSet("utf8mb3")
                     .HasCollation("utf8mb3_general_ci");
 
@@ -145,11 +92,13 @@ namespace ArtRoyalDetailing.Database
                     .HasColumnName("date_contract")
                     .HasColumnType("date");
 
+                entity.Property(e => e.TimeContract)
+                    .HasColumnName("time_contract")
+                    .HasColumnType("time");
+
                 entity.Property(e => e.EndCost).HasColumnName("end_cost");
 
                 entity.Property(e => e.IdAdmin).HasColumnName("id_admin");
-
-                entity.Property(e => e.PaymentType).HasColumnName("payment_type");
 
                 entity.Property(e => e.StatusContract).HasColumnName("status_contract");
 
@@ -157,11 +106,6 @@ namespace ArtRoyalDetailing.Database
                     .WithMany(p => p.Contracts)
                     .HasForeignKey(d => d.IdAdmin)
                     .HasConstraintName("fk_contractadmin_users");
-
-                entity.HasOne(d => d.PaymentTypeNavigation)
-                    .WithMany(p => p.Contracts)
-                    .HasForeignKey(d => d.PaymentType)
-                    .HasConstraintName("fk_payment_type");
 
                 entity.HasOne(d => d.StatusContractNavigation)
                     .WithMany(p => p.Contracts)
@@ -171,7 +115,8 @@ namespace ArtRoyalDetailing.Database
 
             modelBuilder.Entity<ContractsServices>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.IdContractService)
+                    .HasName("PRIMARY");
 
                 entity.ToTable("contracts_services");
 
@@ -187,6 +132,8 @@ namespace ArtRoyalDetailing.Database
                 entity.Property(e => e.Cost).HasColumnName("cost");
 
                 entity.Property(e => e.IdContract).HasColumnName("id_contract");
+
+                entity.Property(e => e.IdContractService).HasColumnName("id_cs");
 
                 entity.Property(e => e.IdService).HasColumnName("id_service");
 
@@ -208,21 +155,7 @@ namespace ArtRoyalDetailing.Database
                     .HasConstraintName("fk_services_washers");
             });
 
-            modelBuilder.Entity<PaymentTypes>(entity =>
-            {
-                entity.HasKey(e => e.IdType)
-                    .HasName("PRIMARY");
 
-                entity.ToTable("payment_types");
-
-                entity.Property(e => e.IdType).HasColumnName("id_type");
-
-                entity.Property(e => e.TypeName)
-                    .HasColumnName("type_name")
-                    .HasColumnType("varchar(40)")
-                    .HasCharSet("utf8mb3")
-                    .HasCollation("utf8mb3_general_ci");
-            });
 
             modelBuilder.Entity<Roles>(entity =>
             {
@@ -349,6 +282,12 @@ namespace ArtRoyalDetailing.Database
 
                 entity.Property(e => e.UserBalance).HasColumnName("user_balance");
 
+                entity.Property(e => e.UserEmail)
+                    .HasColumnName("user_email")
+                    .HasColumnType("varchar(150)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
                 entity.Property(e => e.UserLogin)
                     .HasColumnName("user_login")
                     .HasColumnType("varchar(45)")
@@ -363,7 +302,7 @@ namespace ArtRoyalDetailing.Database
 
                 entity.Property(e => e.UserPasswordHash)
                     .HasColumnName("user_password_hash")
-                    .HasColumnType("varchar(45)")
+                    .HasColumnType("varchar(255)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
@@ -389,12 +328,15 @@ namespace ArtRoyalDetailing.Database
 
             modelBuilder.Entity<WorkersSheduler>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.IdSheduler)
+                    .HasName("PRIMARY");
 
                 entity.ToTable("workers_sheduler");
 
                 entity.HasIndex(e => e.IdWorker)
                     .HasName("fk_work_shed_users_idx");
+
+                entity.Property(e => e.IdSheduler).HasColumnName("id_sheduler");
 
                 entity.Property(e => e.DateDay)
                     .HasColumnName("date_day")

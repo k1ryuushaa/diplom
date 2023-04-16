@@ -22,6 +22,7 @@ namespace ArtRoyalDetailing.Domain.Models
         public string UserLogin { get; set; }
         public string UserPasswordHash { get; set; }
         public int? UserBalance { get; set; }
+        public string UserEmail { get; set; }
 
         public virtual Roles UserRoleNavigation { get; set; }
         public virtual Salary Salary { get; set; }

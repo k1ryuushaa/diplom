@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using ArtRoyalDetailing.Domain.Enum
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,18 +9,12 @@
     <link rel="icon" href="~/favicon.ico">
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/calendar.css" />
-
+    
     <style>
         * {
             font-family: 'Century Gothic';
         }
 
-        body {
-            background-color: black;
-            background-image: url(Images/background.jpg);
-            background-repeat: no-repeat;
-            background-size: 100%;
-        }
     </style>
 </head>
 <body>
@@ -31,39 +26,66 @@
         </main>
     </div>
     <footer>
-        <nav class="navbar navbar-expand-sm fixed-bottom navbar-toggleable-sm navbar-dark box-shadow mt-3" style="background: rgba(229, 111, 0, 0.8); ">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="font-weight: bold; white-space: nowrap">ArtRoyalDetailing</a>
+        <nav class="navbar navbar-expand-sm fixed-bottom navbar-toggleable-sm navbar-dark box-shadow mt-3 custom-navbar">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="font-weight: bold; color:black; white-space: nowrap">ArtRoyalDetailing</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <div class="navbar-collapse collapse d-sm-inline-flex ">
                     <ul class="navbar-nav flex-grow-1">
+                        @if (User.IsInRole($"{(int)Role.Client}"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: black;" asp-area="" asp-controller="Appointment" asp-action="Index">Записаться</a>
+                            </li>
+
+                        }
+                        else if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link modalLogin" style="color: black;" asp-area="" asp-controller="Account" asp-action="Login">Записаться</a>
+                            </li>
+
+                        }
+                        @if (User.IsInRole($"{(int)Role.Admin}"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: black;" asp-area="" asp-controller="Appointment" asp-action="AdminAppointment">Записи</a>
+                            </li>
+
+                        }
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Записаться</a>
+                            <a class="nav-link" style="color: black;" asp-area="" asp-controller="Services" asp-action="Index">Услуги</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Services" asp-action="Index">Услуги</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Sheduler" asp-action="Index">Расписание</a>
-                        </li>
+                        @if (User.IsInRole($"{(int)Role.Admin}") || User.IsInRole($"{(int)Role.Washer}"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: black;" asp-area="" asp-controller="Sheduler" asp-action="Index">Расписание</a>
+                            </li>
+                        }
                         @if (!User.Identity.IsAuthenticated)
                         {
-                        <li class="d-flex">
-                            <a class="nav-link text-light" style="text-decoration:underline" asp-area="" asp-controller="Account" asp-action="Login" id="modalLogin">Войти</a>
-                            <span class="nav-link text-light">/</span>
-                            <a class="nav-link text-light" style="text-decoration:underline" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
-                        </li>
+                            <li class="d-flex">
+                                <a class="nav-link modalLogin" style="text-decoration: underline; color: black;" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
+                                <span class="nav-link text-dark">/</span>
+                                <a class="nav-link" style="text-decoration: underline; color: black;" asp-area="" asp-controller="Account" asp-action="Register" id="modalPassword">Регистрация</a>
+                            </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="" asp-action="">@User.Identity.Name</a>
+                                <a class="nav-link" style="color: black;" asp-area="" asp-controller="" asp-action="">@User.Identity.Name</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: black;" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
                             </li>
                         }
                     </ul>
+                    <div class="toggleswitch">
+                        <input type="checkbox" id="switch" onchange="changeColorShceme()" /><label for="switch">Toggle</label>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -78,13 +100,15 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/cookielib/src/cookie.js"></script>
+    <script src="https://unpkg.com/cookielib/src/cookie.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
 
         $(function () {
             $.ajaxSetup({ cache: false });
-            $("#modalLogin").click(function (e) {
+            $(".modalLogin").click(function (e) {
 
                 e.preventDefault();
                 $.get(this.href, function (data) {
@@ -92,6 +116,85 @@
                 });
             });
         })
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $("#modalPassword").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#formodalAuthReg').html(data);
+                });
+            });
+        })
+        changeColorShceme = () => {
+            const colorScheme = document.documentElement.getAttribute("data-color-scheme");
+            document.documentElement.setAttribute("data-color-scheme", colorScheme === "default" ? "dark" : "default");
+            if (document.querySelector('#switch').checked == false) {
+                setCookie('colorScheme', 'dark')
+            }
+            if (document.querySelector('#switch').checked == true) {
+                setCookie('colorScheme', 'default')
+            }
+        }
+        const getPreferredColorScheme = () => {
+            if (getCookie('colorScheme') != undefined) {
+                if (getCookie('colorScheme') == "dark") {
+                    document.querySelector('#switch').checked = false
+                    return "dark"
+                }
+                if (getCookie('colorScheme') == "default") {
+                    document.querySelector('#switch').checked = true
+                    return "default"
+                }
+            }
+            else {
+                const darkQuery = "(prefers-color-scheme: dark)";
+                const darkMQL = window.matchMedia ? window.matchMedia(darkQuery) : {};
+                if (darkMQL.media === darkQuery && darkMQL.matches) {
+                    document.querySelector('#switch').checked = false
+                    setCookie('colorScheme', 'dark')
+                    return "dark";
+                }
+                else {
+                    document.querySelector('#switch').checked = true
+                    setCookie('colorScheme', 'default')
+                    return "default"
+                }
+                return "default";
+            }
+        };
+        document.documentElement.setAttribute("data-color-scheme", getPreferredColorScheme());
+    </script>
+    <script>
+        createAlert = (messageTitle, messageDescription, type) => {
+            let modalalert = document.createElement('div')
+            modalalert.classList.add('modal-alert')
+            let alertheader = document.createElement('div')
+            if (type == "error")
+                alertheader.classList.add('alert-header-error')
+            else
+                alertheader.classList.add('alert-header')
+            let ionicon = document.createElement('ion-icon')
+            ionicon.setAttribute('name', 'checkmark-done-outline')
+            alertheader.appendChild(ionicon)
+            let messageHeader = document.createElement('span')
+            messageHeader.innerHTML = messageTitle
+            alertheader.appendChild(messageHeader)
+            modalalert.appendChild(alertheader)
+            let alertMessage = document.createElement('div')
+            alertMessage.classList.add('alert-message')
+            let messageDesc = document.createElement('span')
+            messageDesc.innerHTML = messageDescription
+            alertMessage.appendChild(messageDesc)
+            modalalert.appendChild(alertMessage)
+            setTimeout(() => {
+                modalalert.style.opacity = 0;
+            }, 2100)
+            setTimeout(() => {
+                document.querySelector("#formodals").removeChild(modalalert);
+            }, 2500)
+            document.querySelector('#formodals').appendChild(modalalert)
+        }
     </script>
     @RenderSection("Scripts", required: false)
 </body>

@@ -15,5 +15,6 @@ namespace ArtRoyalDetailing.Domain.Models
         public TimeSpan? TimeStop { get; set; }
 
         public virtual Users IdWorkerNavigation { get; set; }
+        public int IdSheduler { get; set; }
     }
 }

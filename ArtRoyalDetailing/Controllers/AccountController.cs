@@ -23,8 +23,8 @@ namespace ArtRoyalDetailing.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register() => View();
-
+        public IActionResult Register() => PartialView("Register");
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -40,12 +40,13 @@ namespace ArtRoyalDetailing.Controllers
                 }
                 ModelState.AddModelError("", response.Description);
             }
-            return View(model);
+            return PartialView("Register",model);
         }
 
         [HttpGet]
         public IActionResult Login() => PartialView("Login");
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -61,10 +62,8 @@ namespace ArtRoyalDetailing.Controllers
                 }
                 ModelState.AddModelError("", response.Description);
             }
-            return View(model);
+            return PartialView("Login", model);
         }
-
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

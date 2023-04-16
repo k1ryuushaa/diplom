@@ -802,24 +802,6 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "NLog/5.1.2": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/NLog.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/NLog.dll": {}
-        }
-      },
-      "NLog.Web/5.2.2": {
-        "type": "package",
-        "compile": {
-          "lib/net46/NLog.Web.dll": {}
-        },
-        "runtime": {
-          "lib/net46/NLog.Web.dll": {}
-        }
-      },
       "NuGet.Frameworks/4.7.0": {
         "type": "package",
         "dependencies": {
@@ -3515,47 +3497,6 @@
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
         "newtonsoft.json.11.0.2.nupkg.sha512",
         "newtonsoft.json.nuspec"
-      ]
-    },
-    "NLog/5.1.2": {
-      "sha512": "JfQY93ure3IPVTN3eabBewBGvrcXcWIlaesFEXdy5UzIymfIT9yCgLISYtM0cOhjWziIaUr/6Z9NC2RwtjwrsQ==",
-      "type": "package",
-      "path": "nlog/5.1.2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "N.png",
-        "lib/net35/NLog.dll",
-        "lib/net35/NLog.xml",
-        "lib/net45/NLog.dll",
-        "lib/net45/NLog.xml",
-        "lib/net46/NLog.dll",
-        "lib/net46/NLog.xml",
-        "lib/netstandard1.3/NLog.dll",
-        "lib/netstandard1.3/NLog.xml",
-        "lib/netstandard1.5/NLog.dll",
-        "lib/netstandard1.5/NLog.xml",
-        "lib/netstandard2.0/NLog.dll",
-        "lib/netstandard2.0/NLog.xml",
-        "nlog.5.1.2.nupkg.sha512",
-        "nlog.nuspec"
-      ]
-    },
-    "NLog.Web/5.2.2": {
-      "sha512": "3E+11j8BqjI9oAWhmxdgAZql+N9knofUWacjbgYoEC4197ghUieGV3DpZbnj1yLtpDg3ZZaOuKxmJ7ZAJP7Zzw==",
-      "type": "package",
-      "path": "nlog.web/5.2.2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "N.png",
-        "README.md",
-        "lib/net35/NLog.Web.dll",
-        "lib/net35/NLog.Web.xml",
-        "lib/net46/NLog.Web.dll",
-        "lib/net46/NLog.Web.xml",
-        "nlog.web.5.2.2.nupkg.sha512",
-        "nlog.web.nuspec"
       ]
     },
     "NuGet.Frameworks/4.7.0": {
@@ -7198,9 +7139,7 @@
       "ArtRoyalDetailing.Services >= 1.0.0",
       "Microsoft.AspNet.Mvc >= 5.2.9",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 3.1.31",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.5",
-      "NLog >= 5.1.2",
-      "NLog.Web >= 5.2.2"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.5"
     ]
   },
   "packageFolders": {
@@ -7210,11 +7149,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
+      "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
       "projectName": "ArtRoyalDetailing",
-      "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
+      "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
       "packagesPath": "C:\\Users\\bykov\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing\\obj\\",
+      "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -7235,11 +7174,11 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
-              "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj"
+            "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
+              "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj"
             },
-            "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj": {
-              "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj"
+            "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj": {
+              "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj"
             }
           }
         }
@@ -7265,14 +7204,6 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[3.1.5, )"
-          },
-          "NLog": {
-            "target": "Package",
-            "version": "[5.1.2, )"
-          },
-          "NLog.Web": {
-            "target": "Package",
-            "version": "[5.2.2, )"
           }
         },
         "imports": [
@@ -7334,16 +7265,6 @@
       "warningLevel": 1,
       "message": "Пакет \"Microsoft.Web.Infrastructure 1.0.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \".NETCoreApp,Version=v3.1\". Этот пакет может быть не полностью совместим с вашим проектом.",
       "libraryId": "Microsoft.Web.Infrastructure",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Пакет \"NLog.Web 5.2.2\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \".NETCoreApp,Version=v3.1\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "libraryId": "NLog.Web",
       "targetGraphs": [
         ".NETCoreApp,Version=v3.1"
       ]

@@ -1,11 +1,19 @@
-﻿
+﻿@using System.Security.Claims
 @{
     ViewData["Title"] = "Расписание сотрудников";
-    List<WorkersSheduler> sheduler = ViewBag.Sheduler;
 }
 
-<hr />
-<div class="row">
+<section id="scrollsection">
+    <div class="scroll text-scroll">
+        <div>
+            •РАСПИСАНИЕ СОТРУДНИКОВ•ART ROYAL DETAILING•РАСПИСАНИЕ СОТРУДНИКОВ•ART ROYAL DETAILING
+        </div>
+        <div>
+            •РАСПИСАНИЕ СОТРУДНИКОВ•ART ROYAL DETAILING•РАСПИСАНИЕ СОТРУДНИКОВ•ART ROYAL DETAILING
+        </div>
+    </div>
+</section>
+<div class="row" style="margin-top:80px">
     <div class="col">
         <div class="calendar">
             <div class="monthchangecal">
@@ -33,46 +41,46 @@
     </div>
     <div class="col">
         <div class="sheduler">
-             <div class="sheduler-hide">
-                 <span>Выберите дату</span>
+            <div class="sheduler-hide">
+                <span>Выберите дату</span>
             </div>
-             <div id="shedulerContent" style="display:none">
-                 <div class="sheduler-header"><span><ion-icon name="people-outline" style="height: 19px;"></ion-icon></span></div>
-                 <div class="sheduler-header-worker"><span>Администраторы</span></div>
-                 <div class="sheduler-admin-list">
-                 </div>
-                 <div class="sheduler-header-worker"><span>Мойщики</span></div>
-                 <div class="sheduler-worker-list">
-                 </div>
-                 <div class="registerme border-top border-1">
-                 <div class="col">
-                     <div class="d-flex align-items-center">
-                         <div class="regtime col">
-                             <div class="time">
-                                 <span>ОТ:</span>
-                                 <input type="number" min="10" max="21" class="timeChange" onchange="inputValid()" id="hrsOT" value="10"></input>
-                                 <div class="dots">:</div>
-                                 <input type="number" min="00" max="59" class="timeChange" onchange="inputValid()" id="minsOT" value="00"></input>
-                             </div>
-                         </div>
-                         <div class="regtime col">
-                             <div class="time">
-                                 <span>ДО:</span>
-                                 <input type="number" min="10" max="21" class="timeChange" onchange="inputValid()" id="hrsDO" value="21"></input>
-                                 <div class="dots">:</div>
-                                 <input type="number" min="00" max="59" class="timeChange" onchange="inputValid()" id="minsDO" value="00"></input>
-                             </div>
-                         </div>
-                     </div>
-                     <button class="row" onclick="addToSheduler()">Записаться на дату</button>
-                     </div>
-                 </div>
-             </div>
+            <div id="shedulerContent" style="display:none">
+                <div class="sheduler-header"><span><ion-icon name="people-outline" style="height: 19px;"></ion-icon></span></div>
+                <div class="sheduler-header-worker"><span>Администраторы</span></div>
+                <div class="sheduler-admin-list">
+                </div>
+                <div class="sheduler-header-worker"><span>Мойщики</span></div>
+                <div class="sheduler-worker-list">
+                </div>
+                <div class="registerme">
+                    <div class="col">
+                        <div class="d-flex align-items-center">
+                            <div class="regtime">
+                                <div class="time">
+                                    <span>ОТ:</span>
+                                    <input type="number" min="10" max="21" class="timeChange" onchange="inputValid()" id="hrsOT" value="10"></input>
+                                    <div class="dots">:</div>
+                                    <input type="number" min="00" max="59" class="timeChange" onchange="inputValid()" id="minsOT" value="00"></input>
+                                </div>
+                            </div>
+                            <div class="regtime">
+                                <div class="time">
+                                    <span>ДО:</span>
+                                    <input type="number" min="10" max="21" class="timeChange" onchange="inputValid()" id="hrsDO" value="21"></input>
+                                    <div class="dots">:</div>
+                                    <input type="number" min="00" max="59" class="timeChange" onchange="inputValid()" id="minsDO" value="00"></input>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="row" onclick="addToSheduler()">Записаться на дату</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    </div>
-    <script src="~/js/calendar.js"></script>
-    <script>
+</div>
+<script src="~/js/calendar.js"></script>
+<script>
         let cd=0
         let cm=0
         let cy=0
@@ -83,7 +91,7 @@
             var model = { day: current_day, month:current_month, year:current_year };
             $.ajax({
                 url: '/Sheduler/Get',
-                type: "GET",
+                type: "POST",
                 contentType: 'application/x-www-form-urlencoded; charset=utf-8',
                 data: { day: current_day, month: current_month, year: current_year },
                 async: true,
@@ -93,7 +101,7 @@
                     document.querySelector('#shedulerContent').style.display = 'block'
                     document.querySelector('.sheduler-hide').style.display = 'none'
                     let sheduler = document.querySelector('.sheduler')
-                    sheduler.querySelector('.sheduler-header').innerHTML = `<span><ion-icon name="people-outline" style="height: 19px;"></ion-icon>Расписание на ${current_day}.${current_month}.${current_year}</span>`
+                    sheduler.querySelector('.sheduler-header').innerHTML = `<span><ion-icon name="people-outline" style="height: 19px;"></ion-icon>Расписание на ${current_day.toString().length == 1 ? "0" + current_day.toString() : current_day.toString()}.${current_month.toString().length == 1 ? "0" + current_month.toString() : current_month.toString()}.${cy}</span>`
                     let adminNoExist = document.createElement('div')
                     adminNoExist.classList.add('worker')
                     let spanNoA = document.createElement('span')
@@ -111,9 +119,8 @@
                     sheduler.querySelector('.sheduler-worker-list').appendChild(workerNoExist)
                     if(data!=null)
                     {
-
-                        data.forEach((e) => {
-                            if (e.idWorkerNavigation.userRole==2)
+                        data.data.forEach((e) => {
+                            if (e.idWorkerNavigation.userRole==3)
                             {
                                 try{sheduler.querySelector('.sheduler-admin-list').removeChild(adminNoExist)} catch(e){}
                                 let admin = document.createElement('div')
@@ -123,7 +130,7 @@
                                 admin.appendChild(span)
                                 sheduler.querySelector('.sheduler-admin-list').appendChild(admin)
                             }
-                            else if (e.idWorkerNavigation.userRole == 3) 
+                            else if (e.idWorkerNavigation.userRole == 2)
                             {
                                 try { sheduler.querySelector('.sheduler-worker-list').removeChild(workerNoExist) } catch (e) { }
                                 let worker = document.createElement('div')
@@ -133,10 +140,9 @@
                                 worker.appendChild(span)
                                 sheduler.querySelector('.sheduler-worker-list').appendChild(worker)
                             }
-                        
+
                         })
                     }
-                    createAlert('1','2','success')
                 },
                 error: function (xhr) {
                     alert('error');
@@ -150,33 +156,69 @@
             let minsOT = sheduler.querySelector('#minsOT')
             let hrsDO = sheduler.querySelector('#hrsDO')
             let minsDO = sheduler.querySelector('#minsDO')
-            alert(minsOT.value)
-            if (hrsOT.value!=null&&hrsOT.value >= 10 && hrsOT.value <= 21) {
+            if (hrsOT.value != null && hrsOT.value >= 10 && hrsOT.value <= 21) {
             }
             else {
-                hrsOT.value = 10;
+                return false;
             }
-            if (hrsDO.value!=null&&hrsDO.value >= 10 && hrsDO.value <= 21) {
-            }
-            else {
-                hrsDO.value = 10;
-            }
-            if (minsOT.value!=null&&minsOT.value >= 0 && minsOT.value <= 59) {
+            if (hrsDO.value != null && hrsDO.value >= 10 && hrsDO.value <= 21) {
+                
             }
             else {
-                minsOT.value = 59;
+                return false;
             }
-            if (minsOT.value!=null&&minsDO.value >= 0 && minsDO.value <= 59) {
+            if (minsOT.value != null && minsOT.value >= 0 && minsOT.value <= 59) {
+                
             }
             else {
-                minsDO.value = 59;
+                return false;
             }
+            if (minsDO.value != null && minsDO.value >= 0 && minsDO.value <= 59) {
+                
+            }
+            else {
+                return false;
+            }
+            return `${hrsOT.value}:${minsDO.value}-${hrsDO.value}:${minsDO.value}`;
         }
-        addToSheduler = ()=>
-        {
-            alert(`${cd} ${cm} ${cy}`)
-            
+        addToSheduler = () => {
+            if (inputValid()!= false) {
+                var model = {
+                    workerId:@User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                    date:`${cd}.${cm}.${cy}`,
+                    time:inputValid()
+                }
+                $.ajax({
+                    url: '/Sheduler/Set',
+                    type: "GET",
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                    data: model,
+                    async: true,
+                    processData: true,
+                    cache: false,
+                    success: function (data) {
+                        if (data.statusCode == 200) {
+                            createAlert('Отлично', `Вы записаны на ${cd}.${cm}.${cy}`, 'success')
+                        }
+                        if (data.statusCode == 1) {
+                            createAlert('Ошибка', `Вы уже записаны на этот день`, 'error')
+                        }
+                        if (data.statusCode == 2) {
+                            createAlert('Ошибка', `Администратор на эту смену уже есть`, 'error')
+                        }
+                        if (data.statusCode == 3) {
+                            createAlert('Ошибка', `Мойщиков на смене достаточно`, 'error')
+                        }
+                        getSelectedDate(cd,cm,cy)
+                    },
+                    error: function (xhr) {
+                        createAlert('Ошибка', 'Не удалось записаться', 'error')
+                    }
+                });
+            }
+            else
+                createAlert('Ошибка', 'Введите корректное и доступное время для записи', 'error')
         }
-    </script>
+</script>
 
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj": {}
+    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj": {}
   },
   "projects": {
-    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
+    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj",
+        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj",
         "projectName": "ArtRoyalDetailing.Database",
-        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj",
+        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj",
         "packagesPath": "C:\\Users\\bykov\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Database\\obj\\",
+        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
-                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj"
+              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
+                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj"
               }
             }
           }
@@ -88,14 +88,14 @@
         }
       }
     },
-    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
+    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj",
+        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj",
         "projectName": "ArtRoyalDetailing.Domain",
-        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj",
+        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj",
         "packagesPath": "C:\\Users\\bykov\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Domain\\obj\\",
+        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -146,14 +146,14 @@
         }
       }
     },
-    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj": {
+    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
+        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
         "projectName": "ArtRoyalDetailing",
-        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
+        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
         "packagesPath": "C:\\Users\\bykov\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing\\obj\\",
+        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -174,11 +174,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
-                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj"
+              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
+                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj"
               },
-              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj": {
-                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj"
+              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj": {
+                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj"
               }
             }
           }
@@ -204,14 +204,6 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.5, )"
-            },
-            "NLog": {
-              "target": "Package",
-              "version": "[5.1.2, )"
-            },
-            "NLog.Web": {
-              "target": "Package",
-              "version": "[5.2.2, )"
             }
           },
           "imports": [
@@ -236,14 +228,14 @@
         }
       }
     },
-    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj": {
+    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj",
+        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj",
         "projectName": "ArtRoyalDetailing.Services",
-        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj",
+        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj",
         "packagesPath": "C:\\Users\\bykov\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetatiling.Services\\obj\\",
+        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -264,11 +256,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
-                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj"
+              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
+                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj"
               },
-              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
-                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj"
+              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
+                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj"
               }
             }
           }

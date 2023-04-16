@@ -9,6 +9,7 @@ namespace ArtRoyalDetailing.Domain.Models
 {
     public partial class ContractsServices
     {
+        public int IdContractService { get; set; }
         public int? IdContract { get; set; }
         public int? IdService { get; set; }
         public int? IdWasher { get; set; }

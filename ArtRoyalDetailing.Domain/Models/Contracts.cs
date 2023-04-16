@@ -10,17 +10,15 @@ namespace ArtRoyalDetailing.Domain.Models
     public partial class Contracts
     {
         public int IdContract { get; set; }
-        public string ClientName { get; set; }
-        public string AutoModel { get; set; }
+        public string ClientNumber { get; set; }
         public string AutoClass { get; set; }
         public DateTime? DateContract { get; set; }
+        public TimeSpan? TimeContract { get; set; }
         public int? StatusContract { get; set; }
-        public int? PaymentType { get; set; }
         public int? IdAdmin { get; set; }
         public int? EndCost { get; set; }
 
         public virtual Users IdAdminNavigation { get; set; }
-        public virtual PaymentTypes PaymentTypeNavigation { get; set; }
         public virtual ContractStatuses StatusContractNavigation { get; set; }
     }
 }

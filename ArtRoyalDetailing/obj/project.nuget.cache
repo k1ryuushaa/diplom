@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lXZnBdid4WtGvtjYSmRs7pKzEcx87SnE6L9C5kNeI2NYVFMBtazV/poiHtfnUHz6T6QPqRP70sX+jJPSBGqrjA==",
+  "dgSpecHash": "mnbK1KbExpPgwnn4KNw2uwvYul31A6WBt+eaZsapQLYEvmYlTmlP0d1yIM1eemkk9Sa7ceJwnnf5o3C47Awx3A==",
   "success": true,
-  "projectFilePath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
+  "projectFilePath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bykov\\.nuget\\packages\\microsoft.aspnet.mvc\\5.2.9\\microsoft.aspnet.mvc.5.2.9.nupkg.sha512",
     "C:\\Users\\bykov\\.nuget\\packages\\microsoft.aspnet.razor\\3.2.9\\microsoft.aspnet.razor.3.2.9.nupkg.sha512",
@@ -53,8 +53,6 @@
     "C:\\Users\\bykov\\.nuget\\packages\\mysqlconnector\\0.61.0\\mysqlconnector.0.61.0.nupkg.sha512",
     "C:\\Users\\bykov\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\bykov\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
-    "C:\\Users\\bykov\\.nuget\\packages\\nlog\\5.1.2\\nlog.5.1.2.nupkg.sha512",
-    "C:\\Users\\bykov\\.nuget\\packages\\nlog.web\\5.2.2\\nlog.web.5.2.2.nupkg.sha512",
     "C:\\Users\\bykov\\.nuget\\packages\\nuget.frameworks\\4.7.0\\nuget.frameworks.4.7.0.nupkg.sha512",
     "C:\\Users\\bykov\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\3.1.0\\pomelo.entityframeworkcore.mysql.3.1.0.nupkg.sha512",
     "C:\\Users\\bykov\\.nuget\\packages\\pomelo.jsonobject\\2.2.1\\pomelo.jsonobject.2.2.1.nupkg.sha512",
@@ -179,16 +177,6 @@
       "warningLevel": 1,
       "message": "Пакет \"Microsoft.Web.Infrastructure 1.0.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \".NETCoreApp,Version=v3.1\". Этот пакет может быть не полностью совместим с вашим проектом.",
       "libraryId": "Microsoft.Web.Infrastructure",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Пакет \"NLog.Web 5.2.2\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \".NETCoreApp,Version=v3.1\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "libraryId": "NLog.Web",
       "targetGraphs": [
         ".NETCoreApp,Version=v3.1"
       ]

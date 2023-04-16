@@ -1,12 +1,32 @@
 ﻿:root {
-    --bgcolor: #231b1b;
-    --bgcolor-header: #3d3030;
-    --accent-color: #ca8300;
+    --bgcolorbody: white;
+    --bgcolor: #ffffff;
+    --bgcolor-header: #9700dc;
+    --accent-color: #9700dc;
+    --backgroundImage: url(/Images/whiteBackground.jpg);
+    --textColor: black;
+}
+    :root[data-color-scheme="dark"] {
+        --bgcolorbody: black;
+        --bgcolor: #231b1b;
+        --bgcolor-header: #3d3030;
+        --accent-color: #ca8300;
+        --backgroundImage: url(/Images/background.jpg);
+        --textColor:white;
+    }
+
+body {
+    background-color: var(--bgcolorbody);
+    background-image: var(--backgroundImage);
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 *{
     transition:.15s ease-in-out;
 }
-
+.custom-navbar{
+    background:var(--accent-color)
+}
 .calendar {
     height: auto;
     width: 100%;
@@ -14,7 +34,7 @@
     color: white;
     border-radius: 20px;
     overflow: hidden;
-    min-width: 400px;
+    min-width: 380px;
     max-width: 650px;
     margin: 10px 0;
     outline: 0px solid var(--accent-color);
@@ -114,10 +134,10 @@
     height: auto;
     width: 100%;
     background: var(--bgcolor);
-    color: white;
+    color: var(--textColor);
     border-radius: 20px;
     overflow: hidden;
-    min-width: 400px;
+    min-width: 380px;
     max-width: 650px;
     margin: 10px 0;
     outline: 0px solid var(--accent-color);
@@ -135,6 +155,7 @@
 
 .sheduler-header {
     display: flex;
+    color:white;
     height: 60px;
     align-items: center;
     background-color: var(--bgcolor-header);
@@ -150,9 +171,8 @@
     align-items: center;
     height: 300px;
     width: 100%;
-    background-color: var(--bgcolor-header);
     box-shadow: inset var(--bgcolor) 0px 0px 15px 3px;
-    background: linear-gradient(45deg,#3d3030,#3d3030,#ca83006c,#3d3030,#3d3030);
+    background: linear-gradient(45deg,var(--bgcolor),var(--bgcolor),var(--accent-color),var(--bgcolor),var(--bgcolor));
     background-size: 1600px 350px;
     background-position: 0 0;
     animation: background 7s infinite alternate;
@@ -172,7 +192,7 @@
 .sheduler-header-worker {
     height: 30px;
     display: flex;
-    border-top: 1px solid white;
+    border-top: 1px solid var(--textColor);
     border-bottom: 1px solid white;
     transition: .3s ease-in-out;
 }
@@ -206,6 +226,7 @@
 
 .registerme {
     display: flex;
+    border-top:1px solid var(--textColor);
 }
 
     .registerme button {
@@ -244,18 +265,16 @@
 .monthdays .curr-day {
     background: var(--accent-color);
     color: var(--bgcolor);
-    border-radius: 10px;
     transform: scale(1.15);
 }
 .regtime {
     display: flex;
-    margin:10px 0;
+    margin:10px auto;
 }
 
     .regtime .timebox {
         font-size: 20px;
         border-radius: 20px;
-        padding: 6px;
         color: white;
         background: transparent;
         border: 2px solid var(--accent-color);
@@ -267,6 +286,8 @@
 
 .time {
     display: flex;
+    justify-content:center;
+    text-align:center;
 }
 
     .time .timeChange {
@@ -276,11 +297,22 @@
         font-size: 20px;
         color: var(--accent-color);
         text-align: center;
+        min-width: 45px;
+        width: auto;
+    }
+    .time .timeChangeError {
+        background: transparent;
+        border: 4px solid red;
+        border-radius: 15px;
+        font-size: 20px;
+        color: red;
+        box-shadow:red 0px 0px 7px 1px;
+        text-align: center;
         width: 70px;
     }
 
         .time .timeChange:focus {
-            outline: 4px solid #ca8300b7;
+            outline: 4px solid var(--accent-color);
         }
 
     .time .dots {
@@ -334,7 +366,7 @@ input[type=number] {
     width: 100%;
     align-self: end;
     max-width: 600px;
-    background-color: #2b2727;
+    background-color: var(--bgcolor);
     border-radius: 20px;
     overflow: hidden;
     transition: .5s ease-in-out;
@@ -342,6 +374,7 @@ input[type=number] {
     margin-left: auto;
     margin-right: 0;
     animation: alertAnimationIn 1s ease-in-out forwards;
+    color: black;
 }
 
 @keyframes alertAnimationIn {
@@ -356,7 +389,7 @@ input[type=number] {
 
 .alert-header {
     height: 50px;
-    background: #ca8300;
+    background: var(--accent-color);
     display: flex;
 }
 
@@ -381,7 +414,7 @@ input[type=number] {
 .modal-alert .alert-message {
     display: flex;
     margin: 10px;
-    color: #ca8300;
+    color:var(--textColor);
 }
 
 .alert-header-error span {
@@ -423,7 +456,7 @@ input[type=number] {
 }
 
     .auth-modal form * {
-        font-family: 'Century GOthic';
+        font-family: 'Century Gothic';
         color: #ffffff;
         letter-spacing: 1.5px;
         outline: none;
@@ -494,11 +527,20 @@ input[type=number] {
     z-index:8888;
 }
 
-
 .passwordBox {
     width: 96%;
     display: flex;
     align-items: center;
+}
+.passwordBox #password {
+    display: block;
+    height: 50px;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 20px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-weight: 300;
+    width: 100%;
 }
 
     .passwordBox ion-icon {
@@ -509,4 +551,463 @@ input[type=number] {
 
 .passForgotten {
     word-break: break-all;
+}
+
+#services {
+    background: transparent;
+    color: var(--accent-color);
+    padding: 6px 12px;
+    width: 100%;
+    font-size: 16px;
+    border: 2px solid var(--accent-color);
+    border-radius: 20px;
+    outline: 0px;
+}
+
+    #services:focus {
+        outline: 5px solid var(--accent-color);
+    }
+input[id=services]::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: var(--accent-color);
+}
+
+#scrollsection {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    background: var(--accent-color);
+    position:absolute;
+    left:0;
+    top:10px;
+}
+
+    #scrollsection .scroll {
+        width: 100%;
+        display: flex;
+    }
+
+        #scrollsection .scroll div {
+            color: black;
+            font-style: oblique;
+            font-size: 45px;
+            white-space: nowrap;
+            font-weight: 500;
+            text-transform: uppercase;
+            animation: animate 40s linear infinite;
+            animation-delay: -40s;
+        }
+
+            #scrollsection .scroll div:nth-child(2) {
+                animation: animate2 40s linear infinite;
+                animation-delay: -20s;
+            }
+
+@keyframes animate {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes animate2 {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-200%);
+    }
+}
+
+.appointmentsContainer {
+    height: auto;
+    margin: 10px;
+    text-align: center;
+}
+
+    .appointmentsContainer #header {
+        color: black;
+        font-weight: 500;
+        font-style: italic;
+        display: flex;
+        letter-spacing: 1.5px;
+        font-size: 35px;
+        background: var(--accent-color);
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+    }
+
+    .appointmentsContainer .appointment {
+        background: var(--bgcolor);
+        margin: 15px 0;
+        border-radius: 20px;
+        outline: 2px solid var(--accent-color);
+        outline-offset: 3px;
+        overflow: hidden;
+    }
+        .appointmentsContainer .appointment table{
+            color:var(--textColor);
+        }
+        .appointmentsContainer .appointment table thead td {
+            font-weight: bold;
+            color: var(--accent-color);
+            font-style: italic;
+        }
+.map-container{
+    width: 100%;
+    border-radius:20px;
+    overflow:hidden;
+}
+.map-container #map {
+    display: block;
+}
+.info {
+    background: rgba(221, 0, 255, 0.068);
+    backdrop-filter: blur(15px);
+    color:var(--textColor);
+    border-radius: 20px;
+    padding: 20px;
+    outline:2px solid var(--accent-color);
+    outline-offset:4px;
+}
+.info-headers {
+    color: var(--accent-color);
+}
+.select-control {
+    width: 100%;
+    background: transparent;
+    color: var(--accent-color);
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid var(--accent-color);
+    transition: 0;
+}
+
+    .select-control::-webkit-scrollbar {
+        height: 12px;
+        width: 12px;
+    }
+
+    .select-control::-webkit-scrollbar-track {
+        background: var(--accent-color);
+        border-radius: 10px;
+    }
+
+    .select-control::-webkit-scrollbar-thumb {
+        background-color: #3A3C41;
+        border-radius: 10px;
+        border: 3px solid var(--accent-color);
+    }
+
+    .select-control option {
+        background: transparent;
+        color: var(--accent-color);
+    }
+
+        .select-control option:checked {
+            color: black;
+            background: var(--accent-color);
+        }
+.text-control {
+    background: transparent;
+    color: var(--accent-color);
+    padding: 4px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--accent-color);
+    width: 100%;
+    height: 33px;
+}
+
+    .text-control::placeholder {
+        color: var(--accent-color);
+    }
+
+.appointmentBtn {
+    width: 95%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--accent-color);
+    font-weight: bold;
+    letter-spacing: 1.1px;
+    margin: 5px;
+    padding: 5px 0;
+}
+
+    .appointmentBtn:hover {
+        background: var(--accent-color);
+        color: black;
+    }
+
+.appointmentDiv {
+    background: #76009a27;
+    border-radius: 20px;
+    padding-top: 20px;
+    backdrop-filter: blur(15px);
+    outline-offset: 2px;
+    color:var(--textColor);
+    outline: 1px solid var(--accent-color);
+}
+
+.searchAppointment {
+    border-radius: 20px;
+    background: #66018046;
+    border: 1px solid var(--accent-color);
+    backdrop-filter: blur(15px);
+}
+.toggleswitch input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+.toggleswitch label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 70px;
+    height: 40px;
+    background: #3d3030;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+    margin:0;
+    margin-top:-24px;
+}
+
+    .toggleswitch label:after {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: 30px;
+        height: 30px;
+        background: #ca8300;
+        border-radius: 90px;
+        transition: 0.3s;
+    }
+
+.toggleswitch input:checked + label {
+    background: #ffffff;
+}
+
+    .toggleswitch input:checked + label:after {
+        left: calc(100% - 5px);
+        transform: translateX(-100%);
+        background: #9700dc;
+    }
+
+.toggleswitch label:active:after {
+    width: 40px;
+}
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+.custom-btn {
+    transition: .5s ease-in-out;
+    color: #fdd900;
+    outline: 0px solid #fdd900;
+    outline-offset: 0px;
+}
+
+    .custom-btn:hover {
+        outline: 5px solid #fdd900;
+        outline-offset: 10px;
+    }
+/* для Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--accent-color);
+    border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #3A3C41;
+    border-radius: 10px;
+    border: 3px solid var(--accent-color);
+}
+
+.wrapper {
+    position: absolute;
+    align-self: center;
+    width: 400px;
+    height: 450px;
+    background: rgba(255,255,255,.15);
+    box-shadow: 0 8px 32px rgba(31,38,135,.37);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.h2Modal {
+    font-size: 2em;
+    color: white;
+    text-align: center;
+}
+
+.input-box {
+    width: 320px;
+    margin: 30px 0;
+    border-bottom: 2px solid white;
+}
+
+    .input-box label {
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        font-size: 1em;
+        pointer-events: none;
+        color: white;
+    }
+
+    .input-box input:focus ~ label,
+    .input-box input:valid ~ label {
+        top: 5px;
+    }
+
+    .input-box input {
+        width: 100%;
+        height: 50px;
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 1em;
+        color: white;
+        padding: 0 35px 0 5px;
+    }
+
+    .input-box .icon {
+        position: absolute;
+        right: 8px;
+        color: white;
+        font-size: 1.2em;
+        line-height: 57px;
+    }
+
+.remember-forgot {
+    margin: -15px 0 15px;
+    font-size: .9em;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+    .remember-forgot a {
+        color: white;
+        text-decoration: underline;
+    }
+
+        .remember-forgot a:hover {
+            text-decoration: underline;
+        }
+
+    .remember-forgot label input {
+        color: #fa709a;
+        margin-right: 3px;
+    }
+
+.wrapper button {
+    width: 100%;
+    height: 45px;
+    background: #fa709a;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1em;
+    color: white;
+    font-weight: bold;
+}
+.table-header {
+    border-bottom: 2px solid var(--accent-color);
+    color:var(--accent-color);
+}
+
+.text-change-color{
+    color:var(--textColor);
+}
+#colforsh table{
+    color:var(--textColor);
 }

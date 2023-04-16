@@ -6,11 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\receipt.docx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.31" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-    <PackageReference Include="NLog" Version="5.1.2" />
-    <PackageReference Include="NLog.Web" Version="5.2.2" />
   </ItemGroup>
 
 
@@ -36,6 +38,19 @@
   <ItemGroup>
     <ProjectReference Include="..\ArtRoyalDetailing.Database\ArtRoyalDetailing.Database.csproj" />
     <ProjectReference Include="..\ArtRoyalDetatiling.Services\ArtRoyalDetailing.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Interop.Microsoft.Office.Interop.Word">
+      <HintPath>..\ArtRoyalDetailing.Domain\bin\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Word.dll</HintPath>
+    </Reference>
+    <Reference Include="office">
+      <HintPath>C:\Windows\assembly\GAC_MSIL\office\15.0.0.0__71e9bce111e9429c\OFFICE.DLL</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\receipt.docx" />
   </ItemGroup>
 
 

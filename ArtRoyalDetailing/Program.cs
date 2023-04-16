@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using NLog.Web;
 
 namespace ArtRoyalDetailing
 {
@@ -23,6 +22,11 @@ namespace ArtRoyalDetailing
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                }).ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Trace));
+                }).ConfigureLogging(logging =>
+                {
+                    logging.SetMinimumLevel(LogLevel.Trace);
+                    logging.ClearProviders();
+                    logging.AddConsole();
+                });
     }
 }

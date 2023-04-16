@@ -35,7 +35,7 @@ namespace ArtRoyalDetatiling.Services.Implementations
                 {
                     return new BaseResponse<bool>()
                     {
-                        StatusCode = StatusCode.UserNotFound,
+                        StatusCode = StatusCode.NotFound,
                         Description = "Пользователь не найден"
                     };
                 }
@@ -116,6 +116,10 @@ namespace ArtRoyalDetatiling.Services.Implementations
 
                 user = new Users()
                 {
+                    UserEmail = model.Email,
+                    UserName = model.Name,
+                    UserSurname = model.Surname,
+                    UserPhonenumber = model.PhoneNumber,
                     UserLogin = model.Login,
                     UserRole = (int)Role.Client,
                     UserPasswordHash = HashPasswordHelper.HashPassword(model.Password)
@@ -147,10 +151,12 @@ namespace ArtRoyalDetatiling.Services.Implementations
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserLogin),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.UserRole.ToString())
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserSurname+" "+user.UserName),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.UserRole.ToString()),
+                new Claim(ClaimTypes.Email,user.UserEmail),
+                new Claim(ClaimTypes.NameIdentifier,user.UserId.ToString())
             };
-            return new ClaimsIdentity(claims, "ApplicationCookie",
+            return new ClaimsIdentity(claims, "Cookie",
                 ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
         }
     }

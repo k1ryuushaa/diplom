@@ -36,8 +36,8 @@
           "Microsoft.AspNet.Mvc": "5.2.9",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "3.1.31",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.5",
-          "NLog": "5.1.2",
-          "NLog.Web": "5.2.2",
+          "Interop.Microsoft.Office.Interop.Word": "8.7.0.0",
+          "OFFICE": "15.0.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -1048,28 +1048,6 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "NLog/5.1.2": {
-        "runtime": {
-          "lib/netstandard2.0/NLog.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.1.2.1561"
-          }
-        },
-        "compile": {
-          "lib/netstandard2.0/NLog.dll": {}
-        }
-      },
-      "NLog.Web/5.2.2": {
-        "runtime": {
-          "lib/net46/NLog.Web.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.2.2.821"
-          }
-        },
-        "compile": {
-          "lib/net46/NLog.Web.dll": {}
-        }
-      },
       "NuGet.Frameworks/4.7.0": {
         "dependencies": {
           "NETStandard.Library": "1.6.1"
@@ -1903,6 +1881,28 @@
         },
         "compile": {
           "ArtRoyalDetailing.Services.dll": {}
+        }
+      },
+      "Interop.Microsoft.Office.Interop.Word/8.7.0.0": {
+        "runtime": {
+          "Interop.Microsoft.Office.Interop.Word.dll": {
+            "assemblyVersion": "8.7.0.0",
+            "fileVersion": "8.7.0.0"
+          }
+        },
+        "compile": {
+          "Interop.Microsoft.Office.Interop.Word.dll": {}
+        }
+      },
+      "OFFICE/15.0.0.0": {
+        "runtime": {
+          "OFFICE.DLL": {
+            "assemblyVersion": "15.0.0.0",
+            "fileVersion": "15.0.4613.1000"
+          }
+        },
+        "compile": {
+          "OFFICE.DLL": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -3930,20 +3930,6 @@
       "path": "newtonsoft.json/11.0.2",
       "hashPath": "newtonsoft.json.11.0.2.nupkg.sha512"
     },
-    "NLog/5.1.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-JfQY93ure3IPVTN3eabBewBGvrcXcWIlaesFEXdy5UzIymfIT9yCgLISYtM0cOhjWziIaUr/6Z9NC2RwtjwrsQ==",
-      "path": "nlog/5.1.2",
-      "hashPath": "nlog.5.1.2.nupkg.sha512"
-    },
-    "NLog.Web/5.2.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-3E+11j8BqjI9oAWhmxdgAZql+N9knofUWacjbgYoEC4197ghUieGV3DpZbnj1yLtpDg3ZZaOuKxmJ7ZAJP7Zzw==",
-      "path": "nlog.web/5.2.2",
-      "hashPath": "nlog.web.5.2.2.nupkg.sha512"
-    },
     "NuGet.Frameworks/4.7.0": {
       "type": "package",
       "serviceable": true,
@@ -4558,6 +4544,16 @@
     },
     "ArtRoyalDetailing.Services/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Interop.Microsoft.Office.Interop.Word/8.7.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OFFICE/15.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },

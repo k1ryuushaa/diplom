@@ -54,14 +54,12 @@ namespace ArtRoyalDetailing.Controllers
         {
             ViewData["ServiceType"] = new SelectList(_context.ServiceType, "IdType", "TypeName");
             return View();
-        }
-
-        // POST: Services/Create
+        }        // POST: Services/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdService,ServiceName,ServiceType")] Services service)
+        public async Task<IActionResult> Create([Bind("IdService,ServiceName,ServiceType")] Domain.Models.Services service)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +93,7 @@ namespace ArtRoyalDetailing.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdService,ServiceName,ServiceType")] Services service)
+        public async Task<IActionResult> Edit(int id, [Bind("IdService,ServiceName,ServiceType")] Domain.Models.Services service)
         {
             if (id != service.IdService)
             {

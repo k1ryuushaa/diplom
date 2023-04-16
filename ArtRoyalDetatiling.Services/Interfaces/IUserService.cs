@@ -10,12 +10,13 @@ namespace ArtRoyalDetatiling.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<IBaseResponse<Users>> Create(UserViewModel model);
+        Task<BaseResponse<Users>> Create(UserViewModel model);
 
         Task<BaseResponse<List<Roles>>> GetRoles();
 
         Task<BaseResponse<IEnumerable<UserViewModel>>> GetUsers();
+        Task<BaseResponse<List<Users>>> GetAll();
 
-        Task<IBaseResponse<bool>> DeleteUser(long id);
+        Task<BaseResponse<bool>> DeleteUser(long id);
     }
 }

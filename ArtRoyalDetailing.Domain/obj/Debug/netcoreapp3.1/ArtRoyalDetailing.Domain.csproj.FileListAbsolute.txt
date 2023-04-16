@@ -1,10 +1,22 @@
 D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Domain\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.deps.json
 D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Domain\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.dll
 D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Domain\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.pdb
+D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.csproj.AssemblyReference.cache
 D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.GeneratedMSBuildEditorConfig.editorconfig
 D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.AssemblyInfoInputs.cache
 D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.AssemblyInfo.cs
 D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.csproj.CoreCompileInputs.cache
 D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.dll
 D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.pdb
-D:\Users\bykov\source\repos\ArtRoyalDetailing\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.csproj.AssemblyReference.cache
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.deps.json
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.dll
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.pdb
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.AssemblyInfoInputs.cache
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.AssemblyInfo.cs
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.csproj.CoreCompileInputs.cache
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.dll
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.pdb
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\bin\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Word.dll
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Word.dll
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.csproj.ResolveComReference.cache

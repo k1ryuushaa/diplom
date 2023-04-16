@@ -59,5 +59,15 @@ namespace ArtRoyalDetailing.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] receipt {
+            get {
+                object obj = ResourceManager.GetObject("receipt", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

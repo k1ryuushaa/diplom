@@ -1,0 +1,178 @@
+﻿@model ArtRoyalDetailing.Domain.ViewModels.AppointmentViewModel
+@using System.Security.Claims
+@using ArtRoyalDetailing.Domain.Dictionaries;
+@{
+    ViewData["Title"] = "Запись";
+    var services = ViewBag.Services;
+    var carClasses = new DictionaryCarClass().GetClasses();
+    IEnumerable<Contracts> appointments = ViewBag.Appointments;
+    List<ContractsServices> contractServices = ViewBag.ContractServices;
+}
+<section id="scrollsection">
+    <div class="scroll text-scroll">
+        <div>
+            •ЗАПИСЬ НА МОЙКУ•ЗАПИСЬ НА ПОЛИРОВКУ•ЗАПИСЬ НА ДЕТЕЙЛИНГ•ЗАПИСЬ НА ХИМЧИСТИКУ•ЗАПИСЬ НА АНТИДОЖДЬ
+        </div>
+        <div>
+            •ЗАПИСЬ НА МОЙКУ•ЗАПИСЬ НА ПОЛИРОВКУ•ЗАПИСЬ НА ДЕТЕЙЛИНГ•ЗАПИСЬ НА ХИМЧИСТИКУ•ЗАПИСЬ НА АНТИДОЖДЬ
+        </div>
+    </div>
+</section>
+<div class="row" style="margin-top:80px">
+    <div class="col">
+        <div class="calendar mx-auto">
+            <div class="monthchangecal">
+            </div>
+            <div class="monthyear">
+                <div class="month"><ion-icon name="calendar-clear-outline" style="height: 19px;"></ion-icon><span id="monthchange"></span></div>
+                <div class="year">
+                    <span id="prev-year"><ion-icon name="chevron-back-outline" style="height: 18px;"></ion-icon></span>
+                    <span id="yearchange"></span>
+                    <span id="next-year"><ion-icon name="chevron-forward-outline" style="height: 18px;"></ion-icon></span>
+                </div>
+            </div>
+            <div class="week-days">
+                <span>Пн</span>
+                <span>Вт</span>
+                <span>Ср</span>
+                <span>Чт</span>
+                <span>Пт</span>
+                <span>Сб</span>
+                <span>Вс</span>
+            </div>
+            <div class="monthdays">
+            </div>
+        </div>
+    </div>
+    <div class="col" id="colforsh" style="display:none">
+        <div class="sheduler mx-auto" style="display:none">
+            <div id="shedulerContent">
+                <div class="sheduler-header justify-content-center"><span><ion-icon name="people-outline" style="height: 19px;"></ion-icon></span></div>
+                <form autocomplete="on" method="post" asp-controller="Appointment" asp-action="CreateAppointment" id="formm">
+                    <input type="hidden" asp-for="ClientId" value="@User.FindFirst(ClaimTypes.NameIdentifier).Value" />
+                    <input type="hidden" asp-for="Date" value="" id="inputDate" />
+                    <table class="table table-borderless mb-0 mt-3" style="font-size:20px">
+                        <tbody>
+                            <tr>
+                                <td class="col-1">Класс вашего автомобиля</td>
+                                <td class="col-3 mr-1">
+                                    <select class="select-control" asp-for="CarClass">
+                                        <option value="" disabled selected>Класс</option>
+                                        @foreach (var classCar in carClasses)
+                                        {
+                                            <option value="@classCar">@classCar</option>
+                                        }
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-1">Выберите услугу</td>
+                                <td class="col-3 mr-1">
+                                    <select multiple class="select-control" size="5" asp-for="Services">
+                                        @foreach (var item in services)
+                                        {
+                                            <option value="@item.IdService">@item.ServiceName</option>
+                                        }
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="registerme border-top border-1">
+                        <div class="col">
+                            <div class="d-flex align-items-center">
+                                <div class="regtime">
+                                    <div class="time">
+                                        <span>Выберите желаемое время:</span>
+                                        <input type="number" min="10" max="21" asp-for="Hours" class="timeChange" id="hrsOT" value="10"></input>
+                                        <div class="dots">:</div>
+                                        <input type="number" min="00" max="59" asp-for="Minutes" class="timeChange" id="minsOT" value="00"></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="row" >Записаться</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@if (appointments.ToList() != null && appointments.ToList().Count>0)
+{
+    <div class="appointmentsContainer">
+        <div id="header">
+            <ion-icon name="checkmark-outline" class="mr-2"></ion-icon>
+            Ваши записи:
+        </div>
+        @foreach (var appointment in appointments)
+        {
+        <div class="appointment">
+            <table class="table table-sm table-borderless mb-0">
+                <thead>
+                    <tr>
+                        <td scope="col" class="col-2">Услуги</td>
+                        <td scope="col" class="col-2">Класс авто</td>
+                        <td scope="col" class="col-1">Дата</td>
+                        <td scope="col" class="col-1">Время</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @foreach (var service in contractServices)
+                            {
+                                if(appointment.IdContract==service.IdContract)
+                                    {
+                                        <span>@service.IdServiceNavigation.ServiceName</span>
+                                        <br />
+                                    }
+                            }
+                        </td>
+                        <td>@appointment.AutoClass</td>
+                        <td>@appointment.DateContract.Value.ToShortDateString()</td>
+                        <td>@appointment.TimeContract.Value.ToString(@"hh\:mm")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        }
+    </div>
+}
+<script src="~/js/calendar.js"></script>
+<script>
+    let cd = 0
+    let cm = 0
+    let cy = 0
+    let sheduler = document.querySelector('.sheduler')
+    let col = document.querySelector('#colforsh')
+    let inputDate = document.querySelector('#inputDate')
+    getSelectedDate = (current_day, current_month, current_year) => {
+        cd = current_day
+        cm = current_month
+        cy = current_year
+        col.style.display = "block"
+        sheduler.style.display = "block"
+        sheduler.querySelector('.sheduler-header').innerHTML = `<span><ion-icon name="people-outline" style="height: 19px;"></ion-icon>Запись на ${cd.toString().length == 1 ? "0" + cd.toString() : cd.toString()}.${cm.toString().length ==1? "0" + cm.toString() : cm.toString()}.${cy}</span>`
+        inputDate.value = `${cd}.${cm}.${cy}`
+    }
+
+</script>
+@section Scripts{ 
+@if (ViewBag.day != null && ViewBag.month != null && ViewBag.year != null)
+{
+    <script>getSelectedDate(@ViewBag.day, @ViewBag.month, @ViewBag.year)</script>
+}
+@if (ViewBag.Error != null)
+{
+    <script>
+        createAlert('Ошибка', '@ViewBag.Error', 'error')
+    </script>
+}
+@if (ViewBag.Success != null)
+{
+    <script>
+        createAlert('Отлично', '@ViewBag.Success', 'success')
+    </script>
+}
+}

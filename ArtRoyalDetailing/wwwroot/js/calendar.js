@@ -1,4 +1,5 @@
-﻿let calendar = document.querySelector('.calendar')
+﻿
+let calendar = document.querySelector('.calendar')
 
 const month_names = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
 
@@ -98,44 +99,5 @@ document.querySelector('#next-year').onclick = () => {
     ++curr_year.value
     generateCalendar(curr_month.value, curr_year.value)
 }
-createAlert = (messageTitle, messageDescription, type) => {
-    let modalalert = document.createElement('div')
-    modalalert.classList.add('modal-alert')
-    let alertheader = document.createElement('div')
-    if (type == "error")
-        alertheader.classList.add('alert-header-error')
-    else
-        alertheader.classList.add('alert-header')
-    let ionicon = document.createElement('ion-icon')
-    ionicon.setAttribute('name', 'checkmark-done-outline')
-    alertheader.appendChild(ionicon)
-    let messageHeader = document.createElement('span')
-    messageHeader.innerHTML = messageTitle
-    alertheader.appendChild(messageHeader)
-    modalalert.appendChild(alertheader)
-    let alertMessage = document.createElement('div')
-    alertMessage.classList.add('alert-message')
-    let messageDesc = document.createElement('span')
-    messageDesc.innerHTML = messageDescription
-    alertMessage.appendChild(messageDesc)
-    modalalert.appendChild(alertMessage)
-    setTimeout(() => {
-        modalalert.style.opacity = 0;
-    }, 2100)
-    setTimeout(() => {
-        document.querySelector("#formodals").removeChild(modalalert);
-    }, 2500)
-    document.querySelector('#formodals').appendChild(modalalert)
-}
-let passs = true
-showPass = () => {
-    if (passs) {
-        document.querySelector('#password').setAttribute('type', 'text')
-        passs = !passs
-    }
-    else {
-        document.querySelector('#password').setAttribute('type', 'password')
-        passs = !passs
-    }
 
-}
+
