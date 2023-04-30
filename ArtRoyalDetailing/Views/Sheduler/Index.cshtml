@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="row" onclick="addToSheduler()">Записаться на дату</button>
+                        <button class="row" id="btnZapis" onclick="addToSheduler()">Записаться на дату</button>
                     </div>
                 </div>
             </div>
@@ -84,10 +84,12 @@
         let cd=0
         let cm=0
         let cy=0
+        let date = new Date()
         getSelectedDate = (current_day, current_month, current_year) => {
             cd = current_day
             cm = current_month
             cy = current_year
+            let changedDate = new Date(current_year, current_month - 1, current_day)
             var model = { day: current_day, month:current_month, year:current_year };
             $.ajax({
                 url: '/Sheduler/Get',
@@ -143,6 +145,10 @@
 
                         })
                     }
+                    if (changedDate <= date)
+                        document.querySelector('#btnZapis').disabled = true
+                    else
+                        document.querySelector('#btnZapis').disabled = false
                 },
                 error: function (xhr) {
                     alert('error');

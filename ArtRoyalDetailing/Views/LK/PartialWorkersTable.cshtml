@@ -1,0 +1,52 @@
+﻿@model List<Users>
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <td>Имя</td>
+                <td>Фамилия</td>
+                <td>Номер телефона</td>
+                <td>Почта</td>
+                <td>Роль</td>
+                <td>Действие</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var worker in Model)
+            {
+                <tr class="tRow">
+                    <td>@worker.UserName</td>
+                    <td>@worker.UserSurname</td>
+                    <td>@worker.UserPhonenumber</td>
+                    <td>@worker.UserEmail</td>
+                    <td>@worker.UserRoleNavigation.RoleName</td>
+                    <td><button onclick="deleteWorker(@worker.UserId,this)">Удалить</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script>
+    deleteWorker = (worker,el) => {
+        $.ajax({
+                url: '@Url.Action("RemoveWorker", "LK")',
+                type: 'POST',
+                data: { workerId: worker },
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                processData: true,
+                cache: false,
+                async: true,
+                success: function (data) {
+                    if (data.data == true) {
+                        createAlert('Успешно', 'Сотрудник удалён', 'success')
+                        el.parentNode.parentNode.parentNode.removeChild(el.parentNode.parentNode)
+                    }
+                    else {
+                        createAlert('Ошибка', 'Не удалось удалить сотрудника', 'error')
+                    }
+                },
+                error: function (xhr) {
+                    alert(JSON.stringify(xhr))
+                    createAlert('Ошибка', "Запрос не отправлен", 'error')
+                }
+            });
+    }
+    </script>

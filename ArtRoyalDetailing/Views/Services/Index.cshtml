@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<ArtRoyalDetailing.Domain.Models.Services>
-
+@using ArtRoyalDetailing.Domain.Enum
 @{
     ViewData["Title"] = "Услуги";
 }
@@ -49,13 +49,22 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.ServiceName)
                             </td>
-                            @foreach (var cost in ViewBag.ServiceCosts)
+                            @foreach (var cost in (List<ServicesCosts>)ViewBag.ServiceCosts)
                             {
                                 if (cost.IdService == item.IdService)
                                 {
-                                    <td class="text-center">
-                                        @cost.Cost
-                                    </td>
+                                    if (User.IsInRole($"{(int)Role.Admin}"))
+                                    {
+                                        <td class="text-center">
+                                            <input type="text" class="inpService" value="@cost.Cost" onkeyup="changePriceForService(@cost.IdService, '@cost.ClassAuto',this.value)"/>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center">
+                                            @cost.Cost
+                                        </td>
+                                    }
                                 }
                             }
                         </tr>
@@ -66,3 +75,8 @@
     </div>
 
 }
+<script>
+    changePriceForService = (serviceId, carClass, cost) => {
+        alert(`${serviceId}/${carClass}/${cost}`)
+    }
+</script>

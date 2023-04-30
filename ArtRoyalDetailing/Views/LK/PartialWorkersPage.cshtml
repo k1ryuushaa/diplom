@@ -1,0 +1,144 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "Сотрудники";
+}
+
+<div class="workersContainer">
+    <label class="point">
+        <input type="radio" id="addWorker" onchange="workerAddShow(this.checked)" name="groupWorkers" />
+        <div class="pText"><div>⮟</div> Добавить нового сотрудника <div>⮟</div></div>
+    </label>
+    <div class="formAddWorker">
+        <table class="table table-borderless" id="tbWorker">
+            <tbody>
+                <tr>
+                    <td class="col-1">Имя</td>
+                    <td class="col-4"><input type="text" class="inputSelectBox" id="userName" placeholder="Введите имя" /></td>
+                </tr>
+                <tr>
+                    <td>Фамилия</td>
+                    <td><input type="text" class="inputSelectBox" id="userSurname" placeholder="Введите фамилию" /></td>
+                </tr>
+                <tr>
+                    <td>Номер телефона</td>
+                    <td><input type="text" class="inputSelectBox tel" id="userPhone" onfocus="maskValid(this)" placeholder="Введите номер телефона" /></td>
+                </tr>
+                <tr>
+                    <td>Роль</td>
+                    <td>
+                        <select type="text" class="inputSelectBox" id="userRole">
+                            <option disabled selected value="">Выберите роль</option>
+                            @foreach (var role in (List<Roles>)ViewBag.Roles)
+                            {
+                                <option value="@role.RoleId">@role.RoleName</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Логин</td>
+                    <td><input type="text" class="inputSelectBox" id="userLogin" placeholder="Введите логин" /></td>
+                </tr>
+                <tr>
+                    <td>Пароль</td>
+                    <td><input type="text" class="inputSelectBox" id="userPassword" placeholder="Введите пароль" /></td>
+                </tr>
+                <tr>
+                    <td>Электронная почта</td>
+                    <td><input type="text" class="inputSelectBox" id="userEmail" placeholder="Введите почту" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <button onclick="addWorker(this)">Добавить</button>
+    </div>
+    <label class="point">
+        <input type="radio" name="groupWorkers" onchange="workerListShow(this.checked)" />
+        <div class="pText"><div>⮟</div> Список сотрудников <div>⮟</div></div>
+    </label>
+    <div class="formWorkerList">
+        
+    </div>
+</div>
+
+
+<script>
+    workerAddShow = (value) => {
+        if (value == true) {
+            workerListShow(false)
+        }
+        let elem = document.querySelector(".formAddWorker")
+        elem.style.animation = value ? "fadein 1s forwards" : "fadeout 1s forwards"
+        elem.style.height = value ? "100%" : "0px"
+    }
+    addWorker = (el) => {
+        let table = document.querySelector('#tbWorker')
+        let userName = table.querySelector('#userName').value
+        let userSurname = table.querySelector('#userSurname').value
+        let userPhone = table.querySelector('#userPhone').value
+        let userLogin = table.querySelector('#userLogin').value
+        let userPassword = table.querySelector('#userPassword').value
+        let userEmail = table.querySelector('#userEmail').value
+        let userRole = table.querySelector('#userRole').value
+        if (userName == "" || userSurname == "" ||
+            userPhone == "" || userLogin == "" ||
+            userPassword == "" || userEmail == "" ||
+            userRole == "") {
+            createAlert("Ошибка", "Заполните все поля", "error")
+            return;
+        }
+        if (userPhone.length != 17) {
+            createAlert("Ошибка", "Дозаполните номер телефона", "error")
+            return;
+        }
+
+    }
+    workerListShow = (value) => {
+        if (value == true) {
+            workerAddShow(false)
+            $.ajaxSetup({ cache: false });
+            $.get("/LK/GetWorkersTable", function (data) {
+                $('.formWorkerList').html(data);
+            });
+        }
+        let elem = document.querySelector(".formWorkerList")
+        elem.style.animation = value ? "fadein 1s forwards" : "fadeout 1s forwards"
+        elem.style.height = value ? "100%" : "0px"
+        if(value==false)
+            $('.formWorkerList').html("");
+    }
+
+    maskValid = (input) => {
+            var keyCode;
+            function mask(event) {
+                event.keyCode && (keyCode = event.keyCode);
+                var pos = this.selectionStart;
+                if (pos < 3) event.preventDefault();
+                var matrix = "+7 (___) ___-____",
+                    i = 0,
+                    def = matrix.replace(/\D/g, ""),
+                    val = this.value.replace(/\D/g, ""),
+                    new_value = matrix.replace(/[_\d]/g, function (a) {
+                        return i < val.length ? val.charAt(i++) || def.charAt(i) : a
+                    });
+                i = new_value.indexOf("_");
+                if (i != -1) {
+                    i < 5 && (i = 3);
+                    new_value = new_value.slice(0, i)
+                }
+                var reg = matrix.substr(0, this.value.length).replace(/_+/g,
+                    function (a) {
+                        return "\\d{1," + a.length + "}"
+                    }).replace(/[+()]/g, "\\$&");
+                reg = new RegExp("^" + reg + "$");
+                if (!reg.test(this.value) || this.value.length < 5 || keyCode > 47 && keyCode < 58) this.value = new_value;
+                if (event.type == "blur" && this.value.length < 5) this.value = ""
+            }
+
+            input.addEventListener("input", mask, false);
+            input.addEventListener("focus", mask, false);
+            input.addEventListener("blur", mask, false);
+            input.addEventListener("keydown", mask, false)
+
+        }
+</script>

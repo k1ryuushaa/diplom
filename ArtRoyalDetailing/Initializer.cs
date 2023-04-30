@@ -22,6 +22,7 @@ namespace ArtRoyalDetailing
             services.AddScoped<IBaseRepository<WorkersSheduler>, WorkersShedulerRepository>();
             services.AddScoped<IBaseRepository<ContractsServices>, AppointmentServicesRepository>();
             services.AddScoped<IBaseRepository<Contracts>, AppointmentsRepository>();
+            services.AddScoped<IBaseRepository<Salary>, SalaryRepository>();
             services.AddScoped<IBaseRepository<ServiceType>, ServiceTypesRepository>();
             services.AddScoped<IBaseRepository<ContractStatuses>, ContractStatusesRepository>();
             services.AddScoped<IBaseRepository<ServicesCosts>, ServicesCostsRepository>();
@@ -33,6 +34,7 @@ namespace ArtRoyalDetailing
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IWorkersShedulerService, WorkersShedulerService>();
+            services.AddScoped<IWorkerService, WorkerService>();
             services.AddScoped<IArdServiceTypesService, ArdServiceTypesService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
         }

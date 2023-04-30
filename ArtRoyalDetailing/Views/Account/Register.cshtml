@@ -11,7 +11,7 @@
         <input type="text" placeholder="Фамилия" id="username" name="Surname" asp-for="Surname">
         <input type="text" placeholder="Имя" id="username" name="Name" asp-for="Name">
         <input type="text" placeholder="Логин" id="username" name="Login" asp-for="Login">
-        <input type="text" placeholder="Номер телефона" id="username" asp-for="PhoneNumber" name="PhoneNumber">
+        <input type="text" placeholder="Номер телефона" id="username" class="tel" asp-for="PhoneNumber" name="PhoneNumber">
         <input type="text" placeholder="Электронная почта" id="username" asp-for="Email" name="Email">
         <div class="passwordBox">
             <input type="password" placeholder="Пароль" asp-for="Password" id="password">
@@ -20,6 +20,7 @@
         <button type="submit">Регистрация</button>
     </form>
 </div>
+
 @section Scripts
 {
     <script>
@@ -38,5 +39,6 @@
             }
 
         }
+        
     </script>
 }

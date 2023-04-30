@@ -16,6 +16,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
+using ArtRoyalDetailing.Classes;
 
 namespace ArtRoyalDetailing.Controllers
 {
@@ -26,6 +27,7 @@ namespace ArtRoyalDetailing.Controllers
         private readonly IBaseRepository<Users> _userRepository;
         private readonly IBaseRepository<ContractStatuses> _contractStatusesRepository;
         private readonly IBaseRepository<ServicesCosts> _servicesCostsRepository;
+        private readonly IBaseRepository<ServiceType> _servicesTypesRepository;
         private readonly IBaseRepository<ContractsServices> _contractServicesRepository;
 
         public AppointmentController(IAppointmentService appointmentService, 
@@ -33,6 +35,7 @@ namespace ArtRoyalDetailing.Controllers
                IBaseRepository<Users> userRepository, 
                IBaseRepository<ContractsServices> contractServicesRepository,
                IBaseRepository<ServicesCosts> servicesCostsRepository,
+               IBaseRepository<ServiceType> servicesTypesRepository,
                IBaseRepository<ContractStatuses> contractStatusesRepository)
         {
             _appointmentService = appointmentService;
@@ -41,6 +44,7 @@ namespace ArtRoyalDetailing.Controllers
             _contractServicesRepository = contractServicesRepository;
             _contractStatusesRepository = contractStatusesRepository;
             _servicesCostsRepository = servicesCostsRepository;
+            _servicesTypesRepository = servicesTypesRepository;
         }
 
         public IActionResult Index()
@@ -105,7 +109,7 @@ namespace ArtRoyalDetailing.Controllers
             ViewBag.Error = "Заполните все поля для записи";
             return View("Index");
         }
-        [HttpGet]
+        /*[HttpGet]
         public async Task<IActionResult> AdminAppointment()
         {
             var appointments =  _appointmentService.GetAll().Result.Data.ToList();
@@ -114,13 +118,51 @@ namespace ArtRoyalDetailing.Controllers
             ViewBag.contractStatuses= _contractStatusesRepository.GetAll().ToList();
             ViewBag.services= _ardServicesRepository.GetAll().ToList();
             ViewBag.servicesCosts= _servicesCostsRepository.GetAll().ToList();
+            ViewBag.serviceTypes= _servicesTypesRepository.GetAll().ToList();
             ViewBag.contractServices= _contractServicesRepository.GetAll().ToList();
             return View(appointments);
+        }*/
+        [HttpGet]
+        public async Task<IActionResult> AdminAppointment(int? appointmentId = null,string clientNumber=null,int? appointmentStatusId=null,int page=1)
+        {
+            ViewBag.IdStatus = appointmentStatusId;
+            ViewBag.AppointmentId = appointmentId;
+            ViewBag.ClientNumber = clientNumber;
+            var appointments = _appointmentService.GetAll().Result.Data.ToList();
+            if (appointmentId.HasValue)
+                appointments = appointments.Where(x => x.IdContract == appointmentId.Value).ToList();
+            if (!string.IsNullOrEmpty(clientNumber))
+                appointments = appointments.Where(x => x.ClientNumber.Contains(clientNumber)).ToList();
+            if (appointmentStatusId.HasValue)
+                appointments = appointments.Where(x =>x.StatusContract==appointmentStatusId.Value).ToList();
+            ViewBag.carClasses = new DictionaryCarClass().GetClasses().ToList();
+            ViewBag.workers = _userRepository.GetAll().ToList();
+            ViewBag.contractStatuses = _contractStatusesRepository.GetAll().ToList();
+            ViewBag.services = _ardServicesRepository.GetAll().ToList();
+            ViewBag.serviceTypes = _servicesTypesRepository.GetAll().ToList();
+            ViewBag.servicesCosts = _servicesCostsRepository.GetAll().ToList();
+            ViewBag.contractServices = _contractServicesRepository.GetAll().ToList();
+
+            const int pageSize = 5;
+            if (page < 1)
+                page = 1;
+            int recsCount = appointments.Count();
+            var pager = new Pager(recsCount, page, pageSize);
+            int recSkip = (page - 1) * pageSize;
+            var data = appointments.Skip(recSkip).Take(pager.PageSize).ToList();
+            ViewBag.Pager = pager;
+            return View(data);
         }
         [HttpPost]
-        public async Task<JsonResult> AdminAppointment(AdminAppointmentViewModel model)
+        public async Task<JsonResult> EditAppointment(AdminAppointmentViewModel model)
         {
             var response = await _appointmentService.EditAppointment(model);
+            return Json(response);
+        }
+        [HttpPost]
+        public async Task<JsonResult> DeleteAppointment(int appointmentId)
+        {
+            var response = await _appointmentService.DeleteAppointment(appointmentId);
             return Json(response);
         }
         [HttpPost]

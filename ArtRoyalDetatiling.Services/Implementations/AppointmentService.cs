@@ -134,6 +134,14 @@ namespace ArtRoyalDetailing.Services.Implementations
                         Data = false
                     };
                 }
+                if(appointment.StatusContract!=4&&model.AppointmentStatus==4&&date.Date>=DateTime.Now.Date)
+                {
+                    return new BaseResponse<bool>
+                    {
+                        StatusCode = StatusCode.IncorrectData,
+                        Description = "Нельзя поставить статус 'Завершено' на ненаступивший день"
+                    };
+                }
                 var appointmentServicesList = await _appoinmentServicesRepository.GetAll().Where(x => x.IdContract == model.AppointmentId).ToListAsync();
                 if (appointmentServicesList == null)
                 {

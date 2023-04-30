@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Личный кабинет";
+}
+<br>
+<section id="scrollsection" onclick="changeColor()">
+    <div class="scroll text-scroll">
+        <div>
+            •Личный кабинет•Личный кабинет•Личный кабинет•Личный кабинет•Личный кабинет•Личный кабинет
+        </div>
+        <div>
+            •Личный кабинет•Личный кабинет•Личный кабинет•Личный кабинет•Личный кабинет•Личный кабинет
+        </div>
+    </div>
+</section>
+<br />
+<br />
+<br />
+<div class="row justify-content-center">
+    <div class="col-xl-auto ml-2">
+        <div class="menushka">
+            <span id="menuheader">
+                <ion-icon name="grid-outline"></ion-icon>
+                МЕНЮ
+                <ion-icon name="grid-outline"></ion-icon>
+            </span>
+            <div>
+                <label class="menuItem" style="padding:3px;width: 100%;">
+                    <input type="radio" name="group" />
+                    <div class="menuItemText">Мой профиль</div>
+                </label>
+                <label class="menuItem" style="padding:3px;width: 100%;">
+                    <input type="radio" name="group" id="workers" onchange="openWorkersPage()" />
+                    <div class="menuItemText">Сотрудники</div>
+                </label>
+                <label class="menuItem" style="padding:3px;width: 100%;">
+                    <input type="radio" name="group" />
+                    <div class="menuItemText">История обслуживания</div>
+                </label>
+                <label class="menuItem" style="padding:3px;width: 100%;">
+                    <input type="radio" id="salary" name="group" onchange="openSalaryPage()" />
+                    <div class="menuItemText">Зарплата</div>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col colForPages">
+        @*<div class="poisk">
+            <ion-icon name="search-outline"></ion-icon>
+            <input type="text" placeholder="Поиск" />
+            <select>
+                <option selected disabled>Сортировка</option>
+                <option>Сортировка</option>
+            </select>
+        </div>*@
+       
+    </div>
+</div>
+@section Scripts{ 
+<script type="text/javascript">
+    openSalaryPage = () => {
+        $('.colForPages').html("");
+        $.ajaxSetup({ cache: false });
+        $.get("/LK/GetSalaryPage", function (data) {
+            $('.colForPages').html(data);
+        });
+    }
+    openWorkersPage = () => {
+
+        $('.colForPages').html("");
+        $.ajaxSetup({ cache: false });
+        $.get("/LK/GetWorkersPage", function (data) {
+            $('.colForPages').html(data);
+        });
+    }
+    document.querySelector('#workers').checked = true
+    openWorkersPage()
+</script>
+}
+
+

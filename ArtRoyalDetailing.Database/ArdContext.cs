@@ -191,7 +191,7 @@ namespace ArtRoyalDetailing.Database
                 entity.HasOne(d => d.Worker)
                     .WithOne(p => p.Salary)
                     .HasForeignKey<Salary>(d => d.WorkerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("pk_fk_worker_salary");
             });
 

@@ -1,5 +1,6 @@
 ﻿using ArtRoyalDetailing.Database.Interfaces;
 using ArtRoyalDetailing.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace ArtRoyalDetailing.Database.Repositories
 
         public IQueryable<Users> GetAll()
         {
-            return _db.Users;
+            return _db.Users.Include(x=>x.Salary).Include(x=>x.UserRoleNavigation);
         }
 
         public async Task Delete(Users entity)

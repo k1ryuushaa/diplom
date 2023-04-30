@@ -1,0 +1,132 @@
+﻿@model ArtRoyalDetailing.Domain.Models.Users
+@{
+    var appointments = (List<ArtRoyalDetailing.Domain.Models.Contracts>)ViewBag.Appointments;
+    var appoinmentServices = (List<ArtRoyalDetailing.Domain.Models.ContractsServices>)ViewBag.AppointmentsServices;
+    var lastSalary = (Salary)ViewBag.LastSalary;
+    int salary = 0;
+    bool group = false;
+}
+@if (lastSalary != null)
+{
+<div class="containerForSalary">
+    <div id="nullRes">Последний расчёт был @lastSalary.DateSalary.Value.ToShortDateString() на сумму @lastSalary.Salary1 руб.</div>
+</div>
+}
+<div class="containerForSalary">
+    @if(appointments!=null&&appoinmentServices!=null&&appoinmentServices.Count>0&&appointments.Count>0)
+    {
+    <table class="table table-borderless mb-0">
+        <thead>
+            <tr>
+                <td>
+                    Запись 
+                </td>
+                <td>
+                    Дата
+                </td>
+                <td>
+                    Класс авто
+                </td>
+                <td>
+                    Услуга
+                </td>
+                <td>
+                    Стоимость услуги (руб.)
+                </td>
+                <td>
+                    З/П (руб.)
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in appointments)
+            {
+                {group = true;}
+                @foreach (var service in appoinmentServices)
+                {
+                    if (appointment.IdContract == service.IdContract)
+                    {
+                        <tr>
+                            @if (group)
+                            {
+                            <td>
+                                @appointment.IdContract
+                            </td>
+                            <td>
+                                @appointment.DateContract.Value.ToString("D")
+                            </td>
+                            <td>
+                                @appointment.AutoClass
+                            </td>
+                            { group = false; }
+                            }
+                            else
+                            {
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            }
+                            <td>
+                                @service.IdServiceNavigation.ServiceName
+                            </td>
+                            <td>
+                                @service.Cost
+                            </td>
+                            <td style="font-weight:bold">
+                                @(Math.Round((double)service.Cost.Value * 0.3,2))
+                                @{salary += (int)((double)service.Cost.Value * 0.3);}
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td style="font-weight: bold;font-size: 20px;text-align: end;">
+                    ИТОГО:
+                </td>
+                <td style="font-size: 20px;">
+                    @(salary)руб.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button onclick="setSalary()">Рассчитать</button>
+    }
+    else{
+            <div id="nullRes">Пока ничего не заработал</div>
+    }
+</div>
+<script>
+    setSalary = () => {
+        let worker =@Model.UserId
+        $.ajax({
+                url: '@Url.Action("SetSalary", "LK")',
+                type: 'POST',
+                data: { workerId: worker },
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                processData: true,
+                cache: false,
+                async: true,
+                success: function (data) {
+                    if (data.data == true) {
+                        createAlert('Зарплата выдана', data.description, 'success')
+                    }
+                    else {
+                        createAlert('Ошибка', data.description, 'error')
+                    }
+                    $('.containerForSalary')[1].html('<div id="nullRes">Пока ничего не заработал</div>')
+                },
+                error: function (xhr) {
+                    alert(JSON.stringify(xhr))
+                    createAlert('Ошибка', "Запрос не отправлен", 'error')
+                }
+            });
+    }
+</script>

@@ -16,7 +16,6 @@ namespace ArtRoyalDetailing.Controllers
     public class ShedulerController : Controller
     {
         private readonly IWorkersShedulerService _shedulerService;
-        private readonly WorkersShedulerRepository _shedulerRepository;
         public ShedulerController(IWorkersShedulerService shedulerService)
         {
             _shedulerService = shedulerService;

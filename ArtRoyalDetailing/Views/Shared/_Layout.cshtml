@@ -7,15 +7,34 @@
     <title>@ViewData["Title"] - ArtRoyalDetailing</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="icon" href="~/favicon.ico">
+    <script src="https://unpkg.com/cookielib/src/cookie.js"></script>
+    <script src="https://unpkg.com/cookielib/src/cookie.min.js"></script>
+    <script>
+        const getPreferredColorScheme = () => {
+            if (getCookie('colorScheme') == "dark") {
+                return "dark"
+            }
+            if (getCookie('colorScheme') == "default") {
+                return "default"
+            }
+            const darkQuery = "(prefers-color-scheme: dark)";
+            const darkMQL = window.matchMedia ? window.matchMedia(darkQuery) : {};
+            if (darkMQL.media === darkQuery && darkMQL.matches) {
+                setCookie('colorScheme', 'dark')
+                return "dark";
+            }
+            else {
+                setCookie('colorScheme', 'default')
+                return "default"
+            }
+            return "default";
+        };
+        document.documentElement.setAttribute("data-color-scheme", getPreferredColorScheme());
+    </script>
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/calendar.css" />
-    
-    <style>
-        * {
-            font-family: 'Century Gothic';
-        }
 
-    </style>
+   
 </head>
 <body>
     <div id="formodals"></div>
@@ -26,9 +45,9 @@
         </main>
     </div>
     <footer>
-        <nav class="navbar navbar-expand-sm fixed-bottom navbar-toggleable-sm navbar-dark box-shadow mt-3 custom-navbar">
+        <nav class="navbar navbar-expand-sm fixed-bottom navbar-toggleable-sm box-shadow mt-3 custom-navbar">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="font-weight: bold; color:black; white-space: nowrap">ArtRoyalDetailing</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="font-weight: bold; white-space: nowrap">ArtRoyalDetailing</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -38,53 +57,53 @@
                         @if (User.IsInRole($"{(int)Role.Client}"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" style="color: black;" asp-area="" asp-controller="Appointment" asp-action="Index">Записаться</a>
+                                <a class="nav-link"  asp-area="" asp-controller="Appointment" asp-action="Index">Записаться</a>
                             </li>
 
                         }
                         else if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link modalLogin" style="color: black;" asp-area="" asp-controller="Account" asp-action="Login">Записаться</a>
+                                <a class="nav-link modalLogin"  asp-area="" asp-controller="Account" asp-action="Login">Записаться</a>
                             </li>
 
                         }
                         @if (User.IsInRole($"{(int)Role.Admin}"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" style="color: black;" asp-area="" asp-controller="Appointment" asp-action="AdminAppointment">Записи</a>
+                                <a class="nav-link"  asp-area="" asp-controller="Appointment" asp-action="AdminAppointment">Записи</a>
                             </li>
 
                         }
                         <li class="nav-item">
-                            <a class="nav-link" style="color: black;" asp-area="" asp-controller="Services" asp-action="Index">Услуги</a>
+                            <a class="nav-link"  asp-area="" asp-controller="Services" asp-action="Index">Услуги</a>
                         </li>
                         @if (User.IsInRole($"{(int)Role.Admin}") || User.IsInRole($"{(int)Role.Washer}"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" style="color: black;" asp-area="" asp-controller="Sheduler" asp-action="Index">Расписание</a>
+                                <a class="nav-link"  asp-area="" asp-controller="Sheduler" asp-action="Index">Расписание</a>
                             </li>
                         }
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="d-flex">
-                                <a class="nav-link modalLogin" style="text-decoration: underline; color: black;" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
+                                <a class="nav-link modalLogin" style="text-decoration: underline;" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
                                 <span class="nav-link text-dark">/</span>
-                                <a class="nav-link" style="text-decoration: underline; color: black;" asp-area="" asp-controller="Account" asp-action="Register" id="modalPassword">Регистрация</a>
+                                <a class="nav-link" style="text-decoration: underline;" asp-area="" asp-controller="Account" asp-action="Register" id="modalPassword">Регистрация</a>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" style="color: black;" asp-area="" asp-controller="" asp-action="">@User.Identity.Name</a>
+                            <li class="nav-item" style="font-weight:bold">
+                                <a class="nav-link"  asp-area="" asp-controller="LK" asp-action="Index">@User.Identity.Name</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" style="color: black;" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
                             </li>
                         }
                     </ul>
                     <div class="toggleswitch">
-                        <input type="checkbox" id="switch" onchange="changeColorShceme()" /><label for="switch">Toggle</label>
+                        <input type="checkbox" id="switch" onchange="changeColorShceme(this.checked)" /><label for="switch">Toggle</label>
                     </div>
                 </div>
             </div>
@@ -100,8 +119,6 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://unpkg.com/cookielib/src/cookie.js"></script>
-    <script src="https://unpkg.com/cookielib/src/cookie.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
@@ -126,44 +143,27 @@
                 });
             });
         })
-        changeColorShceme = () => {
-            const colorScheme = document.documentElement.getAttribute("data-color-scheme");
-            document.documentElement.setAttribute("data-color-scheme", colorScheme === "default" ? "dark" : "default");
-            if (document.querySelector('#switch').checked == false) {
+        changeColorShceme = (booleanChange) => {
+            //const colorScheme = document.documentElement.getAttribute("data-color-scheme");
+            //document.documentElement.setAttribute("data-color-scheme", colorScheme === "default" ? "dark" : "default");
+            if (booleanChange == false) {
                 setCookie('colorScheme', 'dark')
+                document.documentElement.setAttribute("data-color-scheme", "dark")
             }
-            if (document.querySelector('#switch').checked == true) {
+            if (booleanChange == true) {
                 setCookie('colorScheme', 'default')
+                document.documentElement.setAttribute("data-color-scheme", "default")
             }
         }
-        const getPreferredColorScheme = () => {
-            if (getCookie('colorScheme') != undefined) {
-                if (getCookie('colorScheme') == "dark") {
-                    document.querySelector('#switch').checked = false
-                    return "dark"
-                }
-                if (getCookie('colorScheme') == "default") {
-                    document.querySelector('#switch').checked = true
-                    return "default"
-                }
+        const getPreferredColorSchemeForChange = () => {
+            if (getCookie('colorScheme') == "dark") {
+                document.querySelector('#switch').checked = false
             }
-            else {
-                const darkQuery = "(prefers-color-scheme: dark)";
-                const darkMQL = window.matchMedia ? window.matchMedia(darkQuery) : {};
-                if (darkMQL.media === darkQuery && darkMQL.matches) {
-                    document.querySelector('#switch').checked = false
-                    setCookie('colorScheme', 'dark')
-                    return "dark";
-                }
-                else {
-                    document.querySelector('#switch').checked = true
-                    setCookie('colorScheme', 'default')
-                    return "default"
-                }
-                return "default";
+            if (getCookie('colorScheme') == "default") {
+                document.querySelector('#switch').checked = true
             }
         };
-        document.documentElement.setAttribute("data-color-scheme", getPreferredColorScheme());
+        getPreferredColorSchemeForChange()
     </script>
     <script>
         createAlert = (messageTitle, messageDescription, type) => {
@@ -175,7 +175,10 @@
             else
                 alertheader.classList.add('alert-header')
             let ionicon = document.createElement('ion-icon')
-            ionicon.setAttribute('name', 'checkmark-done-outline')
+            if(type=="error")
+                ionicon.setAttribute('name', 'close-outline')
+            else
+                ionicon.setAttribute('name', 'checkmark-done-outline')
             alertheader.appendChild(ionicon)
             let messageHeader = document.createElement('span')
             messageHeader.innerHTML = messageTitle
@@ -195,6 +198,41 @@
             }, 2500)
             document.querySelector('#formodals').appendChild(modalalert)
         }
+        window.addEventListener("DOMContentLoaded", function () {
+            [].forEach.call(document.querySelectorAll('.tel'), function (input) {
+                var keyCode;
+                function mask(event) {
+                    event.keyCode && (keyCode = event.keyCode);
+                    var pos = this.selectionStart;
+                    if (pos < 3) event.preventDefault();
+                    var matrix = "+7 (___) ___-____",
+                        i = 0,
+                        def = matrix.replace(/\D/g, ""),
+                        val = this.value.replace(/\D/g, ""),
+                        new_value = matrix.replace(/[_\d]/g, function (a) {
+                            return i < val.length ? val.charAt(i++) || def.charAt(i) : a
+                        });
+                    i = new_value.indexOf("_");
+                    if (i != -1) {
+                        i < 5 && (i = 3);
+                        new_value = new_value.slice(0, i)
+                    }
+                    var reg = matrix.substr(0, this.value.length).replace(/_+/g,
+                        function (a) {
+                            return "\\d{1," + a.length + "}"
+                        }).replace(/[+()]/g, "\\$&");
+                    reg = new RegExp("^" + reg + "$");
+                    if (!reg.test(this.value) || this.value.length < 5 || keyCode > 47 && keyCode < 58) this.value = new_value;
+                    if (event.type == "blur" && this.value.length < 5) this.value = ""
+                }
+
+                input.addEventListener("input", mask, false);
+                input.addEventListener("focus", mask, false);
+                input.addEventListener("blur", mask, false);
+                input.addEventListener("keydown", mask, false)
+
+            });
+        });
     </script>
     @RenderSection("Scripts", required: false)
 </body>

@@ -1,0 +1,38 @@
+﻿@model List<ArtRoyalDetailing.Domain.Models.Users>
+
+<div class="salaryPage">
+    <div id="SPheader">
+        <ion-icon name="wallet-outline"></ion-icon>
+        <span>Расчёт сотрудника</span>
+    </div>
+    <div class="containerForSelect">
+        <select onchange="workerChanged(this.value)">
+            <option selected disabled>Выберите сотрудника</option>
+            @foreach (var worker in Model)
+            {
+                <option value="@worker.UserId">@worker.UserName @worker.UserSurname</option>
+            }
+        </select>
+    </div>
+    <div id="forPartial"></div>
+</div>
+<script>
+    workerChanged = (worker) => {
+         $.ajax({
+                url: '@Url.Action("GetSalaryForWorker", "LK")',
+                type: 'POST',
+                data: { workerId: worker },
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                processData: true,
+                cache: false,
+                async: true,
+                success: function (data) {
+                    $('#forPartial').html(data)
+                },
+                error: function (xhr) {
+                    alert(JSON.stringify(xhr))
+                    createAlert('Ошибка', "Запрос не отправлен", 'error')
+                }
+            });
+    }
+</script>
