@@ -489,7 +489,7 @@ input[type=number] {
 }
 
     .auth-modal form * {
-        font-family: 'Century Gothic';
+        font-family: 'CenturyGothic';
         color: #ffffff;
         letter-spacing: 1.5px;
         outline: none;
@@ -780,25 +780,23 @@ input[id=services]::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     }
 
 .appointmentDiv {
-    background: #76009a27;
-    border-radius: 20px;
+    border-radius: 10px;
     padding-top: 20px;
-    backdrop-filter: blur(15px);
-    outline-offset: 2px;
-    color:var(--textColor);
-    outline: 1px solid var(--accent-color);
+    backdrop-filter: blur(20px);
+    color: var(--textColor);
+    outline: 5px solid var(--accentblur);
+    margin:20px 0;
 }
     .appointmentDiv #tableServices td{
         padding:3px;
     }
 .searchAppointment {
-    border-radius: 20px;
+    border-radius: 30px;
     background: #66018046;
-    border: 1px solid var(--accent-color);
+    padding:10px 0;
+    outline: 4px solid var(--accentblur);
     backdrop-filter: blur(15px);
-}
-.searchAppointment h4{
-    color: var(--textColor);
+    margin-bottom:20px;
 }
 .toggleswitch input[type=checkbox] {
     height: 0;
@@ -1416,7 +1414,7 @@ option{
     align-items: stretch;
     border-radius: 20px;
     outline: 4px solid var(--accentblur);
-    margin: 15px 0;
+    margin: 20px 0;
 }
 
     .pages .page input[type="radio"] {
@@ -1466,3 +1464,72 @@ option{
             cursor: pointer;
             color: var(--textColor);
         }
+.defaultContainer {
+    width: 100%;
+    padding: 10px;
+    backdrop-filter: blur(20px);
+    outline: 4px solid var(--accentblur);
+    border-radius: 10px;
+    margin: 15px 0;
+    color: var(--textColor);
+    font-size: 18px;
+}
+.datetimeBox {
+    background: #a3440090;
+    border-radius: 12px 12px 25px 25px;
+    padding: 3px;
+    height: 60px;
+}
+
+    .datetimeBox input {
+        width: 100%;
+        border-radius: 10px;
+        border: 0px;
+        font-size: 20px;
+        padding: 3px;
+        background: rgba(255, 255, 255, 0.482);
+        color: var(--textColorReverse);
+    }
+
+#tableWithDate td {
+    padding: 10px;
+}
+
+#tableWithDate {
+    height: auto;
+}
+
+#countCars {
+    text-align: center;
+    color: var(--textColor);
+    font-weight: bold;
+    font-size:13px;
+}
+.datetimeBox input:disabled {
+    width: 100%;
+    border-radius: 10px;
+    border: 0px;
+    font-size: 20px;
+    padding: 3px;
+    background: rgba(255, 255, 255, 0.281);
+    color: var(--textColorReverse);
+}
+.appointmentAdd {
+    width: 100%;
+    background: var(--accent-color);
+    align-items: center;
+    justify-self: center;
+    align-items: stretch;
+    border-radius: 20px;
+    font-size:18px;
+    border: 0;
+    outline: 4px solid var(--accentblur);
+    margin: 15px;
+    color: var(--textColorReverse);
+    font-weight: bold;
+    padding: 7px;
+}
+
+    .appointmentAdd:hover {
+        transform: scale(1.1);
+    }

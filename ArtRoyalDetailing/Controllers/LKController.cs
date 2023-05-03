@@ -1,6 +1,7 @@
 ﻿using ArtRoyalDetailing.Database.Interfaces;
 using ArtRoyalDetailing.Domain.Enum;
 using ArtRoyalDetailing.Domain.Models;
+using ArtRoyalDetailing.Domain.ViewModels;
 using ArtRoyalDetatiling.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -75,6 +76,11 @@ namespace ArtRoyalDetailing.Controllers
         public async Task<IActionResult> RemoveWorker(int workerId)
         {
             var response = await _userService.DeleteUser(workerId);
+            return Json(response);
+        }
+        public async Task<IActionResult> AddWorker(AddWorkerViewModel model)
+        {
+            var response = await _userService.AddWorker(model);
             return Json(response);
         }
     }

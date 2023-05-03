@@ -1,4 +1,8 @@
 ﻿@using ArtRoyalDetailing.Domain.Enum
+@using System.Security.Claims
+@{
+    string role = User.IsInRole($"{(int)Role.Washer}") ? "Мойщик" : User.IsInRole($"{(int)Role.Admin}") ? "Администратор" : User.IsInRole($"{(int)Role.Client}") ? "Клиент" : "";
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +38,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/calendar.css" />
 
-   
+
 </head>
 <body>
     <div id="formodals"></div>
@@ -57,31 +61,31 @@
                         @if (User.IsInRole($"{(int)Role.Client}"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link"  asp-area="" asp-controller="Appointment" asp-action="Index">Записаться</a>
+                                <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="Index">Записаться</a>
                             </li>
 
                         }
                         else if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link modalLogin"  asp-area="" asp-controller="Account" asp-action="Login">Записаться</a>
+                                <a class="nav-link modalLogin" asp-area="" asp-controller="Account" asp-action="Login">Записаться</a>
                             </li>
 
                         }
                         @if (User.IsInRole($"{(int)Role.Admin}"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link"  asp-area="" asp-controller="Appointment" asp-action="AdminAppointment">Записи</a>
+                                <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="AdminAppointment">Записи</a>
                             </li>
 
                         }
                         <li class="nav-item">
-                            <a class="nav-link"  asp-area="" asp-controller="Services" asp-action="Index">Услуги</a>
+                            <a class="nav-link" asp-area="" asp-controller="Services" asp-action="Index">Услуги</a>
                         </li>
                         @if (User.IsInRole($"{(int)Role.Admin}") || User.IsInRole($"{(int)Role.Washer}"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link"  asp-area="" asp-controller="Sheduler" asp-action="Index">Расписание</a>
+                                <a class="nav-link" asp-area="" asp-controller="Sheduler" asp-action="Index">Расписание</a>
                             </li>
                         }
                         @if (!User.Identity.IsAuthenticated)
@@ -95,7 +99,7 @@
                         else
                         {
                             <li class="nav-item" style="font-weight:bold">
-                                <a class="nav-link"  asp-area="" asp-controller="LK" asp-action="Index">@User.Identity.Name</a>
+                                <a class="nav-link" asp-area="" asp-controller="LK" asp-action="Index">@(User.Identity.Name)(@role)</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
@@ -175,7 +179,7 @@
             else
                 alertheader.classList.add('alert-header')
             let ionicon = document.createElement('ion-icon')
-            if(type=="error")
+            if (type == "error")
                 ionicon.setAttribute('name', 'close-outline')
             else
                 ionicon.setAttribute('name', 'checkmark-done-outline')

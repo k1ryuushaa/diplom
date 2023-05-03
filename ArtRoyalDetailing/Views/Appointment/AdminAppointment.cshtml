@@ -29,27 +29,23 @@
         </div>
     </div>
 </section>
-</br>
-</br>
-</br>
-</br>
-<div class="searchAppointment m-2">
+<br/>
+<br/>
+<br/>
+<div class="searchAppointment">
     <form method="get">
-        <h4 class="m-2 text-center">
-            <i>Поиск</i>
-        </h4>
         <div class="row m-1">
             <div class="col mt-1 mb-1" style="min-width: 160px;"><input type="number" class="text-control" value="@ViewBag.AppointmentId" name="appointmentId" placeholder="Номер записи" /></div>
             <div class="col mt-1 mb-1" style="min-width: 160px;"><input type="text" class="tel text-control" value="@ViewBag.ClientNumber" name="clientNumber" placeholder="Телефон клиента" /></div>
-           @* <div class="col mt-1 mb-1" style="min-width: 160px;">
-                <select class="select-control" name="washerId">
-                    <option value="" disabled selected>Мойщик</option>
-                    @foreach (var worker in workers.Where(x => x.UserRole == 2))
-                    {
-                        <option value="@worker.UserId">@(worker.UserName+" "+worker.UserSurname)</option>
-                    }
-                </select>
-            </div>*@
+            @* <div class="col mt-1 mb-1" style="min-width: 160px;">
+                    <select class="select-control" name="washerId">
+                        <option value="" disabled selected>Мойщик</option>
+                        @foreach (var worker in workers.Where(x => x.UserRole == 2))
+                        {
+                            <option value="@worker.UserId">@(worker.UserName+" "+worker.UserSurname)</option>
+                        }
+                    </select>
+                </div>*@
             <div class="col mt-1 mb-1" style="min-width: 160px;">
                 <select class="select-control" name="appointmentStatusId">
                     <option value="" disabled selected>Статус записи</option>
@@ -74,204 +70,442 @@
         </div>
     </form>
 </div>
+<div style="width:100%;display:flex;">
+    <button class="appointmentAdd col-6" style="margin: 10px auto" onclick="showAppointmentAdd(true)">
+        Добавить запись
+    </button>
+</div>
+<div class="m-2 currentAppointmentToAdd" hidden>
+    <div class="col appointmentDiv" style="height: auto;">
+        <h4 class="text-center m-0 font-italic" style="letter-spacing: 7px;">Добавление записи</h4>
+        <div class="row p-2">
+        <table class="col table table-borderless text-light" style="background: #4802465b; border-radius: 20px; margin: 3px; max-height: 220px;">
+                <tbody>
+                    <tr>
+                        <td class="col-1" style="font-weight: bold; font-size: 13px; vertical-align: middle;">Номер телефона клиента</td>
+                        <td class="col-2" style="min-width: 150px; vertical-align: middle;"><input type="text" id="numberPhone" class="text-control tel" placeholder="Введите номер">
+        </td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold;font-size: 13px; vertical-align: middle;">Класс автомобиля</td>
+            <td style="vertical-align: middle;">
+                <select class="select-control" id="carClass">
+                    <option value="" disabled selected>Класс</option>
+                    @foreach (var carClass in carClasses)
+                    {
+                        <option>@carClass</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; font-size: 13px; vertical-align: middle;">Статус записи</td>
+            <td style="vertical-align: middle;">
+                <select class="select-control" id="appointmentStatus">
+                    <option value="" disabled selected>Статус</option>
+                    @foreach (var status in statuses)
+                    {
+                        <option value="@status.IdStatus">@status.StatusName</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        </tbody>
+        </table>
+        <table class="col table table-borderless" style="background: #4802465b; border-radius: 20px;margin: 4px; height:max-content" id="tableServices">
+            <thead>
+                <tr class="text-center table-header">
+                    <td scope="col" class="col-4" style="vertical-align: middle;"><span style="font-weight: bold;font-size: 16px;">Услуга</span></td>
+                    <td scope="col" style="vertical-align: middle;"><span style="font-weight: bold;font-size: 16px;">Мойщик</span></td>
+                    <td scope="col" style="vertical-align: middle;"><span style="font-weight: bold;font-size: 16px;">Стоимость (руб.)</span></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4">
+                        <button class="text-control p-0" style="display: flex; align-items: center; justify-content: center; margin:5px 0; " onclick="addTableRow(this)">
+                            <ion-icon name="add-circle-outline"></ion-icon>
+                            Добавить
+                        </button>
+                    </td>
+                </tr>
+                <tr style="height:55px;" id="tableRow" class="tbRow">
+                    <td>
+                        <select class="select-control" id="serviceSelect">
+                            @foreach (var serviceType in serviceTypes)
+                            {
+                                <optgroup label="@serviceType.TypeName">
+                                    @foreach (var service in services.Where(x => x.ServiceType == serviceType.IdType))
+                                    {
+                                        <option value="@service.IdService">@service.ServiceName</option>
+                                    }
+                                </optgroup>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <select class="select-control" id="workerSelect">
+                            <option disabled selected value="">Мойщик</option>
+                            @foreach (var worker in workers.Where(x => x.UserRole == 2))
+                            {
+                                <option value="@worker.UserId">@(worker.UserName + " " + worker.UserSurname)</option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" placeholder="Стоимость" id="costSelect" class="text-control"/>
+                    </td>
+                    <td class="deleteRow">
+                        <div style="cursor: pointer;" onclick="deleteRow(this)">
+                            <ion-icon name="trash-outline"></ion-icon>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="col table table-borderless text-light" style="background: #4802465b; border-radius: 20px; margin: 3px; max-height: 220px;">
+            <tbody>
+                <tr>
+                    <td class="col-1" style="font-weight: bold; font-size: 13px; vertical-align: middle;">Дата записи</td>
+                    <td class="col-2" style="min-width: 150px;vertical-align: middle;">
+                        <div class="datetimeBox">
+                            <input type="text" id="dateAppointment" oninput="checkCountCars(this)" value="@DateTime.Now.ToShortDateString()"></input>
+                            <div id="countCars">Выберите дату</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;font-size: 13px; vertical-align: middle;">Время записи</td>
+                    <td style="vertical-align: middle;">
+                        <div class="datetimeBox">
+                            <input type="text" id="timeAppointment" disabled oninput="checkCountCarsTime(this)" value="@DateTime.Now.TimeOfDay.ToString(@"hh\:mm")"></input>
+                            <div id="countCars">Выберите время</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding: 0;">
+                        <button class="appointmentBtn" style="display: flex; align-items: center; justify-content: center;" onclick="saveAppointment(this)">
+                            Сохранить
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding: 0;">
+                        <button class="appointmentBtn" onclick="showAppointmentAdd(false)" style="display: flex; align-items: center; justify-content: center;">
+                            Отменa
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
 @if (pager.TotalPages > 1)
 {
-<div class="pages col-6" style="margin:0 auto">
-    @*<div class="prevNextPage col">🡐</div>*@
-    @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
-    {
-    <label class="page col">
-        <input type="radio" name="groupPages" @(pge == pager.CurrentPage ? "checked" : "") onchange="window.location.href='@(string.IsNullOrEmpty(Context.Request.Query["appointmentStatusId"])?$"/Appointment/AdminAppointment?page={pge}":$"/Appointment/AdminAppointment?appointmentId={Context.Request.Query["appointmentId"]}&clientNumber={Context.Request.Query["clientNumber"]}&appointmentStatusId={Context.Request.Query["appointmentStatusId"]}&page={pge}")'"/>
-        <div class="pageNumber">@pge</div>
-    </label>
-    }
-    @*<div class="prevNextPage col">🡒</div>*@
-</div>
+    <div class="pages col-6" style="margin:0 auto">
+        @*<div class="prevNextPage col">🡐</div>*@
+        @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+        {
+            <label class="page col">
+                <input type="radio" name="groupPages" @(pge == pager.CurrentPage ? "checked" : "") onchange="window.location.href='@(string.IsNullOrEmpty(Context.Request.Query["appointmentStatusId"])?$"/Appointment/AdminAppointment?page={pge}":$"/Appointment/AdminAppointment?appointmentId={Context.Request.Query["appointmentId"]}&clientNumber={Context.Request.Query["clientNumber"]}&appointmentStatusId={Context.Request.Query["appointmentStatusId"]}&page={pge}")'" />
+                <div class="pageNumber">@pge</div>
+            </label>
+        }
+        @*<div class="prevNextPage col">🡒</div>*@
+    </div>
 }
 <div class="appointments">
     @if (Model.Count > 0)
     {
         foreach (var appointment in Model)
         {
-        <div class="m-2 currentAppointment">
-            <div class="col appointmentDiv" style="height: auto;background-color:@(appointment.StatusContract.Value == 1 ? "#76009a27 " : "") @(appointment.StatusContract.Value == 2 ? "#5b000e27 " : "") @(appointment.StatusContract.Value == 3 ? "#fbff001d " : "") @(appointment.StatusContract.Value == 4 ? "#05c1fa18" : "");">
-                <h4 class="text-center m-0 font-italic" style="letter-spacing: 7px;">Запись #@appointment.IdContract</h4>
-                <div class="row p-2">
-                    <table class="col table table-borderless text-light" style="background: #4802465b; border-radius: 20px; margin: 3px; max-height: 220px;">
-                        <tbody>
-                            <tr>
-                                <td class="col-1" style="font-weight: bold; font-size: 13px; vertical-align: middle;">Номер телефона клиента</td>
-                                <td class="col-2" style="min-width: 150px; vertical-align: middle;"><div class="text-control">@appointment.ClientNumber</div></td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;font-size: 13px; vertical-align: middle;">Класс автомобиля</td>
-                                <td style="vertical-align: middle;">
-                                    <select class="select-control" id="carClass">
-                                        <option value="" disabled>Класс</option>
-                                        @foreach (var carClass in carClasses)
-                                        {
-                                            if (appointment.AutoClass.Contains(carClass))
+            <div class="m-2 currentAppointment">
+                <div class="col appointmentDiv" style="height: auto;">
+                    <h4 class="text-center m-0 font-italic" style="letter-spacing: 7px;">Запись #@appointment.IdContract</h4>
+                    <div class="row p-2">
+                        <table class="col table table-borderless text-light" style="background: #4802465b; border-radius: 20px; margin: 3px; max-height: 220px;">
+                            <tbody>
+                                <tr>
+                                    <td class="col-1" style="font-weight: bold; font-size: 13px; vertical-align: middle;">Номер телефона клиента</td>
+                                    <td class="col-2" style="min-width: 150px; vertical-align: middle;"><div class="text-control">@appointment.ClientNumber</div></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;font-size: 13px; vertical-align: middle;">Класс автомобиля</td>
+                                    <td style="vertical-align: middle;">
+                                        <select class="select-control" id="carClass">
+                                            <option value="" disabled>Класс</option>
+                                            @foreach (var carClass in carClasses)
                                             {
-                                                <option selected>@carClass</option>
-                                            }
-                                            else
-                                            {
-                                                <option>@carClass</option>
-                                            }
-                                        }
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold; font-size: 13px; vertical-align: middle;">Статус записи</td>
-                                <td style="vertical-align: middle;">
-                                    <select class="select-control" id="appointmentStatus">
-                                        <option value="" disabled selected>Статус</option>
-                                        @foreach (var status in statuses)
-                                        {
-                                            if (appointment.StatusContract.HasValue && appointment.StatusContract.Value == status.IdStatus)
-                                            {
-                                                <option selected value="@status.IdStatus">@status.StatusName</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@status.IdStatus">@status.StatusName</option>
-                                            }
-                                        }
-                                    </select>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="col table table-borderless" style="background: #4802465b; border-radius: 20px;margin: 4px; height:max-content" id="tableServices">
-                        <thead>
-                            <tr class="text-center table-header">
-                                <td scope="col" style="vertical-align: middle;"><span style="font-weight: bold;font-size: 16px;">Услуга</span></td>
-                                <td scope="col" style="vertical-align: middle;"><span style="font-weight: bold;font-size: 16px;">Мойщик</span></td>
-                                <td scope="col"style="vertical-align: middle;"><span style="font-weight: bold;font-size: 16px;">Стоимость (руб.)</span></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="4">
-                                    <button class="text-control p-0" style="display: flex; align-items: center; justify-content: center; margin:5px 0; " onclick="addTableRow(this)">
-                                        <ion-icon name="add-circle-outline"></ion-icon>
-                                        Добавить
-                                    </button>
-                                </td>
-                            </tr>
-                            @foreach (var contractService in contractServices.Where(x => x.IdContract == appointment.IdContract))
-                            {
-                                <tr style="height:55px;" id="tableRow" class="tbRow">
-                                    <td>
-                                        <select class="select-control" id="serviceSelect">
-                                            @foreach (var serviceType in serviceTypes)
-                                            {
-                                                <optgroup label="@serviceType.TypeName">
-                                                    <option disabled selected value="">Услуга</option>
-                                                    @foreach (var service in services.Where(x=>x.ServiceType==serviceType.IdType))
-                                                    {
-                                                        if (contractService.IdService == service.IdService)
-                                                        {
-                                                            <option selected value="@service.IdService">@service.ServiceName</option>
-                                                        }
-                                                        else
-                                                        {
-                                                            <option value="@service.IdService">@service.ServiceName</option>
-                                                        }
-                                                    }
-                                                </optgroup>
-                                            }
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="select-control" id="workerSelect">
-                                            <option disabled selected value="">Мойщик</option>
-                                            @foreach (var worker in workers.Where(x => x.UserRole == 2))
-                                            {
-                                                if (contractService.IdWasher == worker.UserId)
+                                                if (appointment.AutoClass.Contains(carClass))
                                                 {
-                                                    <option selected value="@worker.UserId">@(worker.UserName + " " + worker.UserSurname)</option>
+                                                    <option selected>@carClass</option>
                                                 }
                                                 else
                                                 {
-                                                    <option value="@worker.UserId">@(worker.UserName + " " + worker.UserSurname)</option>
+                                                    <option>@carClass</option>
                                                 }
                                             }
                                         </select>
                                     </td>
-                                    <td>
-                                        @foreach (var serviceCost in servicesCosts)
-                                        {
-                                            if (contractService.IdService == serviceCost.IdService && appointment.AutoClass.Contains(serviceCost.ClassAuto))
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; font-size: 13px; vertical-align: middle;">Статус записи</td>
+                                    <td style="vertical-align: middle;">
+                                        <select class="select-control" id="appointmentStatus">
+                                            <option value="" disabled selected>Статус</option>
+                                            @foreach (var status in statuses)
                                             {
-                                                <input type="text" placeholder="Стоимость" id="costSelect" class="text-control" value="@serviceCost.Cost" />
+                                                if (appointment.StatusContract.HasValue && appointment.StatusContract.Value == status.IdStatus)
+                                                {
+                                                    <option selected value="@status.IdStatus">@status.StatusName</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@status.IdStatus">@status.StatusName</option>
+                                                }
                                             }
-                                        }
-                                    </td>
-                                    <td class="deleteRow" >
-                                        <div style="cursor: pointer;" onclick="deleteRow(this)">
-                                            <ion-icon name="trash-outline"></ion-icon>
-                                        </div>
+                                        </select>
                                     </td>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <table class="col table table-borderless text-light" style="background: #4802465b; border-radius: 20px; margin: 3px; max-height: 220px;">
-                        <tbody>
-                            <tr>
-                                <td class="col-1" style="font-weight: bold; font-size: 13px; vertical-align: middle;">Дата записи</td>
-                                <td class="col-2" style="min-width: 150px;vertical-align: middle;"><input type="text" id="dateAppointment" class="text-control" value="@appointment.DateContract.Value.ToShortDateString()" /></td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold;font-size: 13px; vertical-align: middle;">Время записи</td>
-                                <td style="vertical-align: middle;"><input type="text" id="timeAppointment" class="text-control" value="@appointment.TimeContract.Value.ToString(@"hh\:mm")" /></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="padding: 0;">
-                                    <button class="appointmentBtn" style="display: flex; align-items: center; justify-content: center;" onclick="editAppointment(this,@appointment.IdContract)">
-                                        Изменить запись
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="padding: 0;">
-                                    <button class="appointmentBtn" onclick="deleteAppointment(this,@appointment.IdContract)" style="display: flex; align-items: center; justify-content: center;">
-                                        Отменить запись
-                                    </button>
-                                </td>
-                            </tr>
-                            @if (appointment.StatusContract == 4)
-                            {
+                            </tbody>
+                        </table>
+                        <table class="col table table-borderless" style="background: #4802465b; border-radius: 20px;margin: 4px; height:max-content" id="tableServices">
+                            <thead>
+                                <tr class="text-center table-header">
+                                    <td scope="col" class="col-4" style="vertical-align: middle;"><span style="font-weight: bold;font-size: 16px;">Услуга</span></td>
+                                    <td scope="col" style="vertical-align: middle;"><span style="font-weight: bold;font-size: 16px;">Мойщик</span></td>
+                                    <td scope="col" style="vertical-align: middle;"><span style="font-weight: bold;font-size: 16px;">Стоимость (руб.)</span></td>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <tr>
-                                    <td colspan="2" style="padding: 0;">
-                                        <button class="appointmentBtn" style="display: flex; align-items: center; justify-content: center;" onclick="receiptAppointment(@appointment.IdContract)">
-                                            Квитанция
+                                    <td colspan="4">
+                                        <button class="text-control p-0" style="display: flex; align-items: center; justify-content: center; margin:5px 0; " onclick="addTableRow(this)">
+                                            <ion-icon name="add-circle-outline"></ion-icon>
+                                            Добавить
                                         </button>
                                     </td>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                                @foreach (var contractService in contractServices.Where(x => x.IdContract == appointment.IdContract))
+                                {
+                                    <tr style="height:55px;" id="tableRow" class="tbRow">
+                                        <td>
+                                            <select class="select-control" id="serviceSelect">
+                                                @foreach (var serviceType in serviceTypes)
+                                                {
+                                                    <optgroup label="@serviceType.TypeName">
+                                                        @foreach (var service in services.Where(x => x.ServiceType == serviceType.IdType))
+                                                        {
+                                                            if (contractService.IdService == service.IdService)
+                                                            {
+                                                                <option selected value="@service.IdService">@service.ServiceName</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@service.IdService">@service.ServiceName</option>
+                                                            }
+                                                        }
+                                                    </optgroup>
+                                                }
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="select-control" id="workerSelect">
+                                                <option disabled selected value="">Мойщик</option>
+                                                @foreach (var worker in workers.Where(x => x.UserRole == 2))
+                                                {
+                                                    if (contractService.IdWasher == worker.UserId)
+                                                    {
+                                                        <option selected value="@worker.UserId">@(worker.UserName + " " + worker.UserSurname)</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@worker.UserId">@(worker.UserName + " " + worker.UserSurname)</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </td>
+                                        <td>
+                                            @foreach (var serviceCost in servicesCosts)
+                                            {
+                                                if (contractService.IdService == serviceCost.IdService && appointment.AutoClass.Contains(serviceCost.ClassAuto))
+                                                {
+                                                    <input type="text" placeholder="Стоимость" id="costSelect" class="text-control" value="@(contractService.Cost.HasValue?contractService.Cost.Value.ToString():serviceCost.Cost)" />
+                                                }
+                                            }
+                                        </td>
+                                        <td class="deleteRow">
+                                            <div style="cursor: pointer;" onclick="deleteRow(this)">
+                                                <ion-icon name="trash-outline"></ion-icon>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <table class="col table table-borderless text-light" style="background: #4802465b; border-radius: 20px; margin: 3px; max-height: 220px;">
+                            <tbody>
+                                <tr>
+                                    <td class="col-1" style="font-weight: bold; font-size: 13px; vertical-align: middle;">Дата записи</td>
+                                    <td class="col-2" style="min-width: 150px;vertical-align: middle;">
+                                        @if (appointment.StatusContract != 1)
+                                        {
+                                            <input type="text" id="dateAppointment" class="text-control" value="@appointment.DateContract.Value.ToShortDateString()" />
+                                        }
+                                        else
+                                        {
+                                            <div class="datetimeBox">
+                                                <input type="text" id="dateAppointment" oninput="checkCountCars(this)" value="@appointment.DateContract.Value.ToShortDateString()"></input>
+                                                <div id="countCars">Выберите дату</div>
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;font-size: 13px; vertical-align: middle;">Время записи</td>
+                                    <td style="vertical-align: middle;">
+                                        @if (appointment.StatusContract == 4 || appointment.StatusContract == 3)
+                                        {
+                                            <input type="text" id="timeAppointment" class="text-control" value="@appointment.TimeContract.Value.ToString(@"hh\:mm")" />
+                                        }
+                                        else
+                                        {
+                                            <div class="datetimeBox">
+                                                <input type="text" id="timeAppointment" disabled oninput="checkCountCarsTime(this)" value="@appointment.TimeContract.Value.ToString(@"hh\:mm")"></input>
+                                                <div id="countCars">Выберите время</div>
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="padding: 0;">
+                                        <button class="appointmentBtn" style="display: flex; align-items: center; justify-content: center;" onclick="editAppointment(this,@appointment.IdContract)">
+                                            Изменить запись
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="padding: 0;">
+                                        <button class="appointmentBtn" onclick="deleteAppointment(this,@appointment.IdContract)" style="display: flex; align-items: center; justify-content: center;">
+                                            Отменить запись
+                                        </button>
+                                    </td>
+                                </tr>
+                                @if (appointment.StatusContract == 4)
+                                {
+                                    <tr>
+                                        <td colspan="2" style="padding: 0;">
+                                            @*<button class="appointmentBtn" style="display: flex; align-items: center; justify-content: center;" onclick="receiptAppointment(@appointment.IdContract)">
+                                                Квитанция
+                                            </button>*@
+                                            <form method="post" action="@Url.Action("CreateReceipt", "Appointment")">
+                                                <input type="hidden" value="@appointment.IdContract" name="appointmentId"/>
+                                                <button class="appointmentBtn" style="display: flex; align-items: center; justify-content: center;" type="submit">
+                                                    Квитанция
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
         }
     }
     else
     {
-        //заглушка на вывод
-        <h3>ниче ни найдина - вставить пустой элемент</h3>
+        <div class="defaultContainer">
+            Ничего не найдено
+        </div>
     }
 </div>
 
 @section Scripts{
 
-    <script>
+<script>
+    let changedDate = ""
     findAncestor = (el, cls) => {
         while ((el = el.parentElement) && !el.classList.contains(cls));
         return el;
+    };
+    showAppointmentAdd = (bool) => {
+        if(!bool)
+            document.querySelector(".currentAppointmentToAdd").setAttribute("hidden","")
+        else
+            document.querySelector(".currentAppointmentToAdd").removeAttribute("hidden")
+    }
+    checkCountCars = (el) => {
+        var dateVals = el.value.split('.')
+        var date = new Date(dateVals[2], dateVals[1] - 1, dateVals[0])
+        if ((date.toLocaleDateString() != "Invalid Date") && (date >= new Date() || date.toLocaleDateString() == new Date().toLocaleDateString())) {
+            el.parentNode.querySelector('#countCars').innerHTML = date.toLocaleDateString()
+            let table = findAncestor(el, 'table-borderless')
+            table.querySelector('#timeAppointment').disabled = false
+            table.querySelector('#timeAppointment').parentNode.querySelector('#countCars').innerHTML = "Выберите время"
+            changedDate = date.toLocaleDateString()
+            $.ajax({
+                url: '@Url.Action("GetCountCarsForDateTime", "Appointment")',
+                type: 'POST',
+                data: { date: changedDate },
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                processData: true,
+                cache: false,
+                async: true,
+                success: function (data) {
+                    if (data != "0")
+                        el.parentNode.querySelector('#countCars').innerHTML = data
+                    else
+                        el.parentNode.querySelector('#countCars').innerHTML = "Записей нет"
+                },
+                error: function (xhr) {
+                    alert(JSON.stringify(xhr))
+                    createAlert('Ошибка', "Запрос не отправлен", 'error')
+                }
+            });
+        }
+        else {
+            el.parentNode.querySelector('#countCars').innerHTML = "Неверная дата"
+            let table = findAncestor(el, 'table-borderless')
+            table.querySelector('#timeAppointment').disabled = true
+            table.querySelector('#timeAppointment').parentNode.querySelector('#countCars').innerHTML = "Выберите время"
+            changedDate = ""
+        }
+    }
+    checkCountCarsTime = (el) => {
+        var timeVals = el.value.split(':')
+        var time = new Date(0, 0, 0, timeVals[0], timeVals[1], 0, 0)
+        if (changedDate == new Date().toLocaleDateString() && time.getHours() <= new Date().getHours() && time.getMinutes() < new Date().getMinutes()|| time.toString() == "Invalid Date") {
+            el.parentNode.querySelector('#countCars').innerHTML = "Неверное время"
+            return;
+        }
+        if (time.getHours() < 10 || time.getHours() > 20)
+            el.parentNode.querySelector('#countCars').innerHTML = "Неверное время"
+        else {
+            $.ajax({
+                url: '@Url.Action("GetCountCarsForDateTime", "Appointment")',
+                type: 'POST',
+                data: { date: changedDate, currentTime:time.toLocaleTimeString().substring(0, 5)},
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                processData: true,
+                cache: false,
+                async: true,
+                success: function (data) {
+                    if (data != "0")
+                        el.parentNode.querySelector('#countCars').innerHTML = data
+                    else {
+                        el.parentNode.querySelector('#countCars').innerHTML = "Записей нет"
+                    }
+                },
+                error: function (xhr) {
+                    alert(JSON.stringify(xhr))
+                    createAlert('Ошибка', "Запрос не отправлен", 'error')
+                }
+            });
+        }
     }
     deleteRow=(element)=>{
         let table = findAncestor(element, 'table-borderless')
@@ -288,7 +522,72 @@
         let row = table.querySelector('#tableRow')
         let rowToAdd = row.cloneNode(true)
         table.appendChild(rowToAdd)
-    }
+        }
+    saveAppointment = (el) => {
+        let isEmpty = false
+        let appointment = findAncestor(el, 'currentAppointmentToAdd')
+        let autoClass = appointment.querySelector("#carClass").value
+        let contractStatus = appointment.querySelector("#appointmentStatus").value
+        let dateContract = appointment.querySelector("#dateAppointment").value
+        let clientPhoneNumber = appointment.querySelector("#numberPhone").value
+        let timeContract = appointment.querySelector("#timeAppointment").value
+        let services = appointment.querySelectorAll('#tableRow')
+        let admin = `@User.FindFirst(ClaimTypes.NameIdentifier).Value`
+        var serviceList = []
+        var workerList = []
+        var costsList = []
+        for (var i = 0; i < services.length; i++) {
+            element = services[i];
+            serviceList.push(element.querySelector('#serviceSelect').value)
+            workerList.push(element.querySelector('#workerSelect').value)
+            costsList.push(element.querySelector('#costSelect').value)
+            if (element.querySelector('#workerSelect').value == "" || element.querySelector('#costSelect').value==""||element.querySelector('#serviceSelect').value=="")
+                isEmpty=true
+        }
+        if (isEmpty) {
+            createAlert("Ошибка", "Заполните все поля", "error")
+            return;
+        }
+        if (clientPhoneNumber.length != 17) {
+            createAlert("Ошибка", "Некорректный номер телефона", "error")
+            return;
+        }
+
+        var model = {
+            CarClass: autoClass,
+            IdAdmin: admin,
+            ClientNumber: clientPhoneNumber,
+            AppointmentStatus:contractStatus,
+            DateAppointment:dateContract,
+            TimeAppointment:timeContract,
+            ServicesList:serviceList,
+            WorkersList:workerList,
+            CostList:costsList
+        }
+        $.ajax({
+            url: '/Appointment/CreateAppointmentAdmin',
+            type: "POST",
+            contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+            data: model,
+            async: true,
+            processData: true,
+            cache: false,
+            success: function (data) {
+                if (data.statusCode == 1)
+                    createAlert('Ошибка', 'Клиент уже записан на этот день', 'error')
+                if (data.statusCode == 4)
+                    createAlert('Ошибка', "Неверная дата или время записи", 'error')
+                if (data.statusCode == 200)
+                    createAlert('Успешно', `Запись добавлена!`, 'success')
+                if (data.statusCode == 400)
+                    createAlert('Ошибка', `Ошибка сервера`, 'success')
+                window.location.reload();
+            },
+            error: function (xhr) {
+                createAlert('Ошибка', "Неверная дата или время записи", 'error')
+            }
+        });
+        }
     editAppointment = (el,appointmentId) => {
         let isEmpty = false
         let appointment = findAncestor(el, 'currentAppointment')
@@ -384,10 +683,11 @@
                 cache: false,
                 async: true,
                 success: function (data) {
-                    if (data == true)
+                    data.print()
+                    @*if (data == true)
                         createAlert('Успешно', `Квитанция по записи ${contractId} сформирована`, 'success')
                     if (data == false)
-                        createAlert('Ошибка', `Квитанцию по записи ${contractId} не удалось сформировать`, 'error')
+                        createAlert('Ошибка', `Квитанцию по записи ${contractId} не удалось сформировать`, 'error')*@
                 },
                 error: function (xhr) {
                     alert(JSON.stringify(xhr))

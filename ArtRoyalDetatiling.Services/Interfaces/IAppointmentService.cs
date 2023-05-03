@@ -16,5 +16,6 @@ namespace ArtRoyalDetailing.Services.Interfaces
 
         Task<BaseResponse<bool>> DeleteAppointment(int id);
         Task<BaseResponse<bool>> EditAppointment(AdminAppointmentViewModel model);
+        Task<BaseResponse<bool>> CreateAppointmentAdmin(AdminAppointmentToAddViewModel model);
     }
 }

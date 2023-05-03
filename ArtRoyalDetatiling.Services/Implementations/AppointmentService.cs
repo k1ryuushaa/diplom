@@ -202,6 +202,81 @@ namespace ArtRoyalDetailing.Services.Implementations
             }
         }
 
+        public async Task<BaseResponse<bool>> CreateAppointmentAdmin(AdminAppointmentToAddViewModel model)
+        {
+
+            var date = model.DateAppointment.TryGetDate().Value;
+            var time = model.TimeAppointment.TryGetTime().Value;
+            try
+            {
+                var appointment = await _appoinmentRepository.GetAll().FirstOrDefaultAsync(x => x.ClientNumber == model.ClientNumber&&x.DateContract.Value.Date==date.Date);
+                if (appointment != null)
+                {
+                    return new BaseResponse<bool>
+                    {
+                        StatusCode = StatusCode.AlreadyExists,
+                        Data = false
+                    };
+                }
+                if (model.AppointmentStatus == 4 && date.Date >= DateTime.Now.Date)
+                {
+                    return new BaseResponse<bool>
+                    {
+                        StatusCode = StatusCode.IncorrectData,
+                        Description = "Нельзя поставить статус 'Завершено' на ненаступивший день"
+                    };
+                }
+                if (model.DateAppointment.TryGetDate().Value == null || model.TimeAppointment.TryGetTime().Value == null)
+                {
+                    return new BaseResponse<bool>
+                    {
+                        StatusCode = StatusCode.IncorrectData,
+                        Description = "Неверная дата или время записи"
+                    };
+                }
+                appointment = new Contracts();
+                appointment.AutoClass = model.CarClass;
+                appointment.ClientNumber = model.ClientNumber;
+                appointment.StatusContract = model.AppointmentStatus;
+                appointment.IdAdmin = model.IdAdmin;
+                appointment.DateContract = model.DateAppointment.TryGetDate().Value;
+                appointment.TimeContract = model.TimeAppointment.TryGetTime().Value;
+                await _appoinmentRepository.Create(appointment);
+                appointment= await _appoinmentRepository.GetAll().FirstOrDefaultAsync(x => x.ClientNumber == model.ClientNumber && x.DateContract.Value.Date == date.Date);
+                for (int i = 0; i < model.ServicesList.Count; i++)
+                {
+                    int? serviceId = null;
+                    int? workerId = null;
+                    int? cost = null;
+                    try { serviceId = model.ServicesList[i]; } catch (Exception ex) { }
+                    try { workerId = model.WorkersList[i]; } catch (Exception ex) { }
+                    try { cost = model.CostList[i]; } catch (Exception ex) { }
+                    await _appoinmentServicesRepository.Create(new ContractsServices()
+                    {
+                        IdContract = appointment.IdContract,
+                        IdService = serviceId,
+                        IdWasher = workerId,
+                        Cost = cost
+                    });
+                }
+                _logger.LogInformation($"[AppointmentService.CreateAppointmentAdmin] запись добавлена");
+
+                return new BaseResponse<bool>
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = true
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"[AppointmentService.CreateAppointmentAdmin] error: {ex.Message}");
+                return new BaseResponse<bool>()
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"Внутренняя ошибка: {ex.Message}"
+                };
+            }
+        }
         public async Task<BaseResponse<IEnumerable<Contracts>>> GetAll()
         {
             try

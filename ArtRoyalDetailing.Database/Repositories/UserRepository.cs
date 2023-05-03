@@ -20,7 +20,7 @@ namespace ArtRoyalDetailing.Database.Repositories
 
         public IQueryable<Users> GetAll()
         {
-            return _db.Users.Include(x=>x.Salary).Include(x=>x.UserRoleNavigation);
+            return _db.Users.Include(x=>x.UserRoleNavigation).Include(x=>x.Salary);
         }
 
         public async Task Delete(Users entity)

@@ -17,12 +17,15 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
 using ArtRoyalDetailing.Classes;
+using System.Reflection;
+using System.Net.Http;
 
 namespace ArtRoyalDetailing.Controllers
 {
     public class AppointmentController : Controller
     {
         private readonly IAppointmentService _appointmentService;
+        private readonly IBaseRepository<Contracts> _appointmentsRepository;
         private readonly IBaseRepository<Domain.Models.Services> _ardServicesRepository;
         private readonly IBaseRepository<Users> _userRepository;
         private readonly IBaseRepository<ContractStatuses> _contractStatusesRepository;
@@ -35,12 +38,14 @@ namespace ArtRoyalDetailing.Controllers
                IBaseRepository<Users> userRepository, 
                IBaseRepository<ContractsServices> contractServicesRepository,
                IBaseRepository<ServicesCosts> servicesCostsRepository,
+               IBaseRepository<Contracts> appointmentsRepository,
                IBaseRepository<ServiceType> servicesTypesRepository,
                IBaseRepository<ContractStatuses> contractStatusesRepository)
         {
             _appointmentService = appointmentService;
             _ardServicesRepository = ardServicesService;
             _userRepository = userRepository;
+            _appointmentsRepository = appointmentsRepository;
             _contractServicesRepository = contractServicesRepository;
             _contractStatusesRepository = contractStatusesRepository;
             _servicesCostsRepository = servicesCostsRepository;
@@ -49,7 +54,7 @@ namespace ArtRoyalDetailing.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Services = _ardServicesRepository.GetAll();
+            ViewBag.Services = _ardServicesRepository.GetAll().ToList();
             if (User.Identity.IsAuthenticated && User.IsInRole($"{(int)Role.Client}"))
             {
                 int uId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -58,6 +63,7 @@ namespace ArtRoyalDetailing.Controllers
                 ViewBag.Appointments = appointments != null ? appointments : null;
                 var services = _contractServicesRepository.GetAll().Include(x=>x.IdServiceNavigation).ToList();
                 ViewBag.ContractServices = services != null ? services : null;
+                ViewBag.serviceTypes = _servicesTypesRepository.GetAll().ToList();
             }
             return View();
         }
@@ -76,8 +82,9 @@ namespace ArtRoyalDetailing.Controllers
                 ViewBag.Appointments = appointments != null ? appointments : null; 
                 var services = _contractServicesRepository.GetAll().Include(x => x.IdServiceNavigation).ToList();
                 ViewBag.ContractServices = services != null ? services : null;
+                ViewBag.serviceTypes = _servicesTypesRepository.GetAll().ToList();
             }
-            ViewBag.Services = _ardServicesRepository.GetAll();
+            ViewBag.Services = _ardServicesRepository.GetAll().ToList();
             if (ModelState.IsValid&&model.Services.Count()>0)
             {
                 var response= await _appointmentService.Create(model);
@@ -92,6 +99,7 @@ namespace ArtRoyalDetailing.Controllers
                         ViewBag.Appointments = appointments != null ? appointments : null;
                         var services = _contractServicesRepository.GetAll().Include(x => x.IdServiceNavigation).ToList();
                         ViewBag.ContractServices = services != null ? services : null;
+                        ViewBag.serviceTypes = _servicesTypesRepository.GetAll().ToList();
                     }
                     return View("Index");
                 }
@@ -109,19 +117,6 @@ namespace ArtRoyalDetailing.Controllers
             ViewBag.Error = "Заполните все поля для записи";
             return View("Index");
         }
-        /*[HttpGet]
-        public async Task<IActionResult> AdminAppointment()
-        {
-            var appointments =  _appointmentService.GetAll().Result.Data.ToList();
-            ViewBag.carClasses= new DictionaryCarClass().GetClasses().ToList();
-            ViewBag.workers =_userRepository.GetAll().ToList();
-            ViewBag.contractStatuses= _contractStatusesRepository.GetAll().ToList();
-            ViewBag.services= _ardServicesRepository.GetAll().ToList();
-            ViewBag.servicesCosts= _servicesCostsRepository.GetAll().ToList();
-            ViewBag.serviceTypes= _servicesTypesRepository.GetAll().ToList();
-            ViewBag.contractServices= _contractServicesRepository.GetAll().ToList();
-            return View(appointments);
-        }*/
         [HttpGet]
         public async Task<IActionResult> AdminAppointment(int? appointmentId = null,string clientNumber=null,int? appointmentStatusId=null,int page=1)
         {
@@ -160,18 +155,24 @@ namespace ArtRoyalDetailing.Controllers
             return Json(response);
         }
         [HttpPost]
+        public async Task<JsonResult> CreateAppointmentAdmin(AdminAppointmentToAddViewModel model)
+        {
+            var response = await _appointmentService.CreateAppointmentAdmin(model);
+            return Json(response);
+        }
+        [HttpPost]
         public async Task<JsonResult> DeleteAppointment(int appointmentId)
         {
             var response = await _appointmentService.DeleteAppointment(appointmentId);
             return Json(response);
         }
         [HttpPost]
-        public async Task<bool> CreateReceipt(int appointmentId)
+        public async Task<FileContentResult> CreateReceipt(int appointmentId)
         {
             var appointment = _appointmentService.GetAll().Result.Data.FirstOrDefault(x => x.IdContract == appointmentId);
-            if (appointment == null) return false;
+            if (appointment == null) return null;
             var appointmentServices = _contractServicesRepository.GetAll().Where(x => x.IdContract == appointmentId).ToList();
-            if (appointmentServices == null) return false;
+            if (appointmentServices == null) return null;
             Document document = null;
             Application application = new Application();
             String fileName = System.IO.Path.GetTempFileName();
@@ -189,14 +190,45 @@ namespace ArtRoyalDetailing.Controllers
                 EndCost += appointmentServices[i - 2].Cost.Value;
                 if (i < appointmentServices.Count() + 1)
                 {
-                    Object oMissing = System.Reflection.Missing.Value;
+                    Object oMissing = Missing.Value;
                     document.Tables[1].Rows.Add(ref oMissing);
                 }
 
             }
             document.Bookmarks["EndCost"].Range.Text = EndCost.ToString() + "руб.";
-            application.Visible = true;
-            return true;
+            object file = Path.GetTempFileName();
+            document.SaveAs(file, WdSaveFormat.wdFormatPDF);
+            document.Close();
+            byte[] docBytes = System.IO.File.ReadAllBytes(file.ToString());
+            return new FileContentResult(docBytes, "application/pdf");
+        }
+        public IActionResult GetCountCarsForDateTime(string date, string currentTime = null)
+        {
+            if (!string.IsNullOrEmpty(currentTime))
+            {
+                if (DateTime.TryParse(date, out var changedDate) && TimeSpan.TryParse(currentTime, out var changedTime))
+                {
+                    var appointments = _appointmentsRepository.GetAll().Where(x => x.StatusContract == 2 && x.DateContract.Value.Date == changedDate.Date);
+                    appointments = appointments.Where(x=>x.TimeContract.Value>= changedTime && x.TimeContract.Value<= changedTime.Add(TimeSpan.FromHours(1)));
+                    if (appointments != null&&appointments.ToList().Count()>0)
+                        return Json($"Записей:{appointments.ToList().Count()} с {changedTime.ToString().Substring(0,5)} по {changedTime.Add(TimeSpan.FromHours(1)).ToString().Substring(0,5)}");
+                    else return Json("0");
+                }
+                else
+                    return null;
+            }
+            else
+            {
+                if (DateTime.TryParse(date, out var changedDate))
+                {
+                    var appointments = _appointmentsRepository.GetAll().Where(x => x.StatusContract == 2 && x.DateContract.Value.Date == changedDate.Date);
+                    if (appointments != null)
+                        return Json($"Записано:{appointments.Count()}");
+                    else return Json("0");
+                }
+                else
+                    return null;
+            }
         }
     }
 }

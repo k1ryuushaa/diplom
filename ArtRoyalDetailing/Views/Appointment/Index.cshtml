@@ -3,8 +3,9 @@
 @using ArtRoyalDetailing.Domain.Dictionaries;
 @{
     ViewData["Title"] = "Запись";
-    var services = ViewBag.Services;
+    var services = (List<Services>)ViewBag.Services;
     var carClasses = new DictionaryCarClass().GetClasses();
+    List<ServiceType> serviceTypes = ViewBag.serviceTypes;
     IEnumerable<Contracts> appointments = ViewBag.Appointments;
     List<ContractsServices> contractServices = ViewBag.ContractServices;
 }
@@ -69,9 +70,14 @@
                                 <td class="col-1">Выберите услугу</td>
                                 <td class="col-3 mr-1">
                                     <select multiple class="select-control" size="5" asp-for="Services">
-                                        @foreach (var item in services)
+                                        @foreach (var serviceType in serviceTypes)
                                         {
-                                            <option value="@item.IdService">@item.ServiceName</option>
+                                            <optgroup label="@serviceType.TypeName">
+                                                @foreach (var service in services.Where(x => x.ServiceType == serviceType.IdType))
+                                                {
+                                                    <option value="@service.IdService">@service.ServiceName</option>
+                                                }
+                                            </optgroup>
                                         }
                                     </select>
                                 </td>

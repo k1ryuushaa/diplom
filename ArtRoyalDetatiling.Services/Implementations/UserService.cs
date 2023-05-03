@@ -64,7 +64,48 @@ namespace ArtRoyalDetatiling.Services.Implementations
                 };
             }
         }
+        public async Task<BaseResponse<bool>> AddWorker(AddWorkerViewModel model)
+        {
+            try
+            {
+                var worker = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.UserLogin == model.Login);
+                if (worker != null)
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        Description = "Сотрудник с таким логином уже есть",
+                        StatusCode = StatusCode.AlreadyExists
+                    };
+                }
+                worker = new Users()
+                {
+                    UserSurname = model.Surname,
+                    UserPhonenumber = model.Phone,
+                    UserPasswordHash = HashPasswordHelper.HashPassword(model.Password),
+                    UserEmail = model.Email,
+                    UserLogin = model.Login,
+                    UserRole = model.UserRole,
+                    UserName=model.Name
+                };
+                await _userRepository.Create(worker);
+                return new BaseResponse<bool>()
+                {
+                    Data = true,
+                    Description = "Сотрудник добавлен",
+                    StatusCode = StatusCode.OK
+                };
 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"[UserService.AddWorker] error: {ex.Message}");
+                return new BaseResponse<bool>()
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"Внутренняя ошибка: {ex.Message}"
+                };
+            }
+        }
         public async Task<BaseResponse<bool>> DeleteUser(long id)
         {
             try

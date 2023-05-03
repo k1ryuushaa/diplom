@@ -91,7 +91,41 @@
             createAlert("Ошибка", "Дозаполните номер телефона", "error")
             return;
         }
-
+        var model = {
+            Name: userName,
+            Surname: userSurname,
+            Phone: userPhone,
+            Login: userLogin,
+            Password: userPassword,
+            Email: userEmail,
+            UserRole: userRole
+        }
+        $.ajax({
+            url: '/LK/AddWorker',
+            type: "POST",
+            contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+            data: model,
+            async: true,
+            processData: true,
+            cache: false,
+            success: function (data) {
+                if (data.statusCode == 1)
+                    createAlert('Ошибка', 'Сотрудник с таким логином уже существует', 'error')
+                if (data.statusCode == 200) {
+                    createAlert('Успешно', `Сотрудник добавлен`, 'success')
+                    userName = ""
+                    userSurname = ""
+                    userPhone = ""
+                    userLogin = ""
+                    userPassword = ""
+                    userEmail = ""
+                    userRole = ""
+                }
+            },
+            error: function (xhr) {
+                createAlert('Ошибка', "Неверная дата или время записи", 'error')
+            }
+        });
     }
     workerListShow = (value) => {
         if (value == true) {

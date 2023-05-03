@@ -18,5 +18,6 @@ namespace ArtRoyalDetatiling.Services.Interfaces
         Task<BaseResponse<List<Users>>> GetAll();
 
         Task<BaseResponse<bool>> DeleteUser(long id);
+        Task<BaseResponse<bool>> AddWorker(AddWorkerViewModel model);
     }
 }

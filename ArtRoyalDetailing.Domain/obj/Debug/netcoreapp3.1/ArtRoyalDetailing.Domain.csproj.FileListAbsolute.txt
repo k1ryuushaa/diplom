@@ -20,3 +20,4 @@ D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.D
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\bin\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Word.dll
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Word.dll
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.csproj.ResolveComReference.cache
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Domain\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.csproj.AssemblyReference.cache
