@@ -20,7 +20,7 @@ namespace ArtRoyalDetailing.Database.Repositories
 
         public IQueryable<Contracts> GetAll()
         {
-            return _db.Contracts;
+            return _db.Contracts.Include(x=>x.StatusContractNavigation);
         }
 
         public async Task Delete(Contracts entity)

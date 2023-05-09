@@ -10,7 +10,7 @@ namespace ArtRoyalDetatiling.Services.Interfaces
 {
     public interface IWorkersShedulerService
     {
-        Task<IBaseResponse<WorkersSheduler>> CreateEnroll(int workerId,string date,string time);
+        Task<IBaseResponse<bool>> CreateEnroll(int workerId,string date,string time);
 
         Task<BaseResponse<List<WorkersSheduler>>> GetSheduler(string day,string month,string year);
 

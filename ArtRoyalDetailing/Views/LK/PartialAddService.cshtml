@@ -1,0 +1,89 @@
+﻿@model List<ServiceType>
+@{
+}
+<div class="defaultContainer">
+    <table class="table table-borderless">
+        <tbody>
+            <tr>
+                <td scope="col">Наименование услуги</td>
+                <td scope="col" style="min-width:210px"><input type="text" id="serviceName" class="inputSelectBox" placeholder="Введите наименование" /></td>
+            </tr>
+            <tr>
+                <td>Тип услуги</td>
+                <td>
+                    <select type="text" id="serviceType" class="inputSelectBox" style="letter-spacing:2px;">
+                        <option disabled selected value="" >Выберите тип</option>
+                        @foreach (var type in Model)
+                        {
+                            <option value="@type.IdType">@type.TypeName</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Класс A</td>
+                <td><input type="text" id="c1" class="inputSelectBox" placeholder="Введите стоимость" /></td>
+            </tr>
+            <tr>
+                <td>Класс B, C, D</td>
+                <td><input type="text" id="c2" class="inputSelectBox" placeholder="Введите стоимость" /></td>
+            </tr>
+            <tr>
+                <td>Кроссовер/ Универсал/ Класс E, F</td>
+                <td><input type="text" id="c3" class="inputSelectBox" placeholder="Введите стоимость" /></td>
+            </tr>
+            <tr>
+                <td>Внедорожник</td>
+                <td><input type="text" id="c4" class="inputSelectBox" placeholder="Введите стоимость" /></td>
+            </tr>
+            <tr>
+                <td>Минивэн</td>
+                <td><input type="text" id="c5" class="inputSelectBox" placeholder="Введите стоимость" /></td>
+            </tr>
+        </tbody>
+    </table>
+    <button id="btn" onclick="addService()">Добавить услугу</button>
+</div>
+<script>
+    addService = () => {
+        let serviceName = document.querySelector("#serviceName").value
+        let serviceType = document.querySelector("#serviceType").value
+        let serviceC1 = document.querySelector("#c1").value
+        let serviceC2 = document.querySelector("#c2").value
+        let serviceC3 = document.querySelector("#c3").value
+        let serviceC4 = document.querySelector("#c4").value
+        let serviceC5 = document.querySelector("#c5").value
+        if (serviceName == "" || serviceType == "" || serviceC1 == "" || serviceC2 == "" || serviceC3 == "" || serviceC4 == "" || serviceC5 == "") {
+            createAlert("Ошибка", "Некоторые поля пустые", "error")
+            return;
+        }
+        var model = {
+            ServiceName:serviceName,
+            ServiceType: serviceType,
+            CostOne: serviceC1,
+            CostTwo: serviceC2,
+            CostThree: serviceC3,
+            CostFour: serviceC4,
+            CostFive: serviceC5
+        }
+        $.ajax({
+                url: '@Url.Action("AddService", "LK")',
+                type: 'POST',
+                data: model,
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                processData: true,
+                cache: false,
+                async: true,
+                success: function (data) {
+                    if (data.data == true)
+                        createAlert('Успешно', data.description, 'success')
+                    if (data.data == false)
+                        createAlert('Ошибка', data.description, 'error')
+                },
+                error: function (xhr) {
+                    alert(JSON.stringify(xhr))
+                    createAlert('Ошибка', "Запрос не отправлен", 'error')
+                }
+        });
+    }
+</script>

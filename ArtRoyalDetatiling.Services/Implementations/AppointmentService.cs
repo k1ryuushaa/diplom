@@ -164,17 +164,18 @@ namespace ArtRoyalDetailing.Services.Implementations
                 appointment.AutoClass = model.CarClass;
                 appointment.StatusContract = model.AppointmentStatus;
                 appointment.IdAdmin = model.IdAdmin;
+                appointment.GosNumber = model.GosNumber;
                 appointment.DateContract = model.DateAppointment.TryGetDate().Value;
                 appointment.TimeContract = model.TimeAppointment.TryGetTime().Value;
-                await _appoinmentRepository.Update(appointment);
-                for(int i=0;i<model.ServicesList.Count;i++)
+                int endCost = 0;
+                for (int i=0;i<model.ServicesList.Count;i++)
                 {
                     int? serviceId = null;
                     int? workerId = null;
                     int? cost = null;
                     try { serviceId = model.ServicesList[i]; } catch (Exception ex) { }
                     try { workerId = model.WorkersList[i]; } catch (Exception ex) { }
-                    try { cost = model.CostList[i]; } catch (Exception ex) { }
+                    try { cost = model.CostList[i]; endCost += cost.Value; } catch (Exception ex) { }
                     await _appoinmentServicesRepository.Create(new ContractsServices()
                     {
                         IdContract=appointment.IdContract,
@@ -183,6 +184,9 @@ namespace ArtRoyalDetailing.Services.Implementations
                         Cost=cost
                     });
                 }
+                if(model.AppointmentStatus==4)
+                    appointment.EndCost = endCost;
+                await _appoinmentRepository.Update(appointment);
                 _logger.LogInformation($"[AppointmentService.EditAppointment] запись изменена");
 
                 return new BaseResponse<bool>
@@ -239,6 +243,7 @@ namespace ArtRoyalDetailing.Services.Implementations
                 appointment.ClientNumber = model.ClientNumber;
                 appointment.StatusContract = model.AppointmentStatus;
                 appointment.IdAdmin = model.IdAdmin;
+                appointment.GosNumber = model.GosNumber;
                 appointment.DateContract = model.DateAppointment.TryGetDate().Value;
                 appointment.TimeContract = model.TimeAppointment.TryGetTime().Value;
                 await _appoinmentRepository.Create(appointment);

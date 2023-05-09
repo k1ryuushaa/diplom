@@ -19,11 +19,13 @@ namespace ArtRoyalDetatiling.Services.Implementations
     {
         private readonly ILogger<UserService> _logger;
         private readonly IBaseRepository<Users> _userRepository;
+        private readonly IBaseRepository<Salary> _salaryRepository;
         private readonly IBaseRepository<Roles> _rolesRepository;
-        public UserService(ILogger<UserService> logger, IBaseRepository<Users> userRepository, IBaseRepository<Roles> rolesRepository)
+        public UserService(ILogger<UserService> logger, IBaseRepository<Users> userRepository, IBaseRepository<Salary> salaryRepository, IBaseRepository<Roles> rolesRepository)
         {
             _logger = logger;
             _userRepository = userRepository;
+            _salaryRepository = salaryRepository;
             _rolesRepository = rolesRepository;
         }
         public async Task<BaseResponse<Users>> Create(UserViewModel model)
@@ -88,13 +90,20 @@ namespace ArtRoyalDetatiling.Services.Implementations
                     UserName=model.Name
                 };
                 await _userRepository.Create(worker);
+                worker = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.UserLogin == model.Login);
+                await _salaryRepository.Create(new Salary()
+                {
+                    DateSalary = DateTime.Now,
+                    Salary1 = 0,
+                    WorkerId = worker.UserId
+                });
                 return new BaseResponse<bool>()
                 {
                     Data = true,
                     Description = "Сотрудник добавлен",
                     StatusCode = StatusCode.OK
                 };
-
+                
             }
             catch (Exception ex)
             {
@@ -219,6 +228,48 @@ namespace ArtRoyalDetatiling.Services.Implementations
                 {
                     StatusCode = StatusCode.InternalServerError,
                     Description = $"Внутренняя ошибка: {ex.Message}"
+                };
+            }
+        }
+
+        public async Task<BaseResponse<bool>> EditUser(EditUserViewModel model)
+        {
+            try
+            {
+                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.UserId == model.Id);
+                if (user == null)
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        Data=false,
+                        StatusCode = StatusCode.NotFound,
+                        Description = "Пользователь не найден"
+                    };
+                }
+                if(!string.IsNullOrEmpty(model.Password))
+                    user.UserPasswordHash = HashPasswordHelper.HashPassword(model.Password);
+                user.UserEmail = model.Email;
+                user.UserPhonenumber = model.Phone;
+                user.UserSurname = model.Surname;
+                user.UserLogin = model.Login;
+                user.UserName = model.Name;
+                await _userRepository.Update(user);
+
+                return new BaseResponse<bool>()
+                {
+                    Data = true,
+                    StatusCode = StatusCode.OK,
+                    Description = "Данные успешно изменены"
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Data = false,
+                    Description = ex.Message,
+                    StatusCode = StatusCode.InternalServerError
                 };
             }
         }

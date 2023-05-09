@@ -66,13 +66,13 @@ namespace ArtRoyalDetailing.Services.Implementations
                         StatusCode = StatusCode.NotFound
                     };
                 }
-                var salary = 0;
+                double salary = 0;
                 foreach(var appointment in appointments)
                 {
                     foreach(var service in appointmentsService)
                     {
                         if (appointment.IdContract == service.IdContract)
-                            salary += (int)(service.Cost.Value*0.3);
+                            salary += (double)(service.Cost.Value*0.3);
                     }
                 }
                 var salaryWorker = await _salaryRepository.GetAll().FirstOrDefaultAsync(x => x.WorkerId == workerId);
@@ -82,13 +82,13 @@ namespace ArtRoyalDetailing.Services.Implementations
                     {
                         WorkerId=workerId,
                         DateSalary=DateTime.Now,
-                        Salary1=salary
+                        Salary1=(int)salary
                     });
                 }
                 else
                 {
                     salaryWorker.DateSalary = DateTime.Now;
-                    salaryWorker.Salary1 = salary;
+                    salaryWorker.Salary1 = (int)salary;
                 }
                 await _salaryRepository.Update(salaryWorker);
 
@@ -96,7 +96,7 @@ namespace ArtRoyalDetailing.Services.Implementations
                 return new BaseResponse<bool>()
                 {
                     Data = true,
-                    Description = $"{worker.UserName} {worker.UserSurname} рассчитан на {salary} руб.",
+                    Description = Math.Round(salary,2).ToString(),
                     StatusCode = StatusCode.OK
                 };
             }

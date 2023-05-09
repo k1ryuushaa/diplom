@@ -90,7 +90,6 @@
             cm = current_month
             cy = current_year
             let changedDate = new Date(current_year, current_month - 1, current_day)
-            var model = { day: current_day, month:current_month, year:current_year };
             $.ajax({
                 url: '/Sheduler/Get',
                 type: "POST",
@@ -195,8 +194,8 @@
                     time:inputValid()
                 }
                 $.ajax({
-                    url: '/Sheduler/Set',
-                    type: "GET",
+                    url: '/Sheduler/SetSheduler',
+                    type: "post",
                     contentType: 'application/x-www-form-urlencoded; charset=utf-8',
                     data: model,
                     async: true,
@@ -218,6 +217,7 @@
                         getSelectedDate(cd,cm,cy)
                     },
                     error: function (xhr) {
+                        alert(JSON.stringify(xhr))
                         createAlert('Ошибка', 'Не удалось записаться', 'error')
                     }
                 });

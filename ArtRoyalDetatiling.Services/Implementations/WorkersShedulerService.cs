@@ -39,17 +39,17 @@ namespace ArtRoyalDetatiling.Services.Implementations
                                                new TimeSpan(int.Parse(time.Split(':','-')[2]), int.Parse(time.Split(':', '-')[3]),0)};
             return _time;
         }
-        public async Task<IBaseResponse<WorkersSheduler>> CreateEnroll(int workerId, string date, string time)
+        public async Task<IBaseResponse<bool>> CreateEnroll(int workerId, string date, string time)
         {
             try
             {
                 var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.UserId == workerId);
                 DateTime _date = DateDestruct(date);
                 TimeSpan[] _time = TimeDestruct(time);
-                var sheduler = await _shedulerRepository.GetAll().FirstOrDefaultAsync(x => x.IdWorker == workerId && x.DateDay.Value.Date == _date);
+                var sheduler = _shedulerRepository.GetAll().FirstOrDefault(x => x.IdWorker == workerId && x.DateDay.Value.Date == _date);
                 if (sheduler != null)
                 {
-                    return new BaseResponse<WorkersSheduler>()
+                    return new BaseResponse<bool>()
                     {
                         Description = "Вы уже записаны на этот день",
                         StatusCode = StatusCode.AlreadyExists
@@ -57,10 +57,10 @@ namespace ArtRoyalDetatiling.Services.Implementations
                 }
                 if(user.UserRole==(int)Role.Admin)
                 {
-                    sheduler = await _shedulerRepository.GetAll().FirstOrDefaultAsync(x => x.IdWorkerNavigation.UserRole==(int)Role.Admin&& x.DateDay.Value.Date == _date);
+                    sheduler = _shedulerRepository.GetAll().FirstOrDefault(x => x.IdWorkerNavigation.UserRole==(int)Role.Admin&& x.DateDay.Value.Date == _date);
                     if (sheduler != null)
                     {
-                        return new BaseResponse<WorkersSheduler>()
+                        return new BaseResponse<bool>()
                         {
                             Description = "Администратор на этот день уже есть",
                             StatusCode = StatusCode.AdminAlreadyExists
@@ -72,7 +72,7 @@ namespace ArtRoyalDetatiling.Services.Implementations
                     var shedulers =  _shedulerRepository.GetAll().Where(x => x.IdWorkerNavigation.UserRole == (int)Role.Washer && x.DateDay.Value.Date == _date);
                     if (shedulers != null&&shedulers.Count()>=7)
                     {
-                        return new BaseResponse<WorkersSheduler>()
+                        return new BaseResponse<bool>()
                         {
                             Description = "Мойщиков на смену достаточно",
                             StatusCode = StatusCode.ManyWashers
@@ -88,9 +88,9 @@ namespace ArtRoyalDetatiling.Services.Implementations
                 };
 
                 await _shedulerRepository.Create(sheduler);
-                return new BaseResponse<WorkersSheduler>()
+                return new BaseResponse<bool>()
                 {
-                    Data = sheduler,
+                    Data = true,
                     Description = "Вы записались",
                     StatusCode = StatusCode.OK
                 };
@@ -98,7 +98,7 @@ namespace ArtRoyalDetatiling.Services.Implementations
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"[WorkerShedulerService.CreateEnroll] error: {ex.Message}");
-                return new BaseResponse<WorkersSheduler>()
+                return new BaseResponse<bool>()
                 {
                     StatusCode = StatusCode.InternalServerError,
                     Description = $"Внутренняя ошибка: {ex.Message}"

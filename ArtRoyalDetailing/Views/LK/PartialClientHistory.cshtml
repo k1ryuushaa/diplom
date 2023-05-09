@@ -1,0 +1,74 @@
+﻿@model List<Contracts>
+@{
+    List<ContractsServices> contractServices = ViewBag.contractServices;
+}
+@if (Model != null && Model.Any())
+{<div class="appointmentsContainer">
+    <div id="header">
+        Ваша история обслуживания:
+    </div>
+    @foreach (var appointment in Model)
+    {
+        <div class="m-2">
+            <div class="col appointmentDiv" style="height: auto;">
+                <h4 class="text-center m-0 font-italic" style="letter-spacing: 7px;">Запись #@appointment.IdContract</h4>
+                <div class="row p-2">
+                    <table class="col table table-borderless text-light" style="background: #4802465b; border-radius: 20px; margin: 3px; max-height: 220px;">
+                        <tbody>
+                            <tr>
+                                <td class="col-1" style="font-weight: bold; font-size: 13px; vertical-align: middle;">Номер телефона клиента</td>
+                                <td class="col-2" style="min-width: 150px; vertical-align: middle;"><div class="text-control">@appointment.ClientNumber</div></td>
+                            </tr>
+                            <tr>
+                                <td class="col-1" style="font-weight: bold; font-size: 13px; vertical-align: middle;">Класс автомобиля</td>
+                                <td class="col-2" style="min-width: 150px; vertical-align: middle;"><div class="text-control">@appointment.AutoClass</div></td>
+                            </tr>
+                            <tr>
+                                <td class="col-1" style="font-weight: bold; font-size: 13px; vertical-align: middle;">Гос. номер</td>
+                                <td class="col-2" style="min-width: 150px; vertical-align: middle;"><div class="text-control">@appointment.GosNumber</div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="col table table-borderless" style="background: #4802465b; border-radius: 20px;margin: 4px; height:max-content" id="tableServices">
+                        <thead>
+                            <tr class="text-center table-header">
+                                <td scope="col" style="vertical-align: middle;"><span style="font-weight: bold;font-size: 16px;">Услуга</span></td>
+                                <td scope="col" style="vertical-align: middle;"><span style="font-weight: bold;font-size: 16px;">Стоимость</span></td>
+                                <td scope="col" style="vertical-align: middle;"><span style="font-weight: bold;font-size: 16px;">Мойщик</span></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var appointmentServices in contractServices.Where(x => x.IdContract == appointment.IdContract))
+                            {
+                                <tr style="height:55px;" id="tableRow">
+                                    <td class="col-2" style="min-width: 100px; vertical-align: middle;"><div class="text-control">@appointmentServices.IdServiceNavigation.ServiceName</div></td>
+                                    <td class="col-2" style="min-width: 100px; vertical-align: middle;"><div class="text-control">@appointmentServices.Cost</div></td>
+                                    <td class="col-2" style="min-width: 100px; vertical-align: middle;"><div class="text-control">@appointmentServices.IdWasherNavigation.UserName @appointmentServices.IdWasherNavigation.UserSurname</div></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <table class="col table table-borderless text-light" style="background: #4802465b; border-radius: 20px; margin: 3px; max-height: 220px;">
+                        <tbody>
+                            <tr>
+                                <td class="col-1" style="font-weight: bold; font-size: 13px; vertical-align: middle;">Дата записи</td>
+                                <td class="col-2" style="min-width: auto; vertical-align: middle;"><div class="text-control">@appointment.DateContract.Value.ToShortDateString()</div></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;font-size: 13px; vertical-align: middle;">Время записи</td>
+                                <td class="col-2" style="min-width: 150px; vertical-align: middle;"><div class="text-control">@appointment.TimeContract.Value.ToString(@"hh\:mm")</div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+}
+else
+{
+<div class="defaultContainer">
+    <div id="nullRes" style="font-size:25px">Пока ничего нет</div>
+</div>
+}

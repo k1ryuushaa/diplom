@@ -6,6 +6,7 @@ using ArtRoyalDetailing.Domain.Models;
 using ArtRoyalDetailing.Domain.ViewModels;
 using ArtRoyalDetailing.Services.Interfaces;
 using ArtRoyalDetatiling.Services.Interfaces;
+using OpenXmlPowerTools;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ArtRoyalDetailing.Domain;
@@ -19,6 +20,8 @@ using Microsoft.Office.Interop.Word;
 using ArtRoyalDetailing.Classes;
 using System.Reflection;
 using System.Net.Http;
+using DocumentFormat.OpenXml.Packaging;
+using System.Xml.Linq;
 
 namespace ArtRoyalDetailing.Controllers
 {
@@ -167,7 +170,7 @@ namespace ArtRoyalDetailing.Controllers
             return Json(response);
         }
         [HttpPost]
-        public async Task<FileContentResult> CreateReceipt(int appointmentId)
+        public async Task<IActionResult> CreateReceipt(int appointmentId)
         {
             var appointment = _appointmentService.GetAll().Result.Data.FirstOrDefault(x => x.IdContract == appointmentId);
             if (appointment == null) return null;
@@ -196,11 +199,26 @@ namespace ArtRoyalDetailing.Controllers
 
             }
             document.Bookmarks["EndCost"].Range.Text = EndCost.ToString() + "руб.";
+            application.ActiveDocument.WebOptions.AllowPNG = true;
             object file = Path.GetTempFileName();
-            document.SaveAs(file, WdSaveFormat.wdFormatPDF);
+            document.SaveAs(file,WdSaveFormat.wdFormatHTML);
             document.Close();
-            byte[] docBytes = System.IO.File.ReadAllBytes(file.ToString());
-            return new FileContentResult(docBytes, "application/pdf");
+            /*string docHTML;
+            byte[] byteArray = System.IO.File.ReadAllBytes(file.ToString());
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                memoryStream.Write(byteArray, 0, byteArray.Length);
+                using (WordprocessingDocument doc = WordprocessingDocument.Open(memoryStream, true))
+                {
+                    HtmlConverterSettings settings = new HtmlConverterSettings()
+                    {
+                        PageTitle = "My Page Title"
+                    };
+                    XElement html = HtmlConverter.ConvertToHtml(doc, settings);
+                    docHTML = html.ToStringNewLineOnAttributes();
+                }
+            }*/
+            return Json(System.IO.File.ReadAllText(file.ToString()));
         }
         public IActionResult GetCountCarsForDateTime(string date, string currentTime = null)
         {
@@ -229,6 +247,16 @@ namespace ArtRoyalDetailing.Controllers
                 else
                     return null;
             }
+        }
+        [HttpGet]
+        public async Task<IActionResult> WasherAppointment()
+        {
+            var appointmentServices = _contractServicesRepository.GetAll().Where(x => x.IdWasher == int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)&&(x.IdContractNavigation.StatusContract==2|| x.IdContractNavigation.StatusContract == 3));
+            if (appointmentServices == null)
+                return View();
+            var appointments = _appointmentsRepository.GetAll().Where(x => appointmentServices.Select(x => x.IdContract).Contains(x.IdContract)).ToList();
+            ViewBag.contractServices = appointmentServices.ToList();
+            return View(appointments);
         }
     }
 }

@@ -31,10 +31,11 @@ namespace ArtRoyalDetailing.Controllers
         {
             return Json(await _shedulerService.GetSheduler(day,month,year));
         }
-        [HttpGet]
-        public async Task<JsonResult> Set(int workerId, string date, string time)
+        [HttpPost]
+        public async Task<IActionResult> SetSheduler(int workerId, string date, string time)
         {
-            return Json(await _shedulerService.CreateEnroll(workerId, date, time));
+            var response = await _shedulerService.CreateEnroll(workerId, date, time);
+            return Json(response);
         }
     }
 }

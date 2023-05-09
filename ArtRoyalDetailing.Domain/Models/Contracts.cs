@@ -17,6 +17,7 @@ namespace ArtRoyalDetailing.Domain.Models
         public int? StatusContract { get; set; }
         public int? IdAdmin { get; set; }
         public int? EndCost { get; set; }
+        public string GosNumber { get; set; }
 
         public virtual Users IdAdminNavigation { get; set; }
         public virtual ContractStatuses StatusContractNavigation { get; set; }

@@ -13,6 +13,8 @@ namespace ArtRoyalDetailing.Domain.ViewModels
         [Required]
         public string CarClass { get; set; }
         [Required]
+        public string GosNumber { get; set; }
+        [Required]
         public int AppointmentStatus { get; set; }
         [Required]
         public int IdAdmin { get; set; }

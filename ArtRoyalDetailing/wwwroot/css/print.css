@@ -1,0 +1,17 @@
+﻿@media print {
+    html, body {
+        height: 297mm;
+        width: 210mm;
+        font-size:14px;
+        overflow-wrap: break-word;
+    }
+
+    table {
+        width: 99%;
+    }
+
+    @page {
+        margin: 20mm 10mm 20mm 20mm;
+    }
+
+}

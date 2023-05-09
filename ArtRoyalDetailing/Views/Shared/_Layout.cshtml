@@ -79,6 +79,13 @@
                             </li>
 
                         }
+                        @if (User.IsInRole($"{(int)Role.Washer}"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="WasherAppointment">В работе</a>
+                            </li>
+
+                        }
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Services" asp-action="Index">Услуги</a>
                         </li>
@@ -113,7 +120,7 @@
             </div>
         </nav>
     </footer>
-
+    <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
 
     @*<footer class="border-top footer text-muted">
             <div class="container">
@@ -237,6 +244,13 @@
 
             });
         });
+        printDivCSS = new String('<link href="print.css" rel="stylesheet" type="text/css">')
+        printHTML = (htmlPage) => {
+            window.frames["print_frame"].document.body.innerHTML = printDivCSS + htmlPage;
+            window.frames["print_frame"].window.focus();
+            window.frames["print_frame"].window.print();
+            window.frames["print_frame"].document.body.innerHTML=""
+        }
     </script>
     @RenderSection("Scripts", required: false)
 </body>

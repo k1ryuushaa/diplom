@@ -88,6 +88,12 @@ namespace ArtRoyalDetailing.Database
                     .HasCharSet("utf8mb3")
                     .HasCollation("utf8mb3_general_ci");
 
+                entity.Property(e => e.GosNumber)
+                   .HasColumnName("gos_number")
+                   .HasColumnType("varchar(6)")
+                   .HasCharSet("utf8mb3")
+                   .HasCollation("utf8mb3_general_ci");
+
                 entity.Property(e => e.DateContract)
                     .HasColumnName("date_contract")
                     .HasColumnType("date");
@@ -241,9 +247,12 @@ namespace ArtRoyalDetailing.Database
 
             modelBuilder.Entity<ServicesCosts>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Id)
+                   .HasName("PRIMARY");
 
                 entity.ToTable("services_costs");
+
+                entity.Property(e => e.Id).HasColumnName("id_sc");
 
                 entity.HasIndex(e => e.IdService)
                     .HasName("fk_costs_services");
@@ -265,6 +274,7 @@ namespace ArtRoyalDetailing.Database
                 entity.HasOne(d => d.IdServiceNavigation)
                     .WithMany()
                     .HasForeignKey(d => d.IdService)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_costs_services");
             });
 

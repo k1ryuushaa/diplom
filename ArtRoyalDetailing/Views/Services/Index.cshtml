@@ -45,10 +45,19 @@
                 {
                     if (item.ServiceType == type.IdType)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ServiceName)
-                            </td>
+                        <tr class="tbRow">
+                            @if (User.IsInRole($"{(int)Role.Admin}"))
+                            {
+                                <td class="text-center">
+                                            <input type="text" class="inpService" value="@item.ServiceName" oninput="changeNameForService(@item.IdService, this.value)"/>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ServiceName)
+                                </td>
+                            }
                             @foreach (var cost in (List<ServicesCosts>)ViewBag.ServiceCosts)
                             {
                                 if (cost.IdService == item.IdService)
@@ -67,6 +76,14 @@
                                     }
                                 }
                             }
+                            @if (User.IsInRole($"{(int)Role.Admin}"))
+                            {
+                                <td class="text-center">
+                                    <div style="cursor: pointer;" onclick="deleteRow(this,@item.IdService)">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </div>
+                                </td>
+                            }
                         </tr>
                     }
                 }
@@ -76,7 +93,58 @@
 
 }
 <script>
-    changePriceForService = (serviceId, carClass, cost) => {
-        alert(`${serviceId}/${carClass}/${cost}`)
+    findAncestor = (el, cls) => {
+        while ((el = el.parentElement) && !el.classList.contains(cls));
+        return el;
+    };
+    deleteRow = (element,serviceId) => {
+        $.post("@Url.Action("RemoveService","Services")",
+            {
+                serviceId: serviceId
+            },
+            function (data) {
+                if (data.data == true) {
+                    createAlert("Успешно", "Услуга удалена", "success")
+                    let row = findAncestor(element, 'tbRow')
+                    row.parentNode.removeChild(row);
+                }
+                if (data.data==false)
+                    createAlert("Ошибка", "Услуга не удалена", "error")
+            });
+    }
+    changePriceForService = (id, carclass, value) => {
+        if (value.length == 0) {
+            createAlert("Ошибка", "Пустое поле", "error")
+            return;
+        }
+        $.post("@Url.Action("ChangeCost","Services")",
+            {
+                serviceId: id,
+                classAuto: carclass,
+                cost:value
+            },
+            function (data) {
+                if (data.data==true)
+                    createAlert("Успешно", data.description, "success")
+                if (data.data==false)
+                    createAlert("Ошибка", data.description, "error")
+            });
+    }
+    changeNameForService = (id, value) => {
+        if (value.length == 0) {
+            createAlert("Ошибка", "Пустое поле", "error")
+            return;
+        }
+        $.post("@Url.Action("RenameService","Services")",
+            {
+                serviceId: id,
+                newName:value
+            },
+            function (data) {
+                if (data.statusCode == 200)
+                    createAlert("Успешно", data.description, "success")
+                if (data.statusCode == 0)
+                    createAlert("Ошибка", data.description, "error")
+            });
     }
 </script>

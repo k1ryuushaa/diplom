@@ -1,0 +1,118 @@
+﻿@model Users
+@using System.Security.Claims
+@{
+}
+<div class="defaultContainer">
+    <table class="table table-borderless">
+        <tbody>
+            <tr>
+                <td class="col-1">Имя</td>
+                <td class="col-4" style="min-width:200px;"><input type="text" class="inputSelectBox" id="usernamee" value="@Model.UserName" placeholder="Введите имя" /></td>
+            </tr>
+            <tr>
+                <td>Фамилия</td>
+                <td><input type="text" class="inputSelectBox" value="@Model.UserSurname" id="usersurname" placeholder="Введите фамилию" /></td>
+            </tr>
+            <tr>
+                <td>Номер телефона</td>
+                <td><input type="text" class="inputSelectBox tel" onfocus="maskValid(this)" value="@Model.UserPhonenumber" id="userphone" placeholder="Введите номер телефона" /></td>
+            </tr>
+            <tr>
+                <td>Роль</td>
+                <td><input type="text" class="inputSelectBox" disabled value="@Model.UserRoleNavigation.RoleName" /></td>
+            </tr>
+            <tr>
+                <td>Логин</td>
+                <td><input type="text" class="inputSelectBox" value="@Model.UserLogin" id="userlogin" placeholder="Введите логин" /></td>
+            </tr>
+            <tr>
+                <td>Cменить пароль</td>
+                <td><input type="text" class="inputSelectBox" value="" id="userpassword" placeholder="Введите новый пароль" /></td>
+            </tr>
+            <tr>
+                <td>Электронная почта</td>
+                <td><input type="text" class="inputSelectBox" placeholder="Введите почту" id="useremail" value="@Model.UserEmail" /></td>
+            </tr>
+        </tbody>
+    </table>
+    <button id="btn" onclick="saveChanges()">Сохранить изменения</button>
+</div>
+<script>
+    saveChanges = () => {
+        let userName = document.querySelector("#usernamee").value
+        let userSurname = document.querySelector("#usersurname").value
+        let userEmail = document.querySelector("#useremail").value
+        let userPhone = document.querySelector("#userphone").value
+        let userPassword = document.querySelector("#userpassword").value
+        let userLogin = document.querySelector("#userlogin").value
+        if (userEmail == "" || userName == "" || userPhone == "" || userSurname == "" || userLogin == "") {
+            createAlert("Ошибка", "Некоторые поля пустые", "error")
+            return;
+        }
+        if (userPhone.length != 17) {
+            createAlert("Ошибка", "Некорректный номер телефона", "error")
+            return;
+        }
+        var model = {
+            Id:@User.FindFirst(ClaimTypes.NameIdentifier).Value,
+            Name: userName,
+            Surname: userSurname,
+            Phone: userPhone,
+            Login: userLogin,
+            Password: userPassword,
+            Email: userEmail
+        }
+        $.ajax({
+            url: '/LK/EditMyProfile',
+            type: "POST",
+            contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+            data: model,
+            async: true,
+            processData: true,
+            cache: false,
+            success: function (data) {
+                if (data.data==true)
+                    createAlert('Успешно',data.description, 'success')
+                if (data.data==false) {
+                    createAlert('Ошибка', data.description, 'error')
+                }
+            },
+            error: function (xhr) {
+                createAlert('Ошибка', "Ошибка сервера", 'error')
+            }
+        });
+    }
+    maskValid = (input) => {
+        var keyCode;
+        function mask(event) {
+            event.keyCode && (keyCode = event.keyCode);
+            var pos = this.selectionStart;
+            if (pos < 3) event.preventDefault();
+            var matrix = "+7 (___) ___-____",
+                i = 0,
+                def = matrix.replace(/\D/g, ""),
+                val = this.value.replace(/\D/g, ""),
+                new_value = matrix.replace(/[_\d]/g, function (a) {
+                    return i < val.length ? val.charAt(i++) || def.charAt(i) : a
+                });
+            i = new_value.indexOf("_");
+            if (i != -1) {
+                i < 5 && (i = 3);
+                new_value = new_value.slice(0, i)
+            }
+            var reg = matrix.substr(0, this.value.length).replace(/_+/g,
+                function (a) {
+                    return "\\d{1," + a.length + "}"
+                }).replace(/[+()]/g, "\\$&");
+            reg = new RegExp("^" + reg + "$");
+            if (!reg.test(this.value) || this.value.length < 5 || keyCode > 47 && keyCode < 58) this.value = new_value;
+            if (event.type == "blur" && this.value.length < 5) this.value = ""
+        }
+
+        input.addEventListener("input", mask, false);
+        input.addEventListener("focus", mask, false);
+        input.addEventListener("blur", mask, false);
+        input.addEventListener("keydown", mask, false)
+
+    }
+</script>

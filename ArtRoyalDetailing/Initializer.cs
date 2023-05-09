@@ -37,6 +37,7 @@ namespace ArtRoyalDetailing
             services.AddScoped<IWorkerService, WorkerService>();
             services.AddScoped<IArdServiceTypesService, ArdServiceTypesService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IArdServicesService, ServicesService>();
         }
     }
 }
