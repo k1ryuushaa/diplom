@@ -100,7 +100,7 @@ namespace ArtRoyalDetailing.Controllers
                 String fileName = System.IO.Path.GetTempFileName();
                 System.IO.File.WriteAllBytes(fileName, Properties.Resources.salaryWorker);
                 document = application.Documents.Open(fileName);
-                document.Bookmarks["FI"].Range.Text = " " + User.Identity.Name;
+                document.Bookmarks["FI"].Range.Text = " " + worker.UserSurname+" "+worker.UserName;
                 document.Bookmarks["dateSalary"].Range.Text = DateTime.Now.ToShortDateString();
                 document.Bookmarks["periodOT"].Range.Text = lastSalryDate.ToShortDateString();
                 document.Bookmarks["periodDO"].Range.Text = DateTime.Now.ToShortDateString();
@@ -154,9 +154,6 @@ namespace ArtRoyalDetailing.Controllers
             var response = await _servicesService.CreateService(model);
             return Json(response);
         }
-        //GetWasherHistory
-        //GetAllHistory
-        //GetClientHistory
         public IActionResult GetWasherHistory()
         {
             var appointmentServices = _appointmentServicesRepository.GetAll().Where(x => x.IdWasher == int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) && x.IdContractNavigation.StatusContract == 4);

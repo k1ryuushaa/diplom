@@ -1189,7 +1189,6 @@ option{
 }
 .containerForSalary table td{
     color:var(--textColor);
-    padding: 2px;
 }
 .containerForSalary thead{
     border-bottom: 2px solid var(--accent-color);

@@ -22,9 +22,11 @@ using System.Reflection;
 using System.Net.Http;
 using DocumentFormat.OpenXml.Packaging;
 using System.Xml.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ArtRoyalDetailing.Controllers
 {
+    [Authorize]
     public class AppointmentController : Controller
     {
         private readonly IAppointmentService _appointmentService;
@@ -54,7 +56,6 @@ namespace ArtRoyalDetailing.Controllers
             _servicesCostsRepository = servicesCostsRepository;
             _servicesTypesRepository = servicesTypesRepository;
         }
-
         public IActionResult Index()
         {
             ViewBag.Services = _ardServicesRepository.GetAll().ToList();

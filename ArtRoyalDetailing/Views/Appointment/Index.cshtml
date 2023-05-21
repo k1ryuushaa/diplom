@@ -96,7 +96,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="row" >Записаться</button>
+                            <button class="row" id="btnZapis">Записаться</button>
                         </div>
                     </div>
                 </form>
@@ -153,14 +153,20 @@
     let sheduler = document.querySelector('.sheduler')
     let col = document.querySelector('#colforsh')
     let inputDate = document.querySelector('#inputDate')
+    let date = new Date()
     getSelectedDate = (current_day, current_month, current_year) => {
         cd = current_day
         cm = current_month
         cy = current_year
+        let changedDate = new Date(current_year, current_month - 1, current_day)
         col.style.display = "block"
         sheduler.style.display = "block"
         sheduler.querySelector('.sheduler-header').innerHTML = `<span><ion-icon name="people-outline" style="height: 19px;"></ion-icon>Запись на ${cd.toString().length == 1 ? "0" + cd.toString() : cd.toString()}.${cm.toString().length ==1? "0" + cm.toString() : cm.toString()}.${cy}</span>`
         inputDate.value = `${cd}.${cm}.${cy}`
+        if (changedDate <= date)
+            document.querySelector('#btnZapis').disabled = true
+        else
+            document.querySelector('#btnZapis').disabled = false
     }
 
 </script>
