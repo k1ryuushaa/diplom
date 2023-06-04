@@ -34,6 +34,7 @@
           "ArtRoyalDetailing.Database": "1.0.0",
           "ArtRoyalDetailing.Services": "1.0.0",
           "DocumentFormat.OpenXml": "2.20.0",
+          "HtmlAgilityPack": "1.11.46",
           "Microsoft.AspNet.Mvc": "5.2.9",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "3.1.31",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.5",
@@ -339,6 +340,17 @@
         },
         "compile": {
           "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {}
+        }
+      },
+      "HtmlAgilityPack/1.11.46": {
+        "runtime": {
+          "lib/netstandard2.0/HtmlAgilityPack.dll": {
+            "assemblyVersion": "1.11.46.0",
+            "fileVersion": "1.11.46.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/HtmlAgilityPack.dll": {}
         }
       },
       "Microsoft.AspNet.Mvc/5.2.9": {
@@ -3631,6 +3643,13 @@
       "sha512": "sha512-+oFMsEppo/W6KpGTRXaJl2jTFYn9zeon4FaZuDoCijQ1/0JaPENaCef7d4Y3f8v116eKhVBwd4Ya+/NDglxkjw==",
       "path": "documentformat.openxml/2.20.0",
       "hashPath": "documentformat.openxml.2.20.0.nupkg.sha512"
+    },
+    "HtmlAgilityPack/1.11.46": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dLMn4EVfJBHWmWK4Uh0XGD76FPLHI0qr2Tm0s1m/xmgiHb1JUb9zB8AzO8HtrkBBlMN6JfCUBYddhqC0hZNR+g==",
+      "path": "htmlagilitypack/1.11.46",
+      "hashPath": "htmlagilitypack.1.11.46.nupkg.sha512"
     },
     "Microsoft.AspNet.Mvc/5.2.9": {
       "type": "package",

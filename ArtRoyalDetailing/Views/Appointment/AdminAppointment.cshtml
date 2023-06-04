@@ -415,12 +415,16 @@
                                             <button class="appointmentBtn" style="display: flex; align-items: center; justify-content: center;" onclick="receiptAppointment(@appointment.IdContract)">
                                                 Квитанция
                                             </button>
-                                            @*<form method="post" action="@Url.Action("CreateReceipt", "Appointment")">
-                                                <input type="hidden" value="@appointment.IdContract" name="appointmentId"/>
-                                                <button class="appointmentBtn" style="display: flex; align-items: center; justify-content: center;" type="submit">
-                                                    Квитанция
-                                                </button>
-                                            </form>*@
+                                        </td>
+                                    </tr>
+                                }
+                                @if (appointment.StatusContract == 3)
+                                {
+                                    <tr>
+                                        <td colspan="2" style="padding: 0;">
+                                            <button class="appointmentBtn" style="display: flex; align-items: center; justify-content: center;" onclick="actAppointment(@appointment.IdContract)">
+                                                Акт приёма-передачи
+                                            </button>
                                         </td>
                                     </tr>
                                 }
@@ -441,7 +445,7 @@
 
 @section Scripts{
 
-<script>
+    <script>
     let changedDate = ""
     findAncestor = (el, cls) => {
         while ((el = el.parentElement) && !el.classList.contains(cls));
@@ -493,7 +497,7 @@
     checkCountCarsTime = (el) => {
         var timeVals = el.value.split(':')
         var time = new Date(0, 0, 0, timeVals[0], timeVals[1], 0, 0)
-        if (changedDate == new Date().toLocaleDateString() && time.getHours() <= new Date().getHours() && time.getMinutes() < new Date().getMinutes()|| time.toString() == "Invalid Date") {
+        if (changedDate == new Date().toLocaleDateString() && time.getHours() < new Date().getHours() && time.getMinutes() < new Date().getMinutes()|| time.toString() == "Invalid Date") {
             el.parentNode.querySelector('#countCars').innerHTML = "Неверное время"
             return;
         }
@@ -671,6 +675,8 @@
                     createAlert('Успешно', `Запись #${contractId} изменена!`, 'success')
                 if (data.statusCode == 400)
                     createAlert('Ошибка', `Ошибка сервера`, 'success')
+                if (data.statusCode == 5)
+                    createAlert('Ошибка', `Нельзя поставить статус 'На обслуживании' в не наступишвее время`, 'success')
             },
             error: function (xhr) {
                 createAlert('Ошибка', "Неверная дата или время записи", 'error')
@@ -715,10 +721,25 @@
                 success: function (data) {
                     printHTML(data)
                     createAlert('Успешно', `Квитанция по записи ${contractId} сформирована`, 'success')
-                    @*if (data == true)
-                        createAlert('Успешно', `Квитанция по записи ${contractId} сформирована`, 'success')
-                    if (data == false)
-                        createAlert('Ошибка', `Квитанцию по записи ${contractId} не удалось сформировать`, 'error')*@
+                },
+                error: function (xhr) {
+                    alert(JSON.stringify(xhr))
+                    createAlert('Ошибка', "Запрос не отправлен", 'error')
+                }
+            });
+    }
+    actAppointment = (contractId) => {
+            $.ajax({
+                url: '@Url.Action("CreateAct", "Appointment")',
+                type: 'POST',
+                data: { appointmentId: contractId },
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                processData: true,
+                cache: false,
+                async: true,
+                success: function (data) {
+                    printHTML(data)
+                    createAlert('Успешно', `Акт по записи ${contractId} сформирован`, 'success')
                 },
                 error: function (xhr) {
                     alert(JSON.stringify(xhr))

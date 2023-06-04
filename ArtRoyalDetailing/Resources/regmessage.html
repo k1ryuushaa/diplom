@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Demystifying Email Design</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    *{
+        font-family: 'Century Gothic';
+    }
+    .container{
+        width: auto;
+        height: auto;
+        margin: 5%;
+        background: linear-gradient(40deg, rgb(213, 123, 185), rgb(230, 184, 104));
+        border-radius: 20px;
+        overflow: hidden;
+        font-size: 20px;
+    }
+    .container .header{
+        padding: 20px 10px;
+        background: rgba(85, 54, 0, 0.541);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        color: white;
+        text-align: center;
+    }
+    .container .content{
+        padding: 20px 10px;
+        margin: 10px;
+        height: 80%;
+        border-radius: 20px;
+        background: rgba(85, 54, 0, 0.163);
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        color: white;
+        text-align: center;
+    }
+    .container #code{
+        font-size: 50px;
+        font-weight: bold;
+        font-family: 'Courier New', Courier, monospace;
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; height: 90vh;">
+<div class="container">
+    <div class="header">
+        ArtRoyalDetailing - Подтвреждение регистрациии
+    </div>
+    <div class="content">
+        Уважаемый, <span id="client" style="font-weight: bold;"></span>!<br/>
+        Для подтвреждения регистрации введите код:<br/>
+        <span id="code"></span> 
+    </div>
+</div>    
+</body>
+</html>

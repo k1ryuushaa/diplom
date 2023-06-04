@@ -204,22 +204,26 @@ namespace ArtRoyalDetailing.Controllers
             object file = Path.GetTempFileName();
             document.SaveAs(file,WdSaveFormat.wdFormatHTML);
             document.Close();
-            /*string docHTML;
-            byte[] byteArray = System.IO.File.ReadAllBytes(file.ToString());
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                memoryStream.Write(byteArray, 0, byteArray.Length);
-                using (WordprocessingDocument doc = WordprocessingDocument.Open(memoryStream, true))
-                {
-                    HtmlConverterSettings settings = new HtmlConverterSettings()
-                    {
-                        PageTitle = "My Page Title"
-                    };
-                    XElement html = HtmlConverter.ConvertToHtml(doc, settings);
-                    docHTML = html.ToStringNewLineOnAttributes();
-                }
-            }*/
             return Json(System.IO.File.ReadAllText(file.ToString()));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAct(int appointmentId)
+        {
+            var appointment = _appointmentService.GetAll().Result.Data.FirstOrDefault(x => x.IdContract == appointmentId);
+            var client = _userRepository.GetAll().FirstOrDefault(x => x.UserPhonenumber.Equals(appointment.ClientNumber));
+            if (appointment == null) return null;
+            var actData = new PrintActModel()
+            {
+                AdminName = User.Identity.Name,
+                ClientName = client.UserSurname + " " + client.UserName,
+                CarClass = appointment.AutoClass,
+                DateGet = appointment.DateContract.Value.ToShortDateString(),
+                GosNumber = appointment.GosNumber,
+                OrderNumber = appointment.IdContract.ToString(),
+                PhoneClient = appointment.ClientNumber
+            };
+            return PartialView("PrintAct",actData);
         }
         public IActionResult GetCountCarsForDateTime(string date, string currentTime = null)
         {

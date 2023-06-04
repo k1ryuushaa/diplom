@@ -8,7 +8,7 @@
 
 <div class="auth-modal">
     <div class="backDepth" onclick="closeModal()"></div>
-    <form autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
+    <form autocomplete="on" method="post" class="modall" asp-controller="Account" asp-action="Login">
         <h3>Авторизация</h3>
         <div asp-validation-summary="All" style="font-size:15px;" class="text-danger"></div>
         <input type="text" placeholder="Логин" id="username" asp-for="Login">

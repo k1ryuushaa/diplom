@@ -108,7 +108,7 @@
                     let spanNoA = document.createElement('span')
                     spanNoA.innerHTML = "Администраторов на смене пока нет :("
                     adminNoExist.appendChild(spanNoA)
-
+                    sheduler.querySelector("#btnZapis").innerHTML = "Записаться на дату"
                     let workerNoExist = document.createElement('div')
                     workerNoExist.classList.add('worker')
                     let spanNoW = document.createElement('span')
@@ -128,6 +128,8 @@
                                 admin.classList.add('worker')
                                 let span = document.createElement('span')
                                 span.innerHTML = `${e.idWorkerNavigation.userSurname} ${e.idWorkerNavigation.userName} c <i>${e.timeStart.value.hours}:${e.timeStart.value.minutes.toString().length == 1 ? "0" + e.timeStart.value.minutes.toString() : e.timeStart.value.minutes.toString()}</i> до <i>${e.timeStop.value.hours}:${e.timeStop.value.minutes.toString().length == 1 ? "0" + e.timeStop.value.minutes.toString() : e.timeStop.value.minutes.toString()}</i >`
+                                if (span.innerHTML.indexOf("@User.FindFirst(ClaimTypes.NameIdentifier).Value") >= 0)
+                                    sheduler.querySelector("#btnZapis").innerHTML="Отменить запись"
                                 admin.appendChild(span)
                                 sheduler.querySelector('.sheduler-admin-list').appendChild(admin)
                             }
@@ -138,6 +140,8 @@
                                 worker.classList.add('worker')
                                 let span = document.createElement('span')
                                 span.innerHTML = `${e.idWorkerNavigation.userSurname} ${e.idWorkerNavigation.userName} c <i>${e.timeStart.value.hours}:${e.timeStart.value.minutes.toString().length == 1 ? "0" + e.timeStart.value.minutes.toString() : e.timeStart.value.minutes.toString()}</i> до <i>${e.timeStop.value.hours}:${e.timeStop.value.minutes.toString().length == 1 ? "0" + e.timeStop.value.minutes.toString() : e.timeStop.value.minutes.toString()}</i>`
+                                if (span.innerHTML.indexOf("@User.FindFirst(ClaimTypes.NameIdentifier).Value") >= 0)
+                                    sheduler.querySelector("#btnZapis").innerHTML="Отменить запись"
                                 worker.appendChild(span)
                                 sheduler.querySelector('.sheduler-worker-list').appendChild(worker)
                             }
@@ -167,19 +171,19 @@
                 return false;
             }
             if (hrsDO.value != null && hrsDO.value >= 10 && hrsDO.value <= 21) {
-                
+
             }
             else {
                 return false;
             }
             if (minsOT.value != null && minsOT.value >= 0 && minsOT.value <= 59) {
-                
+
             }
             else {
                 return false;
             }
             if (minsDO.value != null && minsDO.value >= 0 && minsDO.value <= 59) {
-                
+
             }
             else {
                 return false;
@@ -206,7 +210,7 @@
                             createAlert('Отлично', `Вы записаны на ${cd}.${cm}.${cy}`, 'success')
                         }
                         if (data.statusCode == 1) {
-                            createAlert('Ошибка', `Вы уже записаны на этот день`, 'error')
+                            createAlert('Отлично', `Вы отменили запись`, 'success')
                         }
                         if (data.statusCode == 2) {
                             createAlert('Ошибка', `Администратор на эту смену уже есть`, 'error')

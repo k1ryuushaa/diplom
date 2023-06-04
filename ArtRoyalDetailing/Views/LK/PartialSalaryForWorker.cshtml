@@ -8,7 +8,7 @@
 }
 @if (lastSalary != null)
 {
-<div class="containerForSalary">
+<div class="containerForSalary" id="lastSalary">
     <div id="nullRes">Последний расчёт был @lastSalary.DateSalary.Value.ToShortDateString() на сумму @lastSalary.Salary1 руб.</div>
 </div>
 }
@@ -121,12 +121,13 @@
                 success: function (data) {
                     if (data.data == true) {
                         printHTML(data.description)
+                        document.querySelector("#lastSalary").style.display="none"
                         createAlert('Успешно', "Зарплата выдана", 'success')
+                        document.querySelectorAll('.containerForSalary')[1].innerHTML = '<div id="nullRes">Расчитан</div>'
                     }
                     else {
                         createAlert('Ошибка', data.description, 'error')
                     }
-                    document.querySelectorAll('.containerForSalary')[1].innerHTML='<div id="nullRes">Пока ничего не заработал</div>'
                 },
                 error: function (xhr) {
                     alert(JSON.stringify(xhr))

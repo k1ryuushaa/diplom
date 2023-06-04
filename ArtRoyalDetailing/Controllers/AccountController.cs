@@ -1,7 +1,12 @@
-﻿using ArtRoyalDetailing.Domain.ViewModels;
+﻿using ArtRoyalDetailing.Classes;
+using ArtRoyalDetailing.Database.Interfaces;
+using ArtRoyalDetailing.Domain.Models;
+using ArtRoyalDetailing.Domain.Response;
+using ArtRoyalDetailing.Domain.ViewModels;
 using ArtRoyalDetatiling.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using ArtRoyalDetailing.Domain.Enum;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,31 +22,81 @@ namespace ArtRoyalDetailing.Controllers
     {
 
         private readonly IAccountService _accountService;
+        private readonly IBaseRepository<Users> _userRepository;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IBaseRepository<Users> userRepositry)
         {
             _accountService = accountService;
+            _userRepository = userRepositry;
         }
-
         [HttpGet]
         public IActionResult Register() => PartialView("Register");
-        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            var response = await _accountService.Register(model);
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                var response = await _accountService.Register(model);
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(response.Data));
+                return Json(new BaseResponse<bool>()
                 {
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(response.Data));
-
-                    return RedirectToAction("Index", "Home");
-                }
-                ModelState.AddModelError("", response.Description);
+                    Description = response.Description,
+                    Data = true
+                });
             }
-            return PartialView("Register",model);
+            return Json(new BaseResponse<bool>() { 
+                Description=response.Description,
+                Data=false
+            });
+        }
+        [HttpPost]
+        public async Task<IActionResult> RegisterConfirm(string login, string phone, string email, string name)
+        {
+            var user = _userRepository.GetAll().FirstOrDefault(x => x.UserLogin == login||x.UserPhonenumber.Equals(phone));
+            if(user!=null)
+            {
+                return Json(new BaseResponse<bool>()
+                {
+                    Data=false,
+                    Description="Пользователь с таким логином или номером телефона уже существует"
+                });
+            }
+            user = _userRepository.GetAll().FirstOrDefault(x => x.UserEmail.Equals(email));
+            if (user != null)
+            {
+                return Json(new BaseResponse<bool>()
+                {
+                    Data = false,
+                    Description = "Почта уже используется"
+                });
+            }
+            if(!EmailSender.IsValidEmail(email))
+            {
+                return Json(new BaseResponse<bool>()
+                {
+                    Data = false,
+                    Description = "Неверная почта"
+                });
+            }
+            try
+            {
+                var code = EmailSender.GenerateCode();
+                EmailSender.SendMessageRegistration(email, code, name);
+                return Json(new BaseResponse<bool>()
+                {
+                    Data = true,
+                    Description = code
+                });
+            }
+            catch(Exception ex)
+            {
+                return Json(new BaseResponse<bool>()
+                {
+                    Data = false,
+                    Description = "Ошибка сервера, повторите попытку позже"
+                });
+            }
         }
 
         [HttpGet]

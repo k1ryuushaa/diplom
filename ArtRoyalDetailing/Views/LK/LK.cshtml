@@ -37,7 +37,7 @@
                     </label>
                 }
                 <label class="menuItem" style="padding:3px;width: 100%;">
-                    <input type="radio" name="group" onchange="openHistoryPage()"/>
+                    <input type="radio" name="group" onchange="openHistoryPage()" />
                     <div class="menuItemText">История обслуживания</div>
                 </label>
                 @if (User.IsInRole($"{(int)Role.Admin}"))
@@ -53,19 +53,40 @@
                 }
             </div>
         </div>
+        @if (User.IsInRole($"{(int)Role.Washer}"))
+        {
+            <div class="menushka">
+                <table class="table table-borderless mb-0">
+                    <tbody>
+                        <tr>
+                            <td style="text-align:left;font-weight:bold">Последний расчёт:</td>
+                            <td>@ViewBag.lastSalaryDate</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left;font-weight:bold">Последняя выплата (руб.):</td>
+                            <td>@ViewBag.lastSalary</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left;font-weight:bold">Текущий баланс (руб.):</td>
+                            <td>@ViewBag.currentSalary</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+        </div>
+        <div class="col colForPages col-md-auto">
+            @*<div class="poisk">
+                <ion-icon name="search-outline"></ion-icon>
+                <input type="text" placeholder="Поиск" />
+                <select>
+                    <option selected disabled>Сортировка</option>
+                    <option>Сортировка</option>
+                </select>
+            </div>*@
+
+        </div>
     </div>
-    <div class="col colForPages col-md-auto">
-        @*<div class="poisk">
-            <ion-icon name="search-outline"></ion-icon>
-            <input type="text" placeholder="Поиск" />
-            <select>
-                <option selected disabled>Сортировка</option>
-                <option>Сортировка</option>
-            </select>
-        </div>*@
-       
-    </div>
-</div>
 @section Scripts{ 
 <script type="text/javascript">
     openSalaryPage = () => {

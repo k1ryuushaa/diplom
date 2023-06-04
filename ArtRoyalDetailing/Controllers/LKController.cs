@@ -55,6 +55,32 @@ namespace ArtRoyalDetailing.Controllers
         }
         public IActionResult Index()
         {
+            if(User.Identity.IsAuthenticated && User.IsInRole($"{(int)Role.Washer}"))
+            {
+                var washer = _userRepository.GetAll().FirstOrDefault(x => x.UserId == int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
+                ViewBag.lastSalaryDate = washer.Salary.DateSalary.Value.ToShortDateString();
+                ViewBag.lastSalary = washer.Salary.Salary1.Value.ToString();
+                var appointments = _appointmentsRepository.GetAll().Where(a => a.DateContract > washer.Salary.DateSalary && a.StatusContract == 4).ToList();
+                if (appointments == null)
+                {
+                    return View("LK");
+                }
+                var appointmentsService = _appointmentServicesRepository.GetAll().Where(x => x.IdWasher == washer.UserId).ToList();
+                if (appointmentsService == null)
+                {
+                    return View("LK");
+                }
+                double salary = 0;
+                foreach (var appointment in appointments)
+                {
+                    foreach (var service in appointmentsService)
+                    {
+                        if (appointment.IdContract == service.IdContract)
+                            salary += (double)(service.Cost.Value * 0.3);
+                    }
+                }
+                ViewBag.currentSalary = salary.ToString();
+            }
             return View("LK");
         }
         public IActionResult GetSalaryPage()
@@ -104,6 +130,7 @@ namespace ArtRoyalDetailing.Controllers
                 document.Bookmarks["dateSalary"].Range.Text = DateTime.Now.ToShortDateString();
                 document.Bookmarks["periodOT"].Range.Text = lastSalryDate.ToShortDateString();
                 document.Bookmarks["periodDO"].Range.Text = DateTime.Now.ToShortDateString();
+                document.Bookmarks["numberDoc"].Range.Text = worker.UserId.ToString() + DateTime.Now.ToShortDateString().Replace(".", "");
                 document.Bookmarks["tabNumber"].Range.Text = worker.UserId.ToString("D6");
                 document.Bookmarks["salary"].Range.Text = response.Description;
                 object file = Path.GetTempFileName();

@@ -134,7 +134,15 @@ namespace ArtRoyalDetailing.Services.Implementations
                         Data = false
                     };
                 }
-                if(appointment.StatusContract!=4&&model.AppointmentStatus==4&&date.Date>=DateTime.Now.Date)
+                if(model.AppointmentStatus==3&&((DateTime.Now.TimeOfDay<time&&DateTime.Now.Date==date)||(DateTime.Now.Date<date.Date)||(DateTime.Now.Date>date.Date)))
+                {
+                    return new BaseResponse<bool>
+                    {
+                        StatusCode = StatusCode.InWorkFalse,
+                        Data = false
+                    };
+                }
+                if(appointment.StatusContract!=4&&model.AppointmentStatus==4&&(date.Date>DateTime.Now.Date||time>DateTime.Now.TimeOfDay))
                 {
                     return new BaseResponse<bool>
                     {

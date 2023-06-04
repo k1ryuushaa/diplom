@@ -49,9 +49,10 @@ namespace ArtRoyalDetatiling.Services.Implementations
                 var sheduler = _shedulerRepository.GetAll().FirstOrDefault(x => x.IdWorker == workerId && x.DateDay.Value.Date == _date);
                 if (sheduler != null)
                 {
+                    await _shedulerRepository.Delete(sheduler);
                     return new BaseResponse<bool>()
                     {
-                        Description = "Вы уже записаны на этот день",
+                        Description = "Вы отменили запись",
                         StatusCode = StatusCode.AlreadyExists
                     };
                 }

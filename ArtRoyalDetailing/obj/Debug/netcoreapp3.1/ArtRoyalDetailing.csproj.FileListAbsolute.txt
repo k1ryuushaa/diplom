@@ -870,3 +870,5 @@ D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\o
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\Razor\Views\LK\PartialWasherHistory.cshtml.g.cs
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\Razor\Views\LK\PartialClientHistory.cshtml.g.cs
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\Razor\Views\LK\PartialAllHistory.cshtml.g.cs
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\bin\Debug\netcoreapp3.1\HtmlAgilityPack.dll
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\Razor\Views\Appointment\PrintAct.cshtml.g.cs

@@ -1,0 +1,46 @@
+﻿@model ArtRoyalDetailing.Classes.PrintActModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <span style="font-weight: bold;">
+        АКТ ПРИЕМА-ПЕРЕДАЧИ АВТОМОБИЛЯ В ДЕТЕЙЛИНГ-СТУДИЮ<br /> К ЗАКАЗ-НАРЯДУ № @Model.OrderNumber от @DateTime.Now.ToShortDateString() г.
+    </span>
+    <br />
+    <br />
+    <br />
+    <span>Администратор (Фамилия, Имя): @Model.AdminName</span><br />
+    <span>Заказчик(Фамилия, Имя): @Model.ClientName</span><br />
+    <span>Телефон заказчика: @Model.PhoneClient</span><br />
+    <span>Класс автомобиля: @Model.CarClass</span><br />
+    <br />
+
+    <span>Гос. номер а/м: <span style="text-decoration: underline; font-family: 'Calibri'">___________@(Model.GosNumber)___________</span></span>
+    <span>Год выпуска а/м: <span style="text-decoration: underline; font-family: 'Calibri'">____________________________</span></span>
+    <br />
+    <span>Дата приёмки: @Model.DateGet</span><br />
+    <br />
+    <table style="border: 1px solid black; word-break: break-all;">
+        <tr>
+            <td style="padding: 30px; border: 1px solid black; width: 77mm;">Автомобиль принял (ФИО, подпись администратора)<br />______________________________________________________________</td>
+            <td style="padding: 30px; border: 1px solid black;">
+                Автомобиль сдал, претензий не имею, с указанной комплектацией и перечисленными повреждениями согласен (ФИО, подпись заказчика или представителя заказчика по доверенности):
+                <br />____________________________________________________________________
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 30px; border: 1px solid black;">
+                Автомобиль сдал (ФИО, подпись администратора)<br />______________________________________________________________
+            </td>
+            <td style="padding: 30px; border: 1px solid black;">
+                Автомобиль принял, претензий не имею (ФИО, подпись заказчика или представителя заказчика по доверенности):<br />____________________________________________________________________
+            </td>
+        </tr>
+    </table>
+    <br />
+    <img src="~/Images/foract.png" style="width:100%"/>
+</body>
+</html>

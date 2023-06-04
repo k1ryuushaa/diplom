@@ -105,15 +105,15 @@ namespace ArtRoyalDetatiling.Services.Implementations
         {
             try
             {
-                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.UserLogin == model.Login);
+                var user = await _userRepository.GetAll().FirstOrDefaultAsync(x => x.UserLogin == model.Login||x.UserPhonenumber.Equals(model.PhoneNumber));
                 if (user != null)
                 {
                     return new BaseResponse<ClaimsIdentity>()
                     {
-                        Description = "Пользователь с таким логином уже есть",
+                        StatusCode=StatusCode.AlreadyExists,
+                        Description = "Пользователь с таким логином или номером телефона уже есть",
                     };
                 }
-
                 user = new Users()
                 {
                     UserEmail = model.Email,

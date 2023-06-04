@@ -63,10 +63,42 @@ namespace ArtRoyalDetailing.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
+        internal static byte[] act {
+            get {
+                object obj = ResourceManager.GetObject("act", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
         internal static byte[] receipt {
             get {
                 object obj = ResourceManager.GetObject("receipt", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        /// &lt;head&gt;
+        ///  &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+        ///  &lt;title&gt;Demystifying Email Design&lt;/title&gt;
+        ///  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;
+        ///  &lt;style&gt;
+        ///    *{
+        ///        font-family: &apos;Century Gothic&apos;;
+        ///    }
+        ///    .container{
+        ///        width: auto;
+        ///        height: auto;
+        ///        margin: [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string regmessage {
+            get {
+                return ResourceManager.GetString("regmessage", resourceCulture);
             }
         }
         

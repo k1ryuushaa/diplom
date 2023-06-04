@@ -12,6 +12,7 @@ namespace ArtRoyalDetailing.Domain.Enum
         InternalServerError=400,
         AdminAlreadyExists=2,
         ManyWashers=3,
-        IncorrectData=4
+        IncorrectData=4,
+        InWorkFalse=5
     }
 }

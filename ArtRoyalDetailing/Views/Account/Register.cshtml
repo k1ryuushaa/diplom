@@ -1,29 +1,25 @@
-﻿@model ArtRoyalDetailing.Domain.ViewModels.RegisterViewModel
-@{
-    Layout = "_Layout";
-    ViewBag.Title = "Регистрация";
-}
-<div class="auth-modal">
+﻿<div class="auth-modal">
     <div class="backDepth" onclick="closeModal()"></div>
-    <form autocomplete="on" method="post" asp-controller="Account" asp-action="Register">
+    <div class="modall">
         <h3>Регистрация</h3>
-        <div asp-validation-summary="All" style="font-size:15px;" class="text-danger"></div>
-        <input type="text" placeholder="Фамилия" id="username" name="Surname" asp-for="Surname">
-        <input type="text" placeholder="Имя" id="username" name="Name" asp-for="Name">
-        <input type="text" placeholder="Логин" id="username" name="Login" asp-for="Login">
-        <input type="text" placeholder="Номер телефона" id="username" onfocus="maskValid(this)" asp-for="PhoneNumber" name="PhoneNumber">
-        <input type="text" placeholder="Электронная почта" id="username" asp-for="Email" name="Email">
+        <input type="text" placeholder="Фамилия" id="username" name="Surname">
+        <input type="text" placeholder="Имя" id="username" name="Name">
+        <input type="text" placeholder="Логин" id="username" name="Login">
+        <input type="text" placeholder="Номер телефона" id="username" onfocus="maskValid(this)" name="PhoneNumber">
+        <input type="text" placeholder="Электронная почта" id="username" name="Email">
+        <input type="text" placeholder="Код подтвержения" id="username" style="display:none" name="EmailCode">
         <div class="passwordBox">
-            <input type="password" placeholder="Пароль" asp-for="Password" id="password">
+            <input type="password" placeholder="Пароль" id="password">
             <ion-icon name="eye-outline" id="eye" onclick="showPass()"></ion-icon>
         </div>
-        <button type="submit">Регистрация</button>
-    </form>
-</div>
-
+        <button type="submit" onclick="register(this)">Зарегистрироваться</button>
+    </div>
     <script>
+        var onCheckMail = false
+        let code = ""
         closeModal = () => {
-            document.querySelector('.backDepth').parentElement.innerHTML = ''
+            if (!onCheckMail)
+                document.querySelector('.backDepth').parentElement.innerHTML = ''
         }
         let passs = true
         showPass = () => {
@@ -70,4 +66,91 @@
             input.addEventListener("keydown", mask, false)
 
         }
+        register = (button) => {
+            let surnameVal = document.getElementsByName("Surname")[0].value
+            let firstnameVal = document.getElementsByName("Name")[0].value
+            let loginVal = document.getElementsByName("Login")[0].value
+            let phoneVal = document.getElementsByName("PhoneNumber")[0].value
+            let emailVal = document.getElementsByName("Email")[0].value
+            let passwordVal = document.getElementById("password").value
+            if (surnameVal == "" || firstnameVal == "" || loginVal == "" || phoneVal == "" || emailVal == "" || passwordVal == "") {
+                createAlert("Ошибка", "Не все поля заполнены", "error")
+                return
+            }
+            if (!onCheckMail) {
+                var model = {
+                    login: loginVal,
+                    phone: phoneVal,
+                    email: emailVal,
+                    name: firstnameVal
+                }
+                $.ajax({
+                    url: '/Account/RegisterConfirm',
+                    type: "POST",
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                    data: model,
+                    async: true,
+                    processData: true,
+                    cache: false,
+                    success: function (data) {
+                        if (data.data == false) {
+                            createAlert("Ошибка", data.description, "error")
+                            return
+                        }
+                        if (data.data == true) {
+                            createAlert("Подтверждение", "На вашу почту пришёл код, введите его для подтверждения регистрации", "success")
+                            code = data.description
+                            onCheckMail = true
+                            button.innerHTML = "Отправить"
+                            document.getElementsByName("EmailCode")[0].style.display = "block"
+                            return
+                        }
+                    },
+                    error: function (xhr) {
+                        createAlert('Ошибка', "Ошибка сервера", 'error')
+                    }
+                });
+
+            }
+            else {
+                if (document.getElementsByName("EmailCode")[0].value == code) {
+                    var model = {
+                        Login: loginVal,
+                        PhoneNumber: phoneVal,
+                        Email: emailVal,
+                        Name: firstnameVal,
+                        Surname: surnameVal,
+                        Password: passwordVal
+                    }
+                    $.ajax({
+                        url: '/Account/Register',
+                        type: "POST",
+                        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                        data: model,
+                        async: true,
+                        processData: true,
+                        cache: false,
+                        success: function (data) {
+                            if (data.data==true) {
+                                createAlert("Успешно", data.description, "success")
+                                closeModal()
+                                window.location.reload()
+                                return
+                            }
+                            if (data.data==false) {
+                                createAlert("Ошибка", data.description, "error")
+                                return
+                            }
+                        },
+                        error: function (xhr) {
+                            createAlert('Ошибка', "Ошибка сервера", 'error')
+                        }
+                    });
+                }
+                else {
+                    createAlert("Ошибка","Код подтверждения неверный","error")
+                }
+            }
+        }
     </script>
+</div>
