@@ -439,8 +439,6 @@ D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\o
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.dll
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.pdb
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\staticwebassets\ArtRoyalDetailing.StaticWebAssets.Manifest.cache
-D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\staticwebassets\ArtRoyalDetailing.StaticWebAssets.xml
-D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\scopedcss\bundle\ArtRoyalDetailing.styles.css
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.TagHelpers.input.cache
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.TagHelpers.output.cache
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.RazorCoreGenerate.cache
@@ -872,3 +870,5 @@ D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\o
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\Razor\Views\LK\PartialAllHistory.cshtml.g.cs
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\bin\Debug\netcoreapp3.1\HtmlAgilityPack.dll
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\Razor\Views\Appointment\PrintAct.cshtml.g.cs
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\staticwebassets\ArtRoyalDetailing.StaticWebAssets.xml
+D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\scopedcss\bundle\ArtRoyalDetailing.styles.css

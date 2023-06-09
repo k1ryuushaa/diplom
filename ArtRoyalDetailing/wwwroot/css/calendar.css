@@ -632,14 +632,11 @@ input[id=services]::-webkit-input-placeholder { /* WebKit, Blink, Edge */
             white-space: nowrap;
             font-weight: 500;
             text-transform: uppercase;
-            animation: animate 40s linear infinite;
-            animation-delay: -40s;
+            justify-content:center;
+            text-align:center;
+            width:100%;
         }
 
-            #scrollsection .scroll div:nth-child(2) {
-                animation: animate2 40s linear infinite;
-                animation-delay: -20s;
-            }
 
 @keyframes animate {
     0% {

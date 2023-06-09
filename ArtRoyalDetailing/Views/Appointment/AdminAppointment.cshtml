@@ -22,10 +22,7 @@
 <section id="scrollsection">
     <div class="scroll text-scroll">
         <div>
-            •Записи клиентов•Записи клиентов•Записи клиентов•Записи клиентов•Записи клиентов•Записи клиентов
-        </div>
-        <div>
-            •Записи клиентов•Записи клиентов•Записи клиентов•Записи клиентов•Записи клиентов•Записи клиентов
+            Записи клиентов
         </div>
     </div>
 </section>
@@ -162,7 +159,7 @@
                         </select>
                     </td>
                     <td>
-                        <input type="text" placeholder="Стоимость" id="costSelect" class="text-control"/>
+                        <input type="text" placeholder="Стоимость (руб.)" id="costSelect" class="text-control"/>
                     </td>
                     <td class="deleteRow">
                         <div style="cursor: pointer;" onclick="deleteRow(this)">
@@ -214,7 +211,6 @@
 @if (pager.TotalPages > 1)
 {
     <div class="pages col-6" style="margin:0 auto">
-        @*<div class="prevNextPage col">🡐</div>*@
         @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
         {
             <label class="page col">
@@ -222,7 +218,6 @@
                 <div class="pageNumber">@pge</div>
             </label>
         }
-        @*<div class="prevNextPage col">🡒</div>*@
     </div>
 }
 <div class="appointments">
@@ -347,7 +342,7 @@
                                             {
                                                 if (contractService.IdService == serviceCost.IdService && appointment.AutoClass.Contains(serviceCost.ClassAuto))
                                                 {
-                                                    <input type="text" placeholder="Стоимость" id="costSelect" class="text-control" value="@(contractService.Cost.HasValue?contractService.Cost.Value.ToString():serviceCost.Cost)" />
+                                                    <input type="text" placeholder="Стоимость (руб.)" id="costSelect" class="text-control" value="@(contractService.Cost.HasValue?contractService.Cost.Value.ToString():serviceCost.Cost)" />
                                                 }
                                             }
                                         </td>
@@ -360,7 +355,7 @@
                                 }
                             </tbody>
                         </table>
-                        <table class="col table table-borderless text-light" style="background: #4802465b; border-radius: 20px; margin: 3px; max-height: 220px;">
+                        <table class="col table table-borderless text-light col-md-1" style="background: #4802465b; border-radius: 20px; margin: 3px; max-height: 220px;">
                             <tbody>
                                 <tr>
                                     <td class="col-1" style="font-weight: bold; font-size: 13px; vertical-align: middle;">Дата записи</td>
@@ -634,7 +629,12 @@
             workerList.push(element.querySelector('#workerSelect').value)
             costsList.push(element.querySelector('#costSelect').value)
             if (element.querySelector('#workerSelect').value == "" || element.querySelector('#costSelect').value==""||element.querySelector('#serviceSelect').value=="")
-                isEmpty=true
+                isEmpty = true
+                var cost = parseInt(element.querySelector('#costSelect').value) || 0
+            if (cost==0) {
+                createAlert("Ошибка", "Проверьте стоимость услуг", "error")
+                return;
+            }
         }
         if (gosNumber == "")
             isEmpty == true
@@ -674,9 +674,9 @@
                 if (data.statusCode == 200)
                     createAlert('Успешно', `Запись #${contractId} изменена!`, 'success')
                 if (data.statusCode == 400)
-                    createAlert('Ошибка', `Ошибка сервера`, 'success')
+                    createAlert('Ошибка', `Ошибка сервера`, 'error')
                 if (data.statusCode == 5)
-                    createAlert('Ошибка', `Нельзя поставить статус 'На обслуживании' в не наступишвее время`, 'success')
+                        createAlert('Ошибка', `Нельзя поставить статус 'На обслуживании' в не наступишвее время`, 'error')
             },
             error: function (xhr) {
                 createAlert('Ошибка', "Неверная дата или время записи", 'error')

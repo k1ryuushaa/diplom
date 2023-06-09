@@ -3,12 +3,21 @@
 @{
     ViewData["Title"] = "Услуги";
 }
-
+<section id="scrollsection">
+    <div class="scroll text-scroll">
+        <div>
+            УСЛУГИ
+        </div>
+    </div>
+</section>
+<br />
+<br />
+<br />
 <h1 class="text-center text-change-color">Стоимость услуг</h1>
 <style>
     td:hover {
         background-color: rgb(229, 111, 0);
-        border-radius:5px;
+        border-radius: 5px;
     }
 </style>
 
@@ -49,7 +58,7 @@
                             @if (User.IsInRole($"{(int)Role.Admin}"))
                             {
                                 <td class="text-center">
-                                            <input type="text" class="inpService" value="@item.ServiceName" oninput="changeNameForService(@item.IdService, this.value)"/>
+                                    <input type="text" class="inpService" value="@item.ServiceName" oninput="changeNameForService(@item.IdService, this.value)" />
                                 </td>
                             }
                             else
@@ -65,7 +74,7 @@
                                     if (User.IsInRole($"{(int)Role.Admin}"))
                                     {
                                         <td class="text-center">
-                                            <input type="text" class="inpService" value="@cost.Cost" onkeyup="changePriceForService(@cost.IdService, '@cost.ClassAuto',this.value)"/>
+                                            <input type="text" class="inpService" value="@cost.Cost" onkeyup="changePriceForService(@cost.IdService, '@cost.ClassAuto',this.value)" />
                                         </td>
                                     }
                                     else

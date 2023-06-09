@@ -132,7 +132,7 @@ namespace ArtRoyalDetailing.Controllers
                 document.Bookmarks["periodDO"].Range.Text = DateTime.Now.ToShortDateString();
                 document.Bookmarks["numberDoc"].Range.Text = worker.UserId.ToString() + DateTime.Now.ToShortDateString().Replace(".", "");
                 document.Bookmarks["tabNumber"].Range.Text = worker.UserId.ToString("D6");
-                document.Bookmarks["salary"].Range.Text = response.Description;
+                document.Bookmarks["salary"].Range.Text = Math.Round(double.Parse(response.Description),2).ToString();
                 object file = Path.GetTempFileName();
                 document.SaveAs(file);
                 document.Close();

@@ -184,6 +184,7 @@ namespace ArtRoyalDetailing.Controllers
             document = application.Documents.Open(fileName);
             document.Bookmarks["Admin"].Range.Text = " " + User.Identity.Name;
             document.Bookmarks["Date"].Range.Text = DateTime.Now.ToShortDateString();
+            document.Bookmarks["AppointmentDate"].Range.Text = appointment.DateContract.Value.ToShortDateString();
             document.Bookmarks["AppointmentNumber"].Range.Text = appointmentId.ToString();
             int EndCost = 0;
             for (int i = 2; i <= appointmentServices.Count() + 1; i++)
