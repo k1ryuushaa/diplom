@@ -17,9 +17,6 @@
 
 
 <script>
-    closeModal = () => {
-        document.querySelector('.backDepth').parentNode.parentNode.innerHTML = ''
-    }
     let passs = true
     showPass = () => {
         if (passs) {
@@ -59,7 +56,6 @@
                 if (data.data == true) {
                     closeModal()
                     window.location.reload()
-                    createAlert("Успешно", data.description, "success")
                     return
                 }
             },

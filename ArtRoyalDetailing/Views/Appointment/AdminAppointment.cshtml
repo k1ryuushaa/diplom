@@ -37,8 +37,11 @@
             <div class="col mt-1 mb-1" style="min-width: 160px;"><input type="number" class="text-control" value="@ViewBag.AppointmentId" name="appointmentId" placeholder="Номер записи" /></div>
             <div class="col mt-1 mb-1" style="min-width: 160px;"><input type="text" class="tel text-control" value="@ViewBag.ClientNumber" name="clientNumber" placeholder="Телефон клиента" /></div>
              <div class="col mt-1 mb-1" style="min-width: 160px;">
-                <input multiple type="date" class="tel text-control" name="clientNumber" placeholder="Дата" />
-                </div>
+                <input multiple type="text" class="text-control" name="dateIn" placeholder="Дата от" onfocus="(this.type='datetime-local')"  />
+            </div>
+            <div class="col mt-1 mb-1" style="min-width: 160px;">
+                <input multiple type="text" class="text-control" name="dateOut" placeholder="Дата до" onfocus="(this.type='datetime-local')" />
+            </div>
             <div class="col mt-1 mb-1" style="min-width: 160px;">
                 <select class="select-control" name="appointmentStatusId">
                     <option value="" disabled selected>Статус записи</option>
@@ -168,19 +171,26 @@
                 <tr>
                     <td class="col-1" style="font-weight: bold; font-size: 13px; vertical-align: middle;">Дата записи</td>
                     <td class="col-2" style="min-width: 150px;vertical-align: middle;">
-                        <div class="datetimeBox">
-                            <input type="text" id="dateAppointment" oninput="checkCountCars(this)" value="@DateTime.Now.ToShortDateString()"></input>
-                            <div id="countCars">Выберите дату</div>
-                        </div>
+                            <input type="date" class="dateToAdd text-control" value="@DateTime.Now.ToString("yyyy-MM-dd")"></input>
                     </td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold;font-size: 13px; vertical-align: middle;">Время записи</td>
+                    <td style="font-weight: bold;font-size: 13px; vertical-align: middle;">Время записи от</td>
                     <td style="vertical-align: middle;">
-                        <div class="datetimeBox">
-                            <input type="text" id="timeAppointment" disabled oninput="checkCountCarsTime(this)" value="@DateTime.Now.TimeOfDay.ToString(@"hh\:mm")"></input>
-                            <div id="countCars">Выберите время</div>
-                        </div>
+                            <input type="time" class="timeToAdd1 text-control" style="text-align: center; min-width:80px" readonly></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;font-size: 13px; vertical-align: middle;">Время записи до</td>
+                    <td style="vertical-align: middle;">
+                            <input type="time" class="timeToAdd2 text-control" style="text-align: center; min-width:80px" readonly></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding: 0;">
+                            <button class="appointmentBtn" style="display: flex; align-items: center; justify-content: center;" onclick="timeChangeModalShow(this)">
+                            Выбрать время
+                        </button>
                     </td>
                 </tr>
                 <tr>
@@ -354,33 +364,28 @@
                                 <tr>
                                     <td class="col-1" style="font-weight: bold; font-size: 13px; vertical-align: middle;">Дата записи</td>
                                     <td class="col-2" style="min-width: 150px;vertical-align: middle;">
-                                        @if (appointment.StatusContract == 4 || appointment.StatusContract == 3)
-                                        {
-                                            <input type="text" id="dateAppointment" class="text-control" value="@appointment.DateContract.Value.ToShortDateString()" />
-                                        }
-                                        else
-                                        {
-                                            <div class="datetimeBox">
-                                                <input type="text" id="dateAppointment" oninput="checkCountCars(this)" value="@appointment.DateContract.Value.ToShortDateString()"></input>
-                                                <div id="countCars">Выберите дату</div>
-                                            </div>
-                                        }
+                                        <input type="text" class="text-control dateToAdd" style="text-align: center; min-width:80px" id="dateAppointment" value="@appointment.DateContract.Value.ToShortDateString()" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="font-weight: bold;font-size: 13px; vertical-align: middle;">Время записи от</td>
+                                    <td style="vertical-align: middle;">
+                                        <input type="time" class="timeToAdd1 text-control" style="text-align: center; min-width:80px" value="@appointment.StartTime.Value.ToString(@"hh\:mm")" readonly></input>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: bold;font-size: 13px; vertical-align: middle;">Время записи</td>
+                                    <td style="font-weight: bold;font-size: 13px; vertical-align: middle;">Время записи до</td>
                                     <td style="vertical-align: middle;">
-                                        @if (appointment.StatusContract == 4 || appointment.StatusContract == 3)
-                                        {
-                                            <input type="text" id="timeAppointment" class="text-control" value="@appointment.TimeContract.Value.ToString(@"hh\:mm")" />
-                                        }
-                                        else
-                                        {
-                                            <div class="datetimeBox">
-                                                <input type="text" id="timeAppointment" disabled oninput="checkCountCarsTime(this)" value="@appointment.TimeContract.Value.ToString(@"hh\:mm")"></input>
-                                                <div id="countCars">Выберите время</div>
-                                            </div>
-                                        }
+                                        <input type="time" class="timeToAdd2 text-control" style="text-align: center; min-width:80px" value="@appointment.EndTime.Value.ToString(@"hh\:mm")" readonly></input>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2" style="padding: 0;">
+                                        <button class="appointmentBtn" style="display: flex; align-items: center; justify-content: center;" onclick="timeChangeModalShow(this)">
+                                            Выбрать время
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -446,75 +451,6 @@
         else
             document.querySelector(".currentAppointmentToAdd").removeAttribute("hidden")
     }
-    checkCountCars = (el) => {
-        var dateVals = el.value.split('.')
-        var date = new Date(dateVals[2], dateVals[1] - 1, dateVals[0])
-        if ((date.toLocaleDateString() != "Invalid Date") && (date >= new Date() || date.toLocaleDateString() == new Date().toLocaleDateString())) {
-            el.parentNode.querySelector('#countCars').innerHTML = date.toLocaleDateString()
-            let table = findAncestor(el, 'table-borderless')
-            table.querySelector('#timeAppointment').disabled = false
-            table.querySelector('#timeAppointment').parentNode.querySelector('#countCars').innerHTML = "Выберите время"
-            changedDate = date.toLocaleDateString()
-            $.ajax({
-                url: '@Url.Action("GetCountCarsForDateTime", "Appointment")',
-                type: 'POST',
-                data: { date: changedDate },
-                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-                processData: true,
-                cache: false,
-                async: true,
-                success: function (data) {
-                    if (data != "0")
-                        el.parentNode.querySelector('#countCars').innerHTML = data
-                    else
-                        el.parentNode.querySelector('#countCars').innerHTML = "Записей нет"
-                },
-                error: function (xhr) {
-                    alert(JSON.stringify(xhr))
-                    createAlert('Ошибка', "Запрос не отправлен", 'error')
-                }
-            });
-        }
-        else {
-            el.parentNode.querySelector('#countCars').innerHTML = "Неверная дата"
-            let table = findAncestor(el, 'table-borderless')
-            table.querySelector('#timeAppointment').disabled = true
-            table.querySelector('#timeAppointment').parentNode.querySelector('#countCars').innerHTML = "Выберите время"
-            changedDate = ""
-        }
-    }
-    checkCountCarsTime = (el) => {
-        var timeVals = el.value.split(':')
-        var time = new Date(0, 0, 0, timeVals[0], timeVals[1], 0, 0)
-        if (changedDate == new Date().toLocaleDateString() && time.getHours() < new Date().getHours() && time.getMinutes() < new Date().getMinutes()|| time.toString() == "Invalid Date") {
-            el.parentNode.querySelector('#countCars').innerHTML = "Неверное время"
-            return;
-        }
-        if (time.getHours() < 10 || time.getHours() > 20)
-            el.parentNode.querySelector('#countCars').innerHTML = "Неверное время"
-        else {
-            $.ajax({
-                url: '@Url.Action("GetCountCarsForDateTime", "Appointment")',
-                type: 'POST',
-                data: { date: changedDate, currentTime:time.toLocaleTimeString().substring(0, 5)},
-                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-                processData: true,
-                cache: false,
-                async: true,
-                success: function (data) {
-                    if (data != "0")
-                        el.parentNode.querySelector('#countCars').innerHTML = data
-                    else {
-                        el.parentNode.querySelector('#countCars').innerHTML = "Записей нет"
-                    }
-                },
-                error: function (xhr) {
-                    alert(JSON.stringify(xhr))
-                    createAlert('Ошибка', "Запрос не отправлен", 'error')
-                }
-            });
-        }
-    }
     deleteRow=(element)=>{
         let table = findAncestor(element, 'table-borderless')
         if (table.rows.length > 3) {
@@ -537,9 +473,10 @@
         let autoClass = appointment.querySelector("#carClass").value
         let gosNumber = appointment.querySelector("#gosNumber").value
         let contractStatus = appointment.querySelector("#appointmentStatus").value
-        let dateContract = appointment.querySelector("#dateAppointment").value
+        let dateContract = appointment.querySelector(".dateToAdd").value
         let clientPhoneNumber = appointment.querySelector("#numberPhone").value
-        let timeContract = appointment.querySelector("#timeAppointment").value
+        let timeOt = appointment.querySelector(".timeToAdd1").value
+        let timeDo = appointment.querySelector(".timeToAdd2").value
         let services = appointment.querySelectorAll('#tableRow')
         let admin = `@User.FindFirst(ClaimTypes.NameIdentifier).Value`
         var serviceList = []
@@ -574,7 +511,8 @@
             GosNumber:gosNumber,
             AppointmentStatus:contractStatus,
             DateAppointment:dateContract,
-            TimeAppointment:timeContract,
+            StartTime:timeOt,
+            EndTime:timeDo,
             ServicesList:serviceList,
             WorkersList:workerList,
             CostList:costsList
@@ -611,7 +549,8 @@
         let gosNumber = appointment.querySelector("#gosNumber").value
         let contractStatus = appointment.querySelector("#appointmentStatus").value
         let dateContract = appointment.querySelector("#dateAppointment").value
-        let timeContract = appointment.querySelector("#timeAppointment").value
+        let timeOt = appointment.querySelector(".timeToAdd1").value
+        let timeDo = appointment.querySelector(".timeToAdd2").value
         let services = appointment.querySelectorAll('#tableRow')
         let admin = `@User.FindFirst(ClaimTypes.NameIdentifier).Value`
         var serviceList = []
@@ -647,7 +586,8 @@
             GosNumber:gosNumber,
             AppointmentStatus:contractStatus,
             DateAppointment:dateContract,
-            TimeAppointment:timeContract,
+            StartTime:timeOt,
+            EndTime:timeDo,
             ServicesList:serviceList,
             WorkersList:workerList,
             CostList:costsList
@@ -776,5 +716,32 @@
 
             });
         });
+        var editElement=null
+        timeChangeModalShow = (button) => {
+            var tbody = button.parentNode.parentNode.parentNode
+            let dated = tbody.querySelector(".dateToAdd").value
+            $.ajax({
+                url: '/Appointment/GetTimeModal',
+                type: 'POST',
+                data: { date: dated },
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                processData: true,
+                cache: false,
+                async: true,
+                success: function (data) {
+                    $('#formodalAuthReg').html(data);
+                    editElement=tbody
+                },
+                error: function (xhr) {
+                    alert(JSON.stringify(xhr))
+                    createAlert('Ошибка', "Запрос не отправлен", 'error')
+                }
+            });
+        }
+        changeTime = (elem) => {
+            editElement.querySelector(".timeToAdd1").value = elem.innerHTML.split(' - ')[0]
+            editElement.querySelector(".timeToAdd2").value = elem.innerHTML.split(' - ')[1]
+            closeModal()
+        }
     </script>
 }

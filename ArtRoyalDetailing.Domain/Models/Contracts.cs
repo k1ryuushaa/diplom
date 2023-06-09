@@ -13,7 +13,8 @@ namespace ArtRoyalDetailing.Domain.Models
         public string ClientNumber { get; set; }
         public string AutoClass { get; set; }
         public DateTime? DateContract { get; set; }
-        public TimeSpan? TimeContract { get; set; }
+        public TimeSpan? StartTime { get; set; }
+        public TimeSpan? EndTime { get; set; }
         public int? StatusContract { get; set; }
         public int? IdAdmin { get; set; }
         public int? EndCost { get; set; }

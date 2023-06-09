@@ -21,7 +21,9 @@ namespace ArtRoyalDetailing.Domain.ViewModels
         [Required]
         public string DateAppointment { get; set; }
         [Required]
-        public string TimeAppointment { get; set; }
+        public TimeSpan StartTime { get; set; }
+        [Required]
+        public TimeSpan EndTime { get; set; }
         [Required]
         public List<int> ServicesList { get; set; }
         [Required]

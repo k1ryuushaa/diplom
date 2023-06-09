@@ -74,7 +74,6 @@ namespace ArtRoyalDetailing.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAppointment(AppointmentViewModel model)
         {
-            var mod = model;
             ViewBag.day = model.Date.Split('.')[0];
             ViewBag.month = model.Date.Split('.')[1];
             ViewBag.year = model.Date.Split('.')[2];
@@ -109,7 +108,7 @@ namespace ArtRoyalDetailing.Controllers
                 }
                 if (response.StatusCode == Domain.Enum.StatusCode.AlreadyExists)
                 {
-                    ViewBag.Error = "Вы уже записаны на этот день";
+                    ViewBag.Error = response.Description;
                     return View("Index");
                 }
                 if (response.StatusCode == Domain.Enum.StatusCode.InternalServerError)
@@ -122,7 +121,7 @@ namespace ArtRoyalDetailing.Controllers
             return View("Index");
         }
         [HttpGet]
-        public async Task<IActionResult> AdminAppointment(int? appointmentId = null,string clientNumber=null,int? appointmentStatusId=null,int page=1)
+        public async Task<IActionResult> AdminAppointment(int? appointmentId = null,string clientNumber=null,int? appointmentStatusId=null,int page=1,DateTime? dateIn=null, DateTime? dateOut = null)
         {
             ViewBag.IdStatus = appointmentStatusId;
             ViewBag.AppointmentId = appointmentId;
@@ -134,10 +133,14 @@ namespace ArtRoyalDetailing.Controllers
                 appointments = appointments.Where(x => x.ClientNumber.Contains(clientNumber)).ToList();
             if (appointmentStatusId.HasValue)
                 appointments = appointments.Where(x =>x.StatusContract==appointmentStatusId.Value).ToList();
+            if(dateIn.HasValue)
+                appointments = appointments.Where(x => x.DateContract.Value.Date>=dateIn.Value.Date&& x.DateContract.Value.Date <= (dateOut.HasValue?dateOut.Value.Date:DateTime.Now.Date)&&x.StartTime>=dateIn.Value.TimeOfDay&& x.EndTime <= (dateOut.HasValue ? dateOut.Value.TimeOfDay : DateTime.Now.TimeOfDay)).ToList();
             ViewBag.carClasses = new DictionaryCarClass().GetClasses().ToList();
             ViewBag.workers = _userRepository.GetAll().ToList();
             ViewBag.contractStatuses = _contractStatusesRepository.GetAll().ToList();
             ViewBag.services = _ardServicesRepository.GetAll().ToList();
+            ViewBag.DateIn = dateIn;
+            ViewBag.DateOut = dateIn.HasValue?(dateOut.HasValue?dateOut:DateTime.Now):dateIn;
             ViewBag.serviceTypes = _servicesTypesRepository.GetAll().ToList();
             ViewBag.servicesCosts = _servicesCostsRepository.GetAll().ToList();
             ViewBag.contractServices = _contractServicesRepository.GetAll().ToList();
@@ -226,33 +229,21 @@ namespace ArtRoyalDetailing.Controllers
             };
             return PartialView("PrintAct",actData);
         }
-        public IActionResult GetCountCarsForDateTime(string date, string currentTime = null)
+        [HttpPost]
+        public IActionResult GetTimeModal(DateTime date)
         {
-            if (!string.IsNullOrEmpty(currentTime))
+            var appointments = _appointmentsRepository.GetAll();
+            List<string> times = new List<string>();
+            TimeSpan startTime= new TimeSpan(10,0,0);
+            TimeSpan endTime= new TimeSpan(20,0,0);
+            for(var time = startTime; time <= endTime; time = time.Add(TimeSpan.FromHours(2)))
             {
-                if (DateTime.TryParse(date, out var changedDate) && TimeSpan.TryParse(currentTime, out var changedTime))
-                {
-                    var appointments = _appointmentsRepository.GetAll().Where(x => x.StatusContract == 2 && x.DateContract.Value.Date == changedDate.Date);
-                    appointments = appointments.Where(x=>x.TimeContract.Value>= changedTime && x.TimeContract.Value<= changedTime.Add(TimeSpan.FromHours(1)));
-                    if (appointments != null&&appointments.ToList().Count()>0)
-                        return Json($"Записей:{appointments.ToList().Count()} с {changedTime.ToString().Substring(0,5)} по {changedTime.Add(TimeSpan.FromHours(1)).ToString().Substring(0,5)}");
-                    else return Json("0");
-                }
-                else
-                    return null;
+                //if(appointments.FirstOrDefault(x => (x.StartTime.Value > time && x.StartTime.Value <= time.Add(TimeSpan.FromHours(2)) || x.EndTime.Value > time && x.EndTime.Value < time.Add(TimeSpan.FromHours(2))) &&x.DateContract.Value.Date==date.Date)!=null)
+                if(appointments.FirstOrDefault(x => x.StartTime.Value == time&&x.EndTime==time.Add(TimeSpan.FromHours(2)) &&x.DateContract.Value.Date==date.Date)!=null)
+                    continue; 
+                times.Add(time.ToString(@"hh\:mm")+" - "+time.Add(TimeSpan.FromHours(2)).ToString(@"hh\:mm"));
             }
-            else
-            {
-                if (DateTime.TryParse(date, out var changedDate))
-                {
-                    var appointments = _appointmentsRepository.GetAll().Where(x => x.StatusContract == 2 && x.DateContract.Value.Date == changedDate.Date);
-                    if (appointments != null)
-                        return Json($"Записано:{appointments.Count()}");
-                    else return Json("0");
-                }
-                else
-                    return null;
-            }
+            return PartialView("PartialTimeChange", times);
         }
         [HttpGet]
         public async Task<IActionResult> WasherAppointment()

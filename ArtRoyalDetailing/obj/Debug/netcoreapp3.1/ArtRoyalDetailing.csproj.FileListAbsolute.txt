@@ -1278,7 +1278,6 @@ C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\A
 C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.AssemblyInfoInputs.cache
 C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.AssemblyInfo.cs
 C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.csproj.CoreCompileInputs.cache
-C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.RazorAssemblyInfo.cache
 C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.RazorAssemblyInfo.cs
@@ -1323,3 +1322,4 @@ C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\A
 C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.dll
 C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.pdb
 C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.genruntimeconfig.cache
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing\obj\Debug\netcoreapp3.1\Razor\Views\Appointment\PartialTimeChange.cshtml.g.cs

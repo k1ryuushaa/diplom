@@ -98,8 +98,12 @@ namespace ArtRoyalDetailing.Database
                     .HasColumnName("date_contract")
                     .HasColumnType("date");
 
-                entity.Property(e => e.TimeContract)
-                    .HasColumnName("time_contract")
+                entity.Property(e => e.StartTime)
+                    .HasColumnName("starttime")
+                    .HasColumnType("time");
+
+                entity.Property(e => e.EndTime)
+                    .HasColumnName("endtime")
                     .HasColumnType("time");
 
                 entity.Property(e => e.EndCost).HasColumnName("end_cost");

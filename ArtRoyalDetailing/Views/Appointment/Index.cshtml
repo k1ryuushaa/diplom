@@ -86,13 +86,14 @@
                             <div class="d-flex align-items-center">
                                 <div class="regtime">
                                     <div class="time">
-                                        <span>Выберите желаемое время:</span>
-                                        <input type="number" min="10" max="21" asp-for="Hours" class="timeChange" id="hrsOT" value="10"></input>
-                                        <div class="dots">:</div>
-                                        <input type="number" min="00" max="59" asp-for="Minutes" class="timeChange" id="minsOT" value="00"></input>
+                                        <span>Время:</span>
+                                        <input type="time" asp-for="StartTime" style="text-align: center; min-width:80px" class="timeChange" id="hrsOT" readonly required/>
+                                        <div class="dots">/</div>
+                                        <input type="time" asp-for="EndTime" style="text-align: center; min-width:80px" class="timeChange" id="minsOT" readonly required />
                                     </div>
                                 </div>
                             </div>
+                            <button class="row" id="btnZapis" type="button" onclick="timeChangeModalShow()">Выбрать время</button>
                             <button class="row" id="btnZapis">Записаться</button>
                         </div>
                     </div>
@@ -134,7 +135,7 @@
                         </td>
                         <td>@appointment.AutoClass</td>
                         <td>@appointment.DateContract.Value.ToShortDateString()</td>
-                        <td>@appointment.TimeContract.Value.ToString(@"hh\:mm")</td>
+                            <td>@appointment.StartTime.Value.ToString(@"hh\:mm") - @appointment.EndTime.Value.ToString(@"hh\:mm")</td>
                     </tr>
                 </tbody>
             </table>
@@ -151,21 +152,51 @@
     let col = document.querySelector('#colforsh')
     let inputDate = document.querySelector('#inputDate')
     let date = new Date()
+    let changeddDate = ""
     getSelectedDate = (current_day, current_month, current_year) => {
         cd = current_day
         cm = current_month
         cy = current_year
-        let changedDate = new Date(current_year, current_month - 1, current_day)
+        changedDate = new Date(current_year, current_month - 1, current_day)
         col.style.display = "block"
         sheduler.style.display = "block"
         sheduler.querySelector('.sheduler-header').innerHTML = `<span><ion-icon name="people-outline" style="height: 19px;"></ion-icon>Запись на ${cd.toString().length == 1 ? "0" + cd.toString() : cd.toString()}.${cm.toString().length ==1? "0" + cm.toString() : cm.toString()}.${cy}</span>`
         inputDate.value = `${cd}.${cm}.${cy}`
+        changeddDate = `${cd}.${cm}.${cy}`
         if (changedDate <= date)
-            document.querySelector('#btnZapis').disabled = true
+        {
+            document.querySelectorAll('#btnZapis')[0].disabled = true
+            document.querySelectorAll('#btnZapis')[1].disabled = true
+        }
         else
-            document.querySelector('#btnZapis').disabled = false
+        {
+            document.querySelectorAll('#btnZapis')[0].disabled = false
+            document.querySelectorAll('#btnZapis')[1].disabled = false
+        }
     }
-
+    timeChangeModalShow=()=>{
+        $.ajax({
+            url: '/Appointment/GetTimeModal',
+            type: 'POST',
+            data: { date: changeddDate },
+            contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+            processData: true,
+            cache: false,
+            async: true,
+            success: function (data) {
+                $('#formodalAuthReg').html(data);
+            },
+            error: function (xhr) {
+                alert(JSON.stringify(xhr))
+                createAlert('Ошибка', "Запрос не отправлен", 'error')
+            }
+        });
+    }
+    changeTime=(elem)=>{
+        document.querySelector('#hrsOT').value = elem.innerHTML.split(' - ')[0]
+        document.querySelector('#minsOT').value = elem.innerHTML.split(' - ')[1]
+        closeModal()
+    }
 </script>
 @section Scripts{ 
 @if (ViewBag.day != null && ViewBag.month != null && ViewBag.year != null)

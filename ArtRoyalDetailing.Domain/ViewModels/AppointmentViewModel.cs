@@ -12,9 +12,9 @@ namespace ArtRoyalDetailing.Domain.ViewModels
         [Required]
         public string Date { get; set; }
         [Required]
-        public int Hours { get; set; }
+        public TimeSpan StartTime { get; set; }
         [Required]
-        public int Minutes { get; set; }
+        public TimeSpan EndTime { get; set; }
         [Required]
         public string CarClass { get; set; }
         [Required]

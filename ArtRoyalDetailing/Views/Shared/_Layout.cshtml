@@ -253,6 +253,9 @@
             }, 500);
             
         }
+        closeModal = () => {
+            document.querySelector('.backDepth').parentNode.parentNode.innerHTML = ''
+        }
     </script>
     
     @RenderSection("Scripts", required: false)

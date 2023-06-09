@@ -44,12 +44,22 @@ namespace ArtRoyalDetailing.Services.Implementations
                         StatusCode = StatusCode.AlreadyExists
                     };
                 }
+                appointment = await _appoinmentRepository.GetAll().FirstOrDefaultAsync(x => (x.StartTime.Value >= model.StartTime && x.StartTime.Value < model.EndTime|| x.EndTime.Value > model.StartTime && x.EndTime.Value <= model.EndTime)&& x.DateContract == (new DateTime(int.Parse(_date[2]), int.Parse(_date[1]), int.Parse(_date[0]))).Date);
+                if (appointment != null)
+                {
+                    return new BaseResponse<Contracts>()
+                    {
+                        Description = "Это время занято",
+                        StatusCode = StatusCode.AlreadyExists
+                    };
+                }
                 appointment = new Contracts()
                 {
                     AutoClass = model.CarClass,
                     DateContract = new DateTime(int.Parse(_date[2]), int.Parse(_date[1]), int.Parse(_date[0])),
                     ClientNumber = user.Result.UserPhonenumber,
-                    TimeContract = new TimeSpan(int.Parse(model.Hours.ToString()), int.Parse(model.Minutes.ToString()), 0),
+                    StartTime = model.StartTime,
+                    EndTime = model.EndTime,
                     EndCost = null,
                     StatusContract=1,
                     IdAdmin=null
@@ -122,7 +132,6 @@ namespace ArtRoyalDetailing.Services.Implementations
         {
 
             var date = model.DateAppointment.TryGetDate().Value;
-            var time = model.TimeAppointment.TryGetTime().Value;
             try
             {
                 var appointment = await _appoinmentRepository.GetAll().FirstOrDefaultAsync(x => x.IdContract == model.AppointmentId);
@@ -134,20 +143,12 @@ namespace ArtRoyalDetailing.Services.Implementations
                         Data = false
                     };
                 }
-                if(model.AppointmentStatus==3&&((DateTime.Now.TimeOfDay<time&&DateTime.Now.Date==date)||(DateTime.Now.Date<date.Date)||(DateTime.Now.Date>date.Date)))
+                if(model.AppointmentStatus==3&&((DateTime.Now.TimeOfDay<model.StartTime&&DateTime.Now.Date==date)||(DateTime.Now.Date<date.Date)||(DateTime.Now.Date>date.Date)))
                 {
                     return new BaseResponse<bool>
                     {
                         StatusCode = StatusCode.InWorkFalse,
                         Data = false
-                    };
-                }
-                if(appointment.StatusContract!=4&&model.AppointmentStatus==4&&(date.Date>DateTime.Now.Date||time>DateTime.Now.TimeOfDay))
-                {
-                    return new BaseResponse<bool>
-                    {
-                        StatusCode = StatusCode.IncorrectData,
-                        Description = "Нельзя поставить статус 'Завершено' на ненаступивший день"
                     };
                 }
                 var appointmentServicesList = await _appoinmentServicesRepository.GetAll().Where(x => x.IdContract == model.AppointmentId).ToListAsync();
@@ -159,12 +160,12 @@ namespace ArtRoyalDetailing.Services.Implementations
                         Data = false
                     };
                 }
-                if (model.DateAppointment.TryGetDate().Value==null|| model.TimeAppointment.TryGetTime().Value==null)
+                if (model.DateAppointment.TryGetDate().Value==null)
                 {
                     return new BaseResponse<bool>
                     {
                         StatusCode = StatusCode.IncorrectData,
-                        Description = "Неверная дата или время записи"
+                        Description = "Неверная дата записи"
                     };
                 }
                 foreach (var appointmentService in appointmentServicesList)
@@ -174,7 +175,8 @@ namespace ArtRoyalDetailing.Services.Implementations
                 appointment.IdAdmin = model.IdAdmin;
                 appointment.GosNumber = model.GosNumber;
                 appointment.DateContract = model.DateAppointment.TryGetDate().Value;
-                appointment.TimeContract = model.TimeAppointment.TryGetTime().Value;
+                appointment.StartTime = model.StartTime;
+                appointment.EndTime = model.EndTime;
                 int endCost = 0;
                 for (int i=0;i<model.ServicesList.Count;i++)
                 {
@@ -218,7 +220,6 @@ namespace ArtRoyalDetailing.Services.Implementations
         {
 
             var date = model.DateAppointment.TryGetDate().Value;
-            var time = model.TimeAppointment.TryGetTime().Value;
             try
             {
                 var appointment = await _appoinmentRepository.GetAll().FirstOrDefaultAsync(x => x.ClientNumber == model.ClientNumber&&x.DateContract.Value.Date==date.Date);
@@ -230,22 +231,6 @@ namespace ArtRoyalDetailing.Services.Implementations
                         Data = false
                     };
                 }
-                if (model.AppointmentStatus == 4 && date.Date >= DateTime.Now.Date)
-                {
-                    return new BaseResponse<bool>
-                    {
-                        StatusCode = StatusCode.IncorrectData,
-                        Description = "Нельзя поставить статус 'Завершено' на ненаступивший день"
-                    };
-                }
-                if (model.DateAppointment.TryGetDate().Value == null || model.TimeAppointment.TryGetTime().Value == null)
-                {
-                    return new BaseResponse<bool>
-                    {
-                        StatusCode = StatusCode.IncorrectData,
-                        Description = "Неверная дата или время записи"
-                    };
-                }
                 appointment = new Contracts();
                 appointment.AutoClass = model.CarClass;
                 appointment.ClientNumber = model.ClientNumber;
@@ -253,7 +238,8 @@ namespace ArtRoyalDetailing.Services.Implementations
                 appointment.IdAdmin = model.IdAdmin;
                 appointment.GosNumber = model.GosNumber;
                 appointment.DateContract = model.DateAppointment.TryGetDate().Value;
-                appointment.TimeContract = model.TimeAppointment.TryGetTime().Value;
+                appointment.StartTime = model.StartTime;
+                appointment.EndTime = model.EndTime;
                 await _appoinmentRepository.Create(appointment);
                 appointment= await _appoinmentRepository.GetAll().FirstOrDefaultAsync(x => x.ClientNumber == model.ClientNumber && x.DateContract.Value.Date == date.Date);
                 for (int i = 0; i < model.ServicesList.Count; i++)
