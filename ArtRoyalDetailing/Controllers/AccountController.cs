@@ -102,23 +102,26 @@ namespace ArtRoyalDetailing.Controllers
         [HttpGet]
         public IActionResult Login() => PartialView("Login");
 
-        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var response = await _accountService.Login(model);
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
-                {
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(response.Data));
 
-                    return RedirectToAction("Index", "Home");
-                }
-                ModelState.AddModelError("", response.Description);
+            var response = await _accountService.Login(model);
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(response.Data));
+                return Json(new BaseResponse<bool>()
+                {
+                    Description = response.Description,
+                    Data = true
+                });
             }
-            return PartialView("Login", model);
+            return Json(new BaseResponse<bool>()
+            {
+                Description = response.Description,
+                Data = false
+            });
         }
         [Authorize]
         public async Task<IActionResult> Logout()

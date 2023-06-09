@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YvSC1iRsWHLJfIUcqQtc4IQ2GsVFL4pxtAQQEVpCbJBaRLgbm4oVMCeu5zUyxPlUVqQU4j5PUHwPnUezf0Gjhw==",
+  "dgSpecHash": "SIQVqOGqa15sB271yQ4MJoqgrllnSHs3jFTzoLiZpoKxbLz6fQ/3CA49LTeIbVOSlcKrAcY4RWc+0rONxeV8kg==",
   "success": true,
-  "projectFilePath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj",
+  "projectFilePath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bykov\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "C:\\Users\\bykov\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

@@ -71,6 +71,7 @@ namespace ArtRoyalDetatiling.Services.Implementations
                 {
                     return new BaseResponse<ClaimsIdentity>()
                     {
+                        StatusCode = StatusCode.NotFound,
                         Description = "Пользователь не найден"
                     };
                 }
@@ -79,6 +80,7 @@ namespace ArtRoyalDetatiling.Services.Implementations
                 {
                     return new BaseResponse<ClaimsIdentity>()
                     {
+                        StatusCode = StatusCode.IncorrectData,
                         Description = "Неверный пароль или логин"
                     };
                 }

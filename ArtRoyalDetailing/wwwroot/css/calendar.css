@@ -514,19 +514,19 @@ input[type=number] {
 #username {
     display: block;
     height: 50px;
-    color:black;
+    color: var(--textColor);
     width: 100%;
     background-color: rgba(255,255,255,0.07);
     border-radius: 20px;
-    border:1px solid var(--accent-color);
+    border: 1px solid var(--accent-color);
     padding: 0 10px;
     margin-top: 8px;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 300;
 }
 
 ::placeholder {
-    color: black;
+    color: var(--textColor);
 }
 
 .auth-modal button {
@@ -576,7 +576,8 @@ input[type=number] {
         border: 1px solid var(--accent-color);
         padding: 0 10px;
         margin-top: 8px;
-        color: black;
+        color: var(--textColor);
+        font-size:20px;
         font-weight: 300;
         width: 100%;
     }

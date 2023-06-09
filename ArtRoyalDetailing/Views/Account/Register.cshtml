@@ -19,17 +19,17 @@
         let code = ""
         closeModal = () => {
             if (!onCheckMail)
-                document.querySelector('.backDepth').parentElement.innerHTML = ''
+                document.querySelector('.backDepth').parentNode.parentNode.innerHTML = ''
         }
-        let passs = true
+        let passss = true
         showPass = () => {
-            if (passs) {
+            if (passss) {
                 document.querySelector('#password').setAttribute('type', 'text')
-                passs = !passs
+                passss = !passss
             }
             else {
                 document.querySelector('#password').setAttribute('type', 'password')
-                passs = !passs
+                passss = !passss
             }
 
         }
@@ -131,8 +131,7 @@
                         processData: true,
                         cache: false,
                         success: function (data) {
-                            if (data.data==true) {
-                                createAlert("Успешно", data.description, "success")
+                            if (data.data == true) {
                                 closeModal()
                                 window.location.reload()
                                 return

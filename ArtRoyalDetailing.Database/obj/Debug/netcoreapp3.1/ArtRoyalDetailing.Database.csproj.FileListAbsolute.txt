@@ -30,3 +30,19 @@ D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.D
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.dll
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.pdb
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.genruntimeconfig.cache
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.deps.json
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.runtimeconfig.json
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.runtimeconfig.dev.json
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.dll
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.pdb
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.dll
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.pdb
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.csproj.AssemblyReference.cache
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.AssemblyInfoInputs.cache
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.AssemblyInfo.cs
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.csproj.CoreCompileInputs.cache
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.csproj.CopyComplete
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.dll
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.pdb
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetailing.Database\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.genruntimeconfig.cache

@@ -36,15 +36,9 @@
         <div class="row m-1">
             <div class="col mt-1 mb-1" style="min-width: 160px;"><input type="number" class="text-control" value="@ViewBag.AppointmentId" name="appointmentId" placeholder="Номер записи" /></div>
             <div class="col mt-1 mb-1" style="min-width: 160px;"><input type="text" class="tel text-control" value="@ViewBag.ClientNumber" name="clientNumber" placeholder="Телефон клиента" /></div>
-            @* <div class="col mt-1 mb-1" style="min-width: 160px;">
-                    <select class="select-control" name="washerId">
-                        <option value="" disabled selected>Мойщик</option>
-                        @foreach (var worker in workers.Where(x => x.UserRole == 2))
-                        {
-                            <option value="@worker.UserId">@(worker.UserName+" "+worker.UserSurname)</option>
-                        }
-                    </select>
-                </div>*@
+             <div class="col mt-1 mb-1" style="min-width: 160px;">
+                <input multiple type="date" class="tel text-control" name="clientNumber" placeholder="Дата" />
+                </div>
             <div class="col mt-1 mb-1" style="min-width: 160px;">
                 <select class="select-control" name="appointmentStatusId">
                     <option value="" disabled selected>Статус записи</option>

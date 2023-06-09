@@ -28,3 +28,18 @@ D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetatiling.
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.csproj.CopyComplete
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.dll
 D:\Users\bykov\source\repos\ArtRoyalDetailing — копия\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.pdb
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.deps.json
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.dll
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.pdb
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.dll
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.dll
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Database.pdb
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\bin\Debug\netcoreapp3.1\ArtRoyalDetailing.Domain.pdb
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.csproj.AssemblyReference.cache
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.AssemblyInfoInputs.cache
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.AssemblyInfo.cs
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.csproj.CoreCompileInputs.cache
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.csproj.CopyComplete
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.dll
+C:\Users\bykov\Desktop\diplom\diplom\ArtRoyalDetatiling.Services\obj\Debug\netcoreapp3.1\ArtRoyalDetailing.Services.pdb

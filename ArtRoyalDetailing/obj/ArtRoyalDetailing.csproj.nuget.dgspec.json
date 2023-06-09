@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj": {}
+    "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj": {}
   },
   "projects": {
-    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
+    "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj",
+        "projectUniqueName": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj",
         "projectName": "ArtRoyalDetailing.Database",
-        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj",
+        "projectPath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj",
         "packagesPath": "C:\\Users\\bykov\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\obj\\",
+        "outputPath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Database\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\bykov\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -25,15 +25,15 @@
           "netcoreapp3.1"
         ],
         "sources": {
-          "E:\\cott-develop\\localrep\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
-                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj"
+              "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
+                "projectPath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj"
               }
             }
           }
@@ -75,7 +75,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -84,21 +85,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
+    "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj",
         "projectName": "ArtRoyalDetailing.Domain",
-        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj",
+        "projectPath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj",
         "packagesPath": "C:\\Users\\bykov\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\obj\\",
+        "outputPath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\bykov\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -109,7 +110,7 @@
           "netcoreapp3.1"
         ],
         "sources": {
-          "E:\\cott-develop\\localrep\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -133,7 +134,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -142,21 +144,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj": {
+    "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
+        "projectUniqueName": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
         "projectName": "ArtRoyalDetailing",
-        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
+        "projectPath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing\\ArtRoyalDetailing.csproj",
         "packagesPath": "C:\\Users\\bykov\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing\\obj\\",
+        "outputPath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\bykov\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -167,18 +169,19 @@
           "netcoreapp3.1"
         ],
         "sources": {
-          "E:\\cott-develop\\localrep\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
-                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj"
+              "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
+                "projectPath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj"
               },
-              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj": {
-                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj"
+              "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj": {
+                "projectPath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj"
               }
             }
           }
@@ -224,7 +227,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -236,21 +240,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj": {
+    "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj",
+        "projectUniqueName": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj",
         "projectName": "ArtRoyalDetailing.Services",
-        "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj",
+        "projectPath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetatiling.Services\\ArtRoyalDetailing.Services.csproj",
         "packagesPath": "C:\\Users\\bykov\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetatiling.Services\\obj\\",
+        "outputPath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetatiling.Services\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\bykov\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -261,18 +265,18 @@
           "netcoreapp3.1"
         ],
         "sources": {
-          "E:\\cott-develop\\localrep\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
-                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj"
+              "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj": {
+                "projectPath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Database\\ArtRoyalDetailing.Database.csproj"
               },
-              "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
-                "projectPath": "D:\\Users\\bykov\\source\\repos\\ArtRoyalDetailing — копия\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj"
+              "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj": {
+                "projectPath": "C:\\Users\\bykov\\Desktop\\diplom\\diplom\\ArtRoyalDetailing.Domain\\ArtRoyalDetailing.Domain.csproj"
               }
             }
           }
@@ -302,7 +306,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -311,7 +316,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
